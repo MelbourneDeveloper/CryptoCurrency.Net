@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\CodeRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="APIClients\CoinspotClient.cs" />
+    <Compile Remove="ConsoleAppIsolatedStoragePersister.cs" />
+    <Compile Remove="IsolatedStoragePersister.cs" />
+    <Compile Remove="IsolatedStoragePersisterBase.cs" />
+    <Compile Remove="Model\CoinInfo.cs" />
+    <Compile Remove="PersisterBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\CodeRules.ruleset" Link="CodeRules.ruleset" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="RestClient.Net" Version="1.0.0" />
+    <PackageReference Include="System.IO.IsolatedStorage" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

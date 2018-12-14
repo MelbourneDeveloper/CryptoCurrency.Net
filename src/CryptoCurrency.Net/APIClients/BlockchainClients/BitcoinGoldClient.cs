@@ -1,0 +1,27 @@
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.Model;
+using RestClientDotNet;
+// ReSharper disable UnusedMember.Global
+
+namespace CryptoCurrency.Net.APIClients
+{
+    public class BitcoinGoldClient : InsightClientBase, IBlockchainClient
+    {
+        #region Constructor
+        public BitcoinGoldClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        {
+        }
+        #endregion
+
+        #region Private Static Fields
+        public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.BitcoinGold };
+        #endregion
+
+        #region Protected Overrides
+        /// <summary>
+        /// Example: https://explorer.bitcoingold.org/insight-api/addr/[Address]
+        /// </summary>
+        protected override string BaseUriPath => "https://explorer.bitcoingold.org";
+        #endregion
+    }
+}
