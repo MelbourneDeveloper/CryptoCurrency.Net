@@ -49,6 +49,22 @@ Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404ca
 
 Output: Token: RHOC Balance: 0.49048
 
+```cs
+        public async Task GetBinanceAddresses()
+        {
+            var binanceClient = new BinanceClient(ApiKey, ApiSecret, new RESTClientFactory());
+            var holdings = await binanceClient.GetHoldings(binanceClient);
+            foreach(var holding in holdings.Result)
+            {
+                Console.WriteLine($"Currency: {holding.Symbol} Balance: {holding.HoldingAmount}");
+            }
+        }
+```
+Output:
+Currency: ETH Balance: 0.????????
+Currency: BNB Balance: 0.????????
+Currency: EOS Balance: 0.????????
+
 ## NuGet
 
 Install-Package CryptoCurrency.Net
