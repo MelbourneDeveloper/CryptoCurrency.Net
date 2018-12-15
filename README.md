@@ -36,6 +36,7 @@ Install the NuGet and use the example code.
             Console.WriteLine($"Address: {blockChainAddressInformation.Address} Balance: { blockChainAddressInformation.Balance }");
         }
 ```
+Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
 
 ```cs
         public async Task GetERC20Tokens()
