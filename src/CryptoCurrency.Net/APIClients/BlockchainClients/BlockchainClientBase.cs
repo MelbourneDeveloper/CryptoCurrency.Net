@@ -63,7 +63,10 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             return retVal;
         }
 
-        public async Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
+        /// <summary>
+        /// TODO: this should not be virtual because it means that performance won't be tracked. 
+        /// </summary>
+        public async virtual Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
         {
             var startTime = DateTime.Now;
 

@@ -33,7 +33,7 @@ namespace CryptoCurrency.Net.Model
         {
         }
 
-        private TransactionsAtAddress(string address, IEnumerable<Transaction> transactions)
+        public TransactionsAtAddress(string address, IEnumerable<Transaction> transactions)
         {
             Address = address;
             Transactions.AddRange(transactions);
