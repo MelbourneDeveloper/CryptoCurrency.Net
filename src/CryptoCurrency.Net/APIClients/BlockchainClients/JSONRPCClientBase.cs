@@ -89,16 +89,19 @@ namespace CryptoCurrency.Net.APIClients
         private static decimal GetEthFromHex(string weiHex)
         {
             var weiBigInteger = GetBigIntegerFromHex(weiHex);
+
+            if (weiBigInteger.IsZero) return 0;
+
             var weiBigIntegerString = weiBigInteger.ToString();
             var decimalPointIndex = weiBigIntegerString.Length - 18;
             var decimalString = $"{weiBigIntegerString.Substring(0, decimalPointIndex) }.{weiBigIntegerString.Substring(decimalPointIndex, weiBigIntegerString.Length - decimalPointIndex)}";
             return decimal.Parse(decimalString);
         }
 
-        private static BigInteger GetBigIntegerFromHex(string weiHex)
+        private static BigInteger GetBigIntegerFromHex(string hexNumber)
         {
             //Add zero at the start so that the parser doesn't interpret the number as negative (https://stackoverflow.com/questions/2983706/biginteger-parse-on-hexadecimal-number-gives-negative-numbers)
-            var hexString = $"0{ weiHex.Substring(2, weiHex.Length - 2)}";
+            var hexString = $"0{ hexNumber.Substring(2, hexNumber.Length - 2)}";
             return BigInteger.Parse(hexString, NumberStyles.HexNumber);
         }
 
@@ -143,13 +146,15 @@ namespace CryptoCurrency.Net.APIClients
             foreach (var result in results)
             {
                 //TODO: Long is again used and is no good
-                var resultValue = result.Result.Length == 2 ? 0 : long.Parse(result.Result.Substring(2, result.Result.Length - 2), NumberStyles.HexNumber);
+                //var s = result.Result.Substring(2, result.Result.Length - 2);
+                var v = GetEthFromHex(result.Result);
+                var resultValue = result.Result.Length == 2 ? 0 : v;
 
                 var getTokenBalanceResult = new GetTokenBalanceResult
                 {
                     Address = argsById[result.Id].Address,
                     Contract = argsById[result.Id].Contract,
-                    Result = resultValue
+                    //Result = resultValue
                 };
                 retVal.Add(getTokenBalanceResult);
             }
