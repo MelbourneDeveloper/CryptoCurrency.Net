@@ -62,7 +62,7 @@ namespace CryptoCurrency.Net.UnitTests
         public async Task GetDashTransactions()
         {
             var blockExplorerClient = new DashClient(CurrencySymbol.Dash, new RESTClientFactory());
-            var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XdAUmwtig27HBG6WfYyHAzP8n6XC9jESEw");
+            var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
             foreach (var transaction in transactionsAtAddress.Transactions)
@@ -72,7 +72,9 @@ namespace CryptoCurrency.Net.UnitTests
 
                 var difference = inputsValue - outputsValue;
 
-                Assert.AreEqual(inputsValue, outputsValue, "The inputs total doesn't match the outputs total.");
+                Assert.AreEqual(difference, transaction.Fees);
+
+                Assert.AreEqual(inputsValue, outputsValue + transaction.Fees, "The inputs total doesn't match the outputs total.");
             }
         }
 

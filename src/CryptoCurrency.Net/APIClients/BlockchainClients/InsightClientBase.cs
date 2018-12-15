@@ -53,6 +53,7 @@ namespace CryptoCurrency.Net.APIClients
             {
                 var insightTransaction = await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{transaction.TransactionId}");
                 transaction.TransactionId = insightTransaction.txid;
+                transaction.Fees = insightTransaction.fees;
                 foreach (var vin in insightTransaction.vin)
                 {
                     transaction.Inputs.Add(new TransactionPiece { Value = vin.value, Address = vin.addr });
