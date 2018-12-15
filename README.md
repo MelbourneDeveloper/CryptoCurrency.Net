@@ -32,7 +32,9 @@ Install the NuGet and use the example code.
         public async Task GetBitcoinCashAddresses()
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
-            var addressDictionary = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            var addressDictionary = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash, 
+            new List<string> { 
+            "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",             "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
             var blockChainAddressInformation = addressDictionary[CurrencySymbol.BitcoinCash].First();
             Console.WriteLine($"Address: {blockChainAddressInformation.Address} Balance: { blockChainAddressInformation.Balance }");
         }
@@ -43,7 +45,8 @@ Install the NuGet and use the example code.
         //Output: Token: RHOC Balance: 0.49048
         public async Task GetERC20Tokens()
         {
-            var result = await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, new List<string> { "0xA3079895DD50D9dFE631e8f09F3e3127cB9a4970" });
+            var result = await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, 
+            new List<string> { "0xA3079895DD50D9dFE631e8f09F3e3127cB9a4970" });
             var nonEthereumResult = result.FirstOrDefault(a => !a.Key.Equals(CurrencySymbol.Ethereum));
             Console.WriteLine($"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
         }
