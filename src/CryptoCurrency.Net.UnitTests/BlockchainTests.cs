@@ -62,7 +62,7 @@ namespace CryptoCurrency.Net.UnitTests
         public async Task GetBitcoinTransactions()
         {
             var blockExplorerClient = new BlockExplorerClient(CurrencySymbol.Bitcoin, new RESTClientFactory());
-            var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("1Nh7uHdvY6fNwtQtM1G5EZAFPLC33B59rB");
+            var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("3L7tcW4sELfq646Ks9WwdgeU1nUdeNTZMY");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
         }
