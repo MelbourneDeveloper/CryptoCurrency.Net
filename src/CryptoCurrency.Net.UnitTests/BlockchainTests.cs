@@ -59,10 +59,10 @@ namespace CryptoCurrency.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task GetBitcoinTransactions()
+        public async Task GetDashTransactions()
         {
-            var blockExplorerClient = new BlockExplorerClient(CurrencySymbol.Bitcoin, new RESTClientFactory());
-            var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("3L7tcW4sELfq646Ks9WwdgeU1nUdeNTZMY");
+            var blockExplorerClient = new DashClient(CurrencySymbol.Dash, new RESTClientFactory());
+            var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XdAUmwtig27HBG6WfYyHAzP8n6XC9jESEw");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
         }
