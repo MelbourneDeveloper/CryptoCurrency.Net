@@ -23,6 +23,10 @@ Currently supports:
 - Clone the repo and open the solution
 - Compile and run one of the unit tests
 
+Or...
+
+Install the NuGet and use the example code.
+
 ```cs
         public async Task GetBitcoinCashAddresses()
         {
