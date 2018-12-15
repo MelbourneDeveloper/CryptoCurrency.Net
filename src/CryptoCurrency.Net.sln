@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoCurrency.Net", "CryptoCurrency.Net\CryptoCurrency.Net.csproj", "{47C3CD17-C8EB-4F7B-A850-6E631A6CEE8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoCurrency.Net.UnitTests", "CryptoCurrency.Net.UnitTests\CryptoCurrency.Net.UnitTests.csproj", "{DE88B1AB-4437-4CC0-A192-091B27144D8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{47C3CD17-C8EB-4F7B-A850-6E631A6CEE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47C3CD17-C8EB-4F7B-A850-6E631A6CEE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47C3CD17-C8EB-4F7B-A850-6E631A6CEE8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE88B1AB-4437-4CC0-A192-091B27144D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE88B1AB-4437-4CC0-A192-091B27144D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE88B1AB-4437-4CC0-A192-091B27144D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE88B1AB-4437-4CC0-A192-091B27144D8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
