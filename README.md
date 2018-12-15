@@ -34,7 +34,8 @@ Install the NuGet and use the example code.
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
             var addressDictionary = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash, 
             new List<string> { 
-            "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",             "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",             
+            "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
             var blockChainAddressInformation = addressDictionary[CurrencySymbol.BitcoinCash].First();
             Console.WriteLine(
             $"Address: {blockChainAddressInformation.Address} Balance: { blockChainAddressInformation.Balance }");
