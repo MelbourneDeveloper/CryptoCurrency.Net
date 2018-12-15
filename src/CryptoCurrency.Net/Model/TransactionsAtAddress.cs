@@ -1,10 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CryptoCurrency.Net.Model
 {
-    /// <summary>
-    /// TODO: Does this really need to implement INotifyPropertyChanged? It's not really view anywhere yet...
-    /// </summary>
     [Serializable]
     public class TransactionsAtAddress : ModelBase
     {
@@ -14,10 +12,7 @@ namespace CryptoCurrency.Net.Model
 
         #region Public Properties
         public string Address { get; set; }
-        public int? TransactionCount { get; set; }
-        public decimal? Balance { get; set; }
-        public bool? IsChange { get; set; }
-        public uint? Index { get; set; }
+        public List<Transaction> Transactions { get; } = new List<Transaction>();
         public DateTime? LastUpdate
         {
             get => _LastUpdate;
@@ -28,7 +23,6 @@ namespace CryptoCurrency.Net.Model
             }
         }
 
-        public bool? IsUnused { get; set; }
         #endregion
 
         #region Constructors
@@ -39,29 +33,10 @@ namespace CryptoCurrency.Net.Model
         {
         }
 
-        private TransactionsAtAddress(string address, decimal? balance)
+        private TransactionsAtAddress(string address, IEnumerable<Transaction> transactions)
         {
             Address = address;
-            Balance = balance;
-        }
-
-        public TransactionsAtAddress(string address, decimal? balance, int transactionCount) : this(address, balance)
-        {
-            TransactionCount = transactionCount;
-        }
-
-        public TransactionsAtAddress(string address, decimal? balance, bool isUnused) : this(address, balance)
-        {
-            IsUnused = isUnused;
-        }
-
-        //[Obsolete("This overload should never be used because it causes a given coin to get jammed up")]
-        public BlockChainAddressInformation(string address, int? transactionCount, decimal? balance) : this(address, balance)
-        {
-            if (transactionCount.HasValue)
-            {
-                TransactionCount = transactionCount;
-            }
+            Transactions.AddRange(transactions);
         }
         #endregion
 
