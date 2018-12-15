@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+﻿using CryptoCurrency.Net.APIClients;
+using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -55,6 +56,13 @@ namespace CryptoCurrency.Net.UnitTests
         public async Task GetBitcoinAddresses()
         {
             await TestCoin(CurrencySymbol.Bitcoin, new List<string> { "32SrnYR7PTJKsjXcHpD2CeQFzWT4XpPtnv" });
+        }
+
+        [TestMethod]
+        public async Task GetBitcoinTransactions()
+        {
+            var blockExplorerClient = new BlockExplorerClient(CurrencySymbol.Bitcoin, new RESTClientFactory());
+            var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("32SrnYR7PTJKsjXcHpD2CeQFzWT4XpPtnv");
         }
 
         private static async Task TestCoin(CurrencySymbol symbol, IReadOnlyCollection<string> addresses2)
