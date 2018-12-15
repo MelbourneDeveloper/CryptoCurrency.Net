@@ -2,6 +2,7 @@
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,23 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class BlockchainTests
     {
+        private readonly string ApiSecret = string.Empty;
+        private readonly string ApiKey = string.Empty;
         private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+
+        //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
+        public async Task GetBitcoinCashAddressesVerbose()
+        {
+            var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+            var addresses = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash,
+            new List<string> {
+            "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",
+            "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            var address = addresses[CurrencySymbol.BitcoinCash].First();
+            Console.WriteLine(
+            $"Address: {address.Address} Balance: { address.Balance }"
+            );
+        }
 
         [TestMethod]
         public async Task GetEthereumAddresses()
@@ -35,6 +52,14 @@ namespace CryptoCurrency.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task GetERC20Tokens()
+        {
+            var result = await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, new List<string> { "0xA3079895DD50D9dFE631e8f09F3e3127cB9a4970" });
+            var nonEthereumResult = result.FirstOrDefault(a => !a.Key.Equals(CurrencySymbol.Ethereum));
+            Console.WriteLine($"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
+        }
+
+        [TestMethod]
         public async Task GetBitcoinGoldAddresses()
         {
             await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U", "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U" });
@@ -52,6 +77,16 @@ namespace CryptoCurrency.Net.UnitTests
             await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
         }
 
+        [TestMethod]
+        public async Task GetBinanceAddresses()
+        {
+            var binanceClient = new BinanceClient(ApiKey, ApiSecret, new RESTClientFactory());
+            var holdings = await binanceClient.GetHoldings(binanceClient);
+            foreach (var holding in holdings.Result)
+            {
+                Console.WriteLine($"Currency: {holding.Symbol} Balance: {holding.HoldingAmount}");
+            }
+        }
         [TestMethod]
         public async Task GetBitcoinAddresses()
         {

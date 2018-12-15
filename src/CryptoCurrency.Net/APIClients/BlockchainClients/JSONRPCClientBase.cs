@@ -136,6 +136,7 @@ namespace CryptoCurrency.Net.APIClients
 
             foreach (var result in results)
             {
+                //TODO: Long is again used and is no good
                 var resultValue = result.Result.Length == 2 ? 0 : long.Parse(result.Result.Substring(2, result.Result.Length - 2), NumberStyles.HexNumber);
 
                 var getTokenBalanceResult = new GetTokenBalanceResult
