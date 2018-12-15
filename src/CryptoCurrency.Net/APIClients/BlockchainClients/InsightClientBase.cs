@@ -55,14 +55,14 @@ namespace CryptoCurrency.Net.APIClients
                 transaction.TransactionId = insightTransaction.txid;
                 foreach (var vin in insightTransaction.vin)
                 {
-                    transaction.Inputs.Add(new TransactionPiece { Amount = vin.value, Address = vin.addr });
+                    transaction.Inputs.Add(new TransactionPiece { Value = vin.value, Address = vin.addr });
                 }
 
                 foreach (var vout in insightTransaction.vout)
                 {
                     transaction.Outputs.Add(new TransactionPiece
                     {
-                        Amount = vout.value,
+                        Value = vout.value,
                         //TODO: Not sure if this logic is correct...
                         Address = vout.scriptPubKey.addresses.FirstOrDefault()
                     });

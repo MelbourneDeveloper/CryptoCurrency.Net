@@ -9,7 +9,7 @@ namespace CryptoCurrency.Net.Model
         public List<TransactionPiece> Inputs { get; } = new List<TransactionPiece>();
         public List<TransactionPiece> Outputs { get; } = new List<TransactionPiece>();
 
-        public decimal Value => Outputs.Sum(o => o.Amount);
+        public decimal Value => Outputs.Sum(o => o.Value);
 
         public Transaction()
         {

@@ -67,8 +67,11 @@ namespace CryptoCurrency.Net.UnitTests
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
             foreach (var transaction in transactionsAtAddress.Transactions)
             {
-                var inputsValue = transaction.Inputs.Sum(i => i.Amount);
-                var outputsValue = transaction.Outputs.Sum(o => o.Amount);
+                var inputsValue = transaction.Inputs.Sum(i => i.Value);
+                var outputsValue = transaction.Outputs.Sum(o => o.Value);
+
+                var difference = inputsValue - outputsValue;
+
                 Assert.AreEqual(inputsValue, outputsValue, "The inputs total doesn't match the outputs total.");
             }
         }
