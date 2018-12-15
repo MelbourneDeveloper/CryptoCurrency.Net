@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.JSONRPC;
 using RestClientDotNet;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -77,7 +78,7 @@ namespace CryptoCurrency.Net.APIClients
                 }
 
                 var balance = GetEthFromHex(balanceResult.Result);
-                var transactionCount = GetLongFromHex(balanceResults[i + 1].Result);
+                var transactionCount = GetBigIntegerFromHex(balanceResults[i + 1].Result);
 
                 retVal.Add(new BlockChainAddressInformation(request.Params[0].ToString(), balance, balance == 0 && transactionCount == 0));
             }
@@ -87,13 +88,18 @@ namespace CryptoCurrency.Net.APIClients
 
         private static decimal GetEthFromHex(string weiHex)
         {
-            return GetLongFromHex(weiHex) / CurrencySymbol.Wei;
+            var weiBigInteger = GetBigIntegerFromHex(weiHex);
+            var weiBigIntegerString = weiBigInteger.ToString();
+            var decimalPointIndex = weiBigIntegerString.Length - 18;
+            var decimalString = $"{weiBigIntegerString.Substring(0, decimalPointIndex) }.{weiBigIntegerString.Substring(decimalPointIndex, weiBigIntegerString.Length - decimalPointIndex)}";
+            return decimal.Parse(decimalString);
         }
 
-        //TODO Long is no good here. Need a BigInteger
-        private static long GetLongFromHex(string weiHex)
+        private static BigInteger GetBigIntegerFromHex(string weiHex)
         {
-            return long.Parse(weiHex.Substring(2, weiHex.Length - 2), NumberStyles.HexNumber);
+            //Add zero at the start so that the parser doesn't interpret the number as negative (https://stackoverflow.com/questions/2983706/biginteger-parse-on-hexadecimal-number-gives-negative-numbers)
+            var hexString = $"0{ weiHex.Substring(2, weiHex.Length - 2)}";
+            return BigInteger.Parse(hexString, NumberStyles.HexNumber);
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
@@ -154,7 +160,7 @@ namespace CryptoCurrency.Net.APIClients
         public async Task<IList<GetTokenBalanceResult>> GetTokenBalances(IEnumerable<string> addresses, IEnumerable<string> contracts)
         {
             var contractList = contracts.ToList();
-            var tokenBalanceArgsList = (from address in addresses from contract in contractList select new GetTokenBalanceArgs {Address = address, Contract = contract}).ToList();
+            var tokenBalanceArgsList = (from address in addresses from contract in contractList select new GetTokenBalanceArgs { Address = address, Contract = contract }).ToList();
 
             return await GetTokenBalances(tokenBalanceArgsList);
         }

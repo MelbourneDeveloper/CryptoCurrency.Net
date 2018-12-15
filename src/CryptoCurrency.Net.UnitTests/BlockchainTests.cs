@@ -35,12 +35,12 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var addresses = new List<string>
                 {
-                    "0x0E95F8F8ecBd770585766c1CD216C81aA43439a6",
-                    "0xda4D788FA55CDE88C8dc93Ceb4Ce9EDCf26Ee2A5",
-                    "0x26769f254f1Ba073cEF6e9E47a7320332a4dA3D8"
+                    //"0x0E95F8F8ecBd770585766c1CD216C81aA43439a6",
+                    //"0xda4D788FA55CDE88C8dc93Ceb4Ce9EDCf26Ee2A5",
+                    //"0x26769f254f1Ba073cEF6e9E47a7320332a4dA3D8"
                     //TODO: Reenable these. They break issue: https://github.com/MelbourneDeveloper/CryptoCurrency.Net/issues/1
-                    //"0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98",
-                    //"0xfCA70E67b3f93f679992Cd36323eEB5a5370C8e4"
+                    "0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98",
+                    "0xfCA70E67b3f93f679992Cd36323eEB5a5370C8e4"
                 };
 
             var addressInformations = (await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, addresses)).ToList();
