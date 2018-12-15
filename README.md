@@ -1,7 +1,7 @@
 # CryptoCurrency.Net
-Cross platform C# library for general Crypto Currency functionality, and communicating with Cryptocurrency exchanges, and Blockchain APIs.
+Cross platform C# library for general Crypto Currency functionality, communicating with Cryptocurrency exchanges, and Blockchain APIs.
 
-This library is designed for any project that works with Crypto Currency in any way. It attempts to put a layer over several aspects of querying the blockchain such as getting address balances, transactions and so on.
+This library is designed for any project that works with cryptocurrency in any way. It attempts to put a layer over several aspects of querying the blockchain such as getting address balances, transactions and so on.
 
 Join us on Slack:
 https://hardwarewallets.slack.com
