@@ -1,7 +1,7 @@
 # CryptoCurrency.Net
-Cross platform C# library for general Crypto Currency functionality, and communicating with Cryptocurrency exchanges, and Blockchain APIs.
+Cross platform C# library for general Crypto Currency functionality, communicating with Cryptocurrency exchanges, and Blockchain APIs.
 
-This library is designed for any project that works with Crypto Currency in any way. It attempts to put a layer over several aspects of querying the blockchain such as getting address balances, transactions and so on.
+This library is designed for any project that works with cryptocurrency in any way. It attempts to put a layer over several aspects of querying the blockchain such as getting address balances, transactions and so on.
 
 Join us on Slack:
 https://hardwarewallets.slack.com
@@ -22,6 +22,60 @@ Currently supports:
 
 - Clone the repo and open the solution
 - Compile and run one of the unit tests
+
+Or...
+
+Install the NuGet and use the example code.
+
+```cs
+        //Output: Address: 
+        //qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
+        public async Task GetBitcoinCashAddresses()
+        {
+            var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+            var addresses = await blockchainClientManager.GetAddresses(
+            CurrencySymbol.BitcoinCash,new List<string>
+            {
+            "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",
+            "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p"
+            });
+            var address = addresses[CurrencySymbol.BitcoinCash].First();
+            Console.WriteLine
+            (
+            $"Address: {address.Address} Balance: { address.Balance }"
+            );
+        }
+```
+
+
+```cs
+        //Output: Token: RHOC Balance: 0.49048
+        public async Task GetERC20Tokens()
+        {
+            var result = await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, 
+            new List<string> { "0xA3079895DD50D9dFE631e8f09F3e3127cB9a4970" });
+            var nonEthereumResult = result.FirstOrDefault(a => !a.Key.Equals(CurrencySymbol.Ethereum));
+            Console.WriteLine(
+            $"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
+        }
+```
+
+```cs
+        //Output:
+        //Currency: ETH Balance: 0.????????
+        //Currency: BNB Balance: 0.????????
+        //Currency: EOS Balance: 0.????????
+        //public async Task GetBinanceAddresses()
+        {
+            var binanceClient = new BinanceClient(ApiKey, ApiSecret, new RESTClientFactory());
+            var holdings = await binanceClient.GetHoldings(binanceClient);
+            foreach(var holding in holdings.Result)
+            {
+                Console.WriteLine($"Currency: {holding.Symbol} Balance: {holding.HoldingAmount}");
+            }
+        }
+```
+
 
 ## NuGet
 
