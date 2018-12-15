@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +32,14 @@ namespace CryptoCurrency.Net.UnitTests
 
             var expected = ethereumResults.Value.Count();
             Assert.AreEqual(expected, addresses.Count, "The number of addresses returned does not match the number requested.");
+        }
+
+        [TestMethod]
+        public async Task GetERC20Tokens()
+        {
+            var result = await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, new List<string> { "0xA3079895DD50D9dFE631e8f09F3e3127cB9a4970" });
+            var nonEthereumResult = result.FirstOrDefault(a => !a.Key.Equals(CurrencySymbol.Ethereum));
+            Console.WriteLine($"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
         }
 
         [TestMethod]
