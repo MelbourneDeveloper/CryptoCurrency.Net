@@ -77,16 +77,17 @@ namespace CryptoCurrency.Net.UnitTests
             await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
         }
 
-        [TestMethod]
-        public async Task GetBinanceAddresses()
-        {
-            var binanceClient = new BinanceClient(ApiKey, ApiSecret, new RESTClientFactory());
-            var holdings = await binanceClient.GetHoldings(binanceClient);
-            foreach (var holding in holdings.Result)
-            {
-                Console.WriteLine($"Currency: {holding.Symbol} Balance: {holding.HoldingAmount}");
-            }
-        }
+        //[TestMethod]
+        //public async Task GetBinanceAddresses()
+        //{
+        //    var binanceClient = new BinanceClient(ApiKey, ApiSecret, new RESTClientFactory());
+        //    var holdings = await binanceClient.GetHoldings(binanceClient);
+        //    foreach (var holding in holdings.Result)
+        //    {
+        //        Console.WriteLine($"Currency: {holding.Symbol} Balance: {holding.HoldingAmount}");
+        //    }
+        //}
+
         [TestMethod]
         public async Task GetBitcoinAddresses()
         {
