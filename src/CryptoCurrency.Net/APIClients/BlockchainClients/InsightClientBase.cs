@@ -1,10 +1,10 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.Insight;
 using RestClientDotNet;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using insight = CryptoCurrency.Net.Model.Insight;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -22,12 +22,13 @@ namespace CryptoCurrency.Net.APIClients
         #region Protected Overridable Properties
         protected abstract string BaseUriPath { get; }
         protected virtual string AddressQueryStringBase => "/insight-api/addr/";
+        protected virtual string TransactionQueryStringBase => "/insight-api/tx/";
         #endregion
 
         #region Private Methods
-        private async Task<Address> GetInsightAddress(string address)
+        private async Task<insight.Address> GetInsightAddress(string address)
         {
-            return await RESTClient.GetAsync<Address>($"{AddressQueryStringBase}{address}");
+            return await RESTClient.GetAsync<insight.Address>($"{AddressQueryStringBase}{address}");
         }
         #endregion
 
@@ -39,11 +40,22 @@ namespace CryptoCurrency.Net.APIClients
             return retVal;
         }
 
+        /// <summary>
+        /// TODO: This shouldn't directly override the method. There should be a func instead.
+        /// </summary>
         public async override Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
         {
             var lastUpdate = DateTime.Now;
             var insightAddress = await GetInsightAddress(address);
-            return new TransactionsAtAddress(address, insightAddress.transactions.Select(t => new Transaction(t))) {  LastUpdate = lastUpdate };
+            var returnValue = new TransactionsAtAddress(address, insightAddress.transactions.Select(t => new Transaction(t))) {  LastUpdate = lastUpdate };
+
+            foreach(var transaction in returnValue.Transactions)
+            {
+                var insightTransaction =  await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{address}");
+                transaction.TransactionId = insightTransaction.txid;
+            }
+
+            return returnValue;
         }
 
         #endregion
