@@ -37,6 +37,17 @@ Install the NuGet and use the example code.
         }
 ```
 
+```cs
+        public async Task GetERC20Tokens()
+        {
+            var result = await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, new List<string> { "0xA3079895DD50D9dFE631e8f09F3e3127cB9a4970" });
+            var nonEthereumResult = result.FirstOrDefault(a => !a.Key.Equals(CurrencySymbol.Ethereum));
+            Console.WriteLine($"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
+        }
+```
+
+Output: Token: RHOC Balance: 0.49048
+
 ## NuGet
 
 Install-Package CryptoCurrency.Net
