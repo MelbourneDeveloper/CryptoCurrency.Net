@@ -43,16 +43,30 @@ namespace CryptoCurrency.Net.APIClients
         /// <summary>
         /// TODO: This shouldn't directly override the method. There should be a func instead.
         /// </summary>
-        public async override Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
+        public override async Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
         {
             var lastUpdate = DateTime.Now;
             var insightAddress = await GetInsightAddress(address);
-            var returnValue = new TransactionsAtAddress(address, insightAddress.transactions.Select(t => new Transaction(t))) {  LastUpdate = lastUpdate };
+            var returnValue = new TransactionsAtAddress(address, insightAddress.transactions.Select(t => new Transaction(t))) { LastUpdate = lastUpdate };
 
-            foreach(var transaction in returnValue.Transactions)
+            foreach (var transaction in returnValue.Transactions)
             {
-                var insightTransaction =  await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{address}");
+                var insightTransaction = await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{transaction.TransactionId}");
                 transaction.TransactionId = insightTransaction.txid;
+                foreach (var vin in insightTransaction.vin)
+                {
+                    transaction.Inputs.Add(new TransactionPiece { Amount = vin.value, Address = vin.addr });
+                }
+
+                foreach (var vout in insightTransaction.vout)
+                {
+                    transaction.Outputs.Add(new TransactionPiece
+                    {
+                        Amount = vout.value,
+                        //TODO: Not sure if this logic is correct...
+                        Address = vout.scriptPubKey.addresses.FirstOrDefault()
+                    });
+                }
             }
 
             return returnValue;

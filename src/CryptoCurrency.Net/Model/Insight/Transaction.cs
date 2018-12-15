@@ -17,8 +17,8 @@ namespace CryptoCurrency.Net.Model.Insight
         public ScriptSig scriptSig { get; set; }
         public string addr { get; set; }
         public long valueSat { get; set; }
-        public double value { get; set; }
-        public object doubleSpentTxID { get; set; }
+        public decimal value { get; set; }
+        public object decimalSpentTxID { get; set; }
     }
 
     public class ScriptPubKey
@@ -31,7 +31,7 @@ namespace CryptoCurrency.Net.Model.Insight
 
     public class Vout
     {
-        public string value { get; set; }
+        public decimal value { get; set; }
         public int n { get; set; }
         public ScriptPubKey scriptPubKey { get; set; }
         public object spentTxId { get; set; }
@@ -51,9 +51,9 @@ namespace CryptoCurrency.Net.Model.Insight
         public int confirmations { get; set; }
         public int time { get; set; }
         public int blocktime { get; set; }
-        public double valueOut { get; set; }
+        public decimal valueOut { get; set; }
         public int size { get; set; }
-        public double valueIn { get; set; }
-        public double fees { get; set; }
+        public decimal valueIn { get; set; }
+        public decimal fees { get; set; }
     }
 }

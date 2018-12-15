@@ -43,6 +43,7 @@ namespace CryptoCurrency.Net.APIClients
         }
 
         protected override string AddressQueryStringBase => "/api/addr/";
+        protected override string TransactionQueryStringBase => "/api/tx/";
         #endregion
 
         #region Constructor
