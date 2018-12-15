@@ -38,7 +38,8 @@ Install the NuGet and use the example code.
             "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
             var blockChainAddressInformation = addressDictionary[CurrencySymbol.BitcoinCash].First();
             Console.WriteLine(
-            $"Address: {blockChainAddressInformation.Address} Balance: { blockChainAddressInformation.Balance }");
+            $"Address: {blockChainAddressInformation.Address} Balance: { blockChainAddressInformation.Balance }"
+            );
         }
 ```
 
