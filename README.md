@@ -17,6 +17,11 @@ Currently supports:
 * .NET Core
 * Android
 * UWP 
+* Linux*
+* MacOS*
+* iOS*
+
+*these platforms should work, but remain untested
 
 ## Quick Start
 
