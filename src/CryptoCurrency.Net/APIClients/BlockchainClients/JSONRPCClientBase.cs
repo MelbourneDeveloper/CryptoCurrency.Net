@@ -90,6 +90,7 @@ namespace CryptoCurrency.Net.APIClients
             return GetLongFromHex(weiHex) / CurrencySymbol.Wei;
         }
 
+        //TODO Long is no good here. Need a BigInteger
         private static long GetLongFromHex(string weiHex)
         {
             return long.Parse(weiHex.Substring(2, weiHex.Length - 2), NumberStyles.HexNumber);
