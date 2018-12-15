@@ -21,7 +21,7 @@ Currently supports:
 * MacOS*
 * iOS*
 
-Note: these platforms should work, but remain untested
+* these platforms should work, but remain untested
 
 ## Quick Start
 
