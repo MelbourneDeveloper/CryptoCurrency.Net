@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+﻿using CryptoCurrency.Net.APIClients;
+using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -11,7 +12,23 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class BlockchainTests
     {
+        private readonly string ApiSecret = string.Empty;
+        private readonly string ApiKey = string.Empty;
         private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+
+        //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
+        public async Task GetBitcoinCashAddressesVerbose()
+        {
+            var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+            var addresses = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash,
+            new List<string> {
+            "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",
+            "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            var address = addresses[CurrencySymbol.BitcoinCash].First();
+            Console.WriteLine(
+            $"Address: {address.Address} Balance: { address.Balance }"
+            );
+        }
 
         [TestMethod]
         public async Task GetEthereumAddresses()
@@ -60,6 +77,16 @@ namespace CryptoCurrency.Net.UnitTests
             await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
         }
 
+        [TestMethod]
+        public async Task GetBinanceAddresses()
+        {
+            var binanceClient = new BinanceClient(ApiKey, ApiSecret, new RESTClientFactory());
+            var holdings = await binanceClient.GetHoldings(binanceClient);
+            foreach (var holding in holdings.Result)
+            {
+                Console.WriteLine($"Currency: {holding.Symbol} Balance: {holding.HoldingAmount}");
+            }
+        }
 
         private static async Task TestCoin(CurrencySymbol symbol, IReadOnlyCollection<string> addresses2)
         {
