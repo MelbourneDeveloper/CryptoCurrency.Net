@@ -28,6 +28,7 @@ Or...
 Install the NuGet and use the example code.
 
 ```cs
+        //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
         public async Task GetBitcoinCashAddresses()
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
@@ -36,9 +37,10 @@ Install the NuGet and use the example code.
             Console.WriteLine($"Address: {blockChainAddressInformation.Address} Balance: { blockChainAddressInformation.Balance }");
         }
 ```
-Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
+
 
 ```cs
+        //Output: Token: RHOC Balance: 0.49048
         public async Task GetERC20Tokens()
         {
             var result = await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, new List<string> { "0xA3079895DD50D9dFE631e8f09F3e3127cB9a4970" });
@@ -47,10 +49,12 @@ Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404ca
         }
 ```
 
-Output: Token: RHOC Balance: 0.49048
-
 ```cs
-        public async Task GetBinanceAddresses()
+        //Output:
+        //Currency: ETH Balance: 0.????????
+        //Currency: BNB Balance: 0.????????
+        //Currency: EOS Balance: 0.????????
+        //public async Task GetBinanceAddresses()
         {
             var binanceClient = new BinanceClient(ApiKey, ApiSecret, new RESTClientFactory());
             var holdings = await binanceClient.GetHoldings(binanceClient);
@@ -60,10 +64,7 @@ Output: Token: RHOC Balance: 0.49048
             }
         }
 ```
-Output:
-Currency: ETH Balance: 0.????????
-Currency: BNB Balance: 0.????????
-Currency: EOS Balance: 0.????????
+
 
 ## NuGet
 
