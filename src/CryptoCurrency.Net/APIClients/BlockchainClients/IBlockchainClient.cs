@@ -7,5 +7,6 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
     public interface IBlockchainClient : IAPIClient
     {
         Task<IEnumerable<BlockChainAddressInformation>> GetAddresses(IEnumerable<string> addresses);
+        Task<TransactionsAtAddress> GetTransactionsAtAddress(string address);
     }
 }
