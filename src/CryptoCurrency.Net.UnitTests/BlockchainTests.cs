@@ -65,6 +65,12 @@ namespace CryptoCurrency.Net.UnitTests
             var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XdAUmwtig27HBG6WfYyHAzP8n6XC9jESEw");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
+            foreach (var transaction in transactionsAtAddress.Transactions)
+            {
+                var inputsValue = transaction.Inputs.Sum(i => i.Amount);
+                var outputsValue = transaction.Outputs.Sum(o => o.Amount);
+                Assert.AreEqual(inputsValue, outputsValue, "The inputs total doesn't match the outputs total.");
+            }
         }
 
         private static async Task TestCoin(CurrencySymbol symbol, IReadOnlyCollection<string> addresses2)
