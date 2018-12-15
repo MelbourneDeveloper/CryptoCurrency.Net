@@ -32,12 +32,15 @@ Install the NuGet and use the example code.
         public async Task GetBitcoinCashAddresses()
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
-            var addressDictionary = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash,
-            new List<string> {
+            var addresses = await blockchainClientManager.GetAddresses(
+            CurrencySymbol.BitcoinCash,new List<string>
+            {
             "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",
-            "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
-            var address = addressDictionary[CurrencySymbol.BitcoinCash].First();
-            Console.WriteLine(
+            "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p"
+            });
+            var address = addresses[CurrencySymbol.BitcoinCash].First();
+            Console.WriteLine
+            (
             $"Address: {address.Address} Balance: { address.Balance }"
             );
         }
