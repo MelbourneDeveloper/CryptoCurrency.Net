@@ -28,7 +28,8 @@ Or...
 Install the NuGet and use the example code.
 
 ```cs
-        //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
+        //Output: Address: 
+        //qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
         public async Task GetBitcoinCashAddresses()
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
