@@ -28,6 +28,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
             return retVal;
         };
+
+        protected virtual Func<GetTransactionsAtAddressArgs, Task<TransactionsAtAddress>> GetTransactionsAtAddressFunc { get; } = async getTransactionsAtAddressArgs =>
+        {
+            return null;
+        };
         #endregion
 
         #region Constructor
@@ -57,6 +62,19 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
             return retVal;
         }
+
+        public async Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
+        {
+            var startTime = DateTime.Now;
+
+            var addressList = address.ToList();
+            var retVal = await Call<TransactionsAtAddress>(GetTransactionsAtAddressFunc, new GetTransactionsAtAddressArgs(RESTClient, address, Currency, this));
+
+            Logger.Log($"Got {addressList.ToList().Count} {Currency.Name} addresses. Client {GetType().Name}. Milliseconds: {(DateTime.Now - startTime).TotalMilliseconds}", null, nameof(BlockchainClientBase));
+
+            return retVal;
+        }
+
         #endregion
     }
 }

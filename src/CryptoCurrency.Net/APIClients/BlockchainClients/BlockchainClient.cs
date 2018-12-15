@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+﻿using System.Threading.Tasks;
+using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
 
