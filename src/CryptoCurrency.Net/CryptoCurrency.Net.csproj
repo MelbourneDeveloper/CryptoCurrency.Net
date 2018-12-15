@@ -5,6 +5,19 @@
     <CodeAnalysisRuleSet>..\CodeRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <LangVersion>7.3</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Christian Findlay</Authors>
+    <Company>Christian FindlayChristian Findlay</Company>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3.0</Version>
+    <PackageLicenseUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>© 2018 Christian Findlay</Copyright>
+    <PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
+    <PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance</PackageTags>
+    <Description>Cross platform C# library for general Crypto Currency functionality, and communicating with Exchange, and Blockchain APIs.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
