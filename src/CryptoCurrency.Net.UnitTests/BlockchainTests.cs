@@ -63,6 +63,8 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var blockExplorerClient = new BlockExplorerClient(CurrencySymbol.Bitcoin, new RESTClientFactory());
             var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("32SrnYR7PTJKsjXcHpD2CeQFzWT4XpPtnv");
+            Assert.IsNotNull(transactionsAtAddress, "No result was returned");
+            Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
         }
 
         private static async Task TestCoin(CurrencySymbol symbol, IReadOnlyCollection<string> addresses2)
