@@ -34,13 +34,13 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         protected JSONRPCClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri(BaseUriPath));
+            RESTClient = restClientFactory.CreateRESTClient(BaseUriPath);
             Currency = currency;
         }
         #endregion
 
         #region Protected Overridable Properties
-        protected abstract string BaseUriPath { get; }
+        protected abstract Uri BaseUriPath { get; }
         #endregion
 
         #region Func

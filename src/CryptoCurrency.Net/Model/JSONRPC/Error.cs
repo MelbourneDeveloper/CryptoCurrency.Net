@@ -1,6 +1,8 @@
 ﻿namespace CryptoCurrency.Net.Model.JSONRPC
 {
+#pragma warning disable CA1716 // Identifiers should not match keywords
     public class Error
+#pragma warning restore CA1716 // Identifiers should not match keywords
     {
         /// <summary>
         /// A Number that indicates the error type that occurred. This MUST be an integer.

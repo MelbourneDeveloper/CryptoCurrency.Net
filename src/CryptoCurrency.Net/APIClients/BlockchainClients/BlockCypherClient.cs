@@ -9,12 +9,16 @@ namespace CryptoCurrency.Net.APIClients
 {
     public class BlockCypherClient : BlockchainClientBase, IBlockchainClient
     {
+        //1 second / 3 + 20
+        private const int MillisecondsDelay = (int)(1000 / (decimal)3) +20;
+
         #region Public Static Properties
         public static string APIKey { get; set; }
 
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection
         {
-            CurrencySymbol.DogeCoin
+            CurrencySymbol.DogeCoin,
+            CurrencySymbol.Litecoin
         };
         #endregion
 
@@ -29,8 +33,7 @@ namespace CryptoCurrency.Net.APIClients
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
             //https://www.blockcypher.com/dev/bitcoin/#rate-limits-and-tokens
-            //1 second / 3 * 2 (for safety)
-            await Task.Delay(2000);
+            await Task.Delay(MillisecondsDelay);
 
             //Do a ToLower on ethereum coins but not other coins
             var isEthereum = CurrencySymbol.IsEthereum(Currency);

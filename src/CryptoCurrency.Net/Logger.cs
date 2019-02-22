@@ -4,7 +4,10 @@ using System.Runtime.CompilerServices;
 
 namespace CryptoCurrency.Net
 {
-    public class Logger
+    /// <summary>
+    /// TODO: Dependency injection
+    /// </summary>
+    public static class Logger
     {
         public static void Log(string message, Exception ex, string section, [CallerMemberName] string callerMemberName = null)
         {

@@ -10,6 +10,6 @@ namespace CryptoCurrency.Net.Model.Octgo
 
     public class Address
     {
-        public List<Balance> balances { get; set; }
+        public List<Balance> balances { get; } = new List<Balance>();
     }
 }

@@ -14,6 +14,6 @@ namespace CryptoCurrency.Net.Model.Cryptopia
 
     public class Prices
     {
-        public List<Datum> Data { get; set; }
+        public List<Datum> Data { get; } = new List<Datum>();
     }
 }

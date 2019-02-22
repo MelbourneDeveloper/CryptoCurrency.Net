@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.SomeClient2;
 using RestClientDotNet;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -25,10 +25,18 @@ namespace CryptoCurrency.Net.APIClients
         protected abstract string BaseUriPath { get; }
         #endregion
 
-        #region Protected Overridable Methods
-        protected string GetAddressesUrlPart(IEnumerable<string> addresses)
+        #region Protected Static Methods
+        protected static string GetAddressesUrlPart(IEnumerable<string> addresses)
         {
             return string.Join("|", addresses);
+        }
+        #endregion
+
+        #region Public Override Methods
+        public override async Task<BlockChainAddressInformation> GetAddress(string address)
+        {
+            var blockchainInfos = await GetAddressesFunc(new GetAddressesArgs(RESTClient, new List<string> { address }, Currency, this));
+            return blockchainInfos.FirstOrDefault();
         }
         #endregion
 

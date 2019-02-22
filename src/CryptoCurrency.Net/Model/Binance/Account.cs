@@ -13,6 +13,6 @@ namespace CryptoCurrency.Net.Model.Binance
 
     public class Account
     {
-        public List<Balance> balances { get; set; }
+        public List<Balance> balances { get; } = new List<Balance>();
     }
 }
