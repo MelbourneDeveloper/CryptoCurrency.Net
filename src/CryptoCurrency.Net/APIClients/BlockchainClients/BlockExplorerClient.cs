@@ -38,7 +38,7 @@ namespace CryptoCurrency.Net.APIClients
                         return $"https://zcash.{retval}";
                 }
 
-                throw new NotImplementedException();
+                return null;
             }
         }
 

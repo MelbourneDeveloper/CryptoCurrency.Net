@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients
 {
-    public class ChainSoClient : BlockchainClientBase, IBlockchainClient
+    public class ChainSoClient : BlockchainClientBase, IBlockchainClient, IDisposable
     {
         #region Private Fields
-        private SemaphoreSlim _SemaphoreSlim = new SemaphoreSlim(1);
+        private SemaphoreSlim _SemaphoreSlim = new SemaphoreSlim(1,1);
+        private bool disposed;
         #endregion
 
         #region Private Static Fields
@@ -58,6 +59,13 @@ namespace CryptoCurrency.Net.APIClients
             {
                 _SemaphoreSlim.Release();
             }
+        }
+
+        public void Dispose()
+        {
+            if (disposed) return;
+            disposed = true;
+            _SemaphoreSlim.Dispose();
         }
         #endregion
     }
