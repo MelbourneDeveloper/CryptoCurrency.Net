@@ -14,13 +14,13 @@ namespace CryptoCurrency.Net.APIClients
 
         protected InsightClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri(BaseUriPath));
+            RESTClient = restClientFactory.CreateRESTClient(BaseUriPath);
             Currency = currency;
         }
         #endregion
 
         #region Protected Overridable Properties
-        protected abstract string BaseUriPath { get; }
+        protected abstract Uri BaseUriPath { get; }
         protected virtual string AddressQueryStringBase => "/insight-api/addr/";
         protected virtual string TransactionQueryStringBase => "/insight-api/tx/";
         #endregion

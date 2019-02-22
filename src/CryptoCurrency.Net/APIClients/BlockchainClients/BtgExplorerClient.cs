@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
+using System;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -20,7 +21,7 @@ namespace CryptoCurrency.Net.APIClients
         /// <summary>
         /// Example: https://btgexplorer.com/api/addr/[Address]
         /// </summary>
-        protected override string BaseUriPath => "https://btgexplorer.com";
+        protected override Uri BaseUriPath => new Uri("https://btgexplorer.com");
         protected override string AddressQueryStringBase => "/api/addr/";
         #endregion
     }

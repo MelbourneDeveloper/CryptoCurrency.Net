@@ -1,7 +1,7 @@
-﻿using System;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
+using System;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -22,20 +22,20 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Properties
-        protected override string BaseUriPath
+        protected override Uri BaseUriPath
         {
             get
             {
                 const string retval = "blockexplorer.com";
 
-                switch(Currency.Name)
+                switch (Currency.Name)
                 {
                     case CurrencySymbol.BitcoinCashSymbolName:
-                        return $"https://bitcoincash.{retval}";
+                        return new Uri($"https://bitcoincash.{retval}");
                     case CurrencySymbol.BitcoinSymbolName:
-                        return $"https://{retval}";
+                        return new Uri($"https://{retval}");
                     case CurrencySymbol.ZCashSymbolName:
-                        return $"https://zcash.{retval}";
+                        return new Uri($"https://zcash.{retval}");
                 }
 
                 return null;
