@@ -65,6 +65,17 @@ namespace CryptoCurrency.Net.UnitTests
             await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U", "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U" });
         }
 
+        /// <summary>
+        /// TODO: You will need an API Key here or this will fail
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task GetLitecoinAddresses()
+        {
+            //ChainzClient.APIKey = 
+            await TestCoin(CurrencySymbol.Litecoin, new List<string> { "LUcxeeZVoohbkkEMY2s6LmEXu9nMcL2rAS", "LSs49i5VEV57wUEeVrsrzwHwJCLx8uDMva" });
+        }
+
         [TestMethod]
         public async Task GetZCashAddresses()
         {
@@ -114,19 +125,28 @@ namespace CryptoCurrency.Net.UnitTests
             }
         }
 
-        private static async Task TestCoin(CurrencySymbol symbol, IReadOnlyCollection<string> addresses2)
+        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses)
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
 
             for (var i = 0; i < 10; i++)
             {
-                var addressDictionary = await blockchainClientManager.GetAddresses(symbol, addresses2);
+                var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
 
                 foreach (var key in addressDictionary.Keys)
                 {
-                    var addresses = addressDictionary[key];
-                    foreach (var address in addresses)
+                    var outputAddresses = addressDictionary[key].ToList();
+                    foreach (var address in outputAddresses)
+                    {
+                        Assert.AreEqual(inputAddresses.Count, outputAddresses.Count, "The number of addresses returned was not the same as the number of addresses called");
+
+                        for (var x = 0; x < inputAddresses.Count; x++)
+                        {
+                            Assert.AreEqual(inputAddresses[x].ToLower(), outputAddresses[x].Address.ToLower(), "An inputted address turned out to be different to the outputted address");
+                        }
+
                         Assert.IsTrue(address.IsUnused.HasValue || address.TransactionCount.HasValue, "Can't tell if the address has transactions");
+                    }
                 }
             }
         }

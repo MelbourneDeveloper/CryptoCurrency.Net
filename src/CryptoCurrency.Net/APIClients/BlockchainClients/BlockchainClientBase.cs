@@ -46,10 +46,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         /// <summary>
         /// This is a bit iffy that it's virtual. If we can get multiple addresses we should use the multiple address method, but this could also be an issue for new clients if we forget to fill in either method
         /// </summary>
-        public virtual Task<BlockChainAddressInformation> GetAddress(string address)
-        {
-            return null;
-        }
+        public abstract Task<BlockChainAddressInformation> GetAddress(string address);
 
         public async Task<IEnumerable<BlockChainAddressInformation>> GetAddresses(IEnumerable<string> addresses)
         {
