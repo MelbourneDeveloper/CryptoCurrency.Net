@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.Model;
+using RestClientDotNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.Model;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {
@@ -12,7 +12,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
     {
         #region Protected Fields
         public const string LogSection = "Blockchain Clients";
-        protected CurrencySymbol Currency;
+        protected CurrencySymbol Currency { get; set; }
         #endregion
 
         #region Protected Virtual Fields
@@ -63,7 +63,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         /// <summary>
         /// TODO: this should not be virtual because it means that performance won't be tracked. 
         /// </summary>
-        public async virtual Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
+        public virtual async Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
         {
             var startTime = DateTime.Now;
 

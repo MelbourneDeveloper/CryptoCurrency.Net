@@ -18,8 +18,8 @@
     <RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
     <PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance</PackageTags>
     <Description>Cross platform C# library for general Crypto Currency functionality, and communicating with Cryptocurrency exchanges, and Blockchain APIs.</Description>
-    <NoWarn>1701;1702;CS0659;CA2007</NoWarn>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1701;1702;CS0659;CA2007;CA1063</NoWarn>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -27,6 +27,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
