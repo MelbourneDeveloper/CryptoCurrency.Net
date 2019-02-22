@@ -25,8 +25,8 @@ namespace CryptoCurrency.Net.APIClients
         protected abstract string BaseUriPath { get; }
         #endregion
 
-        #region Protected Overridable Methods
-        protected string GetAddressesUrlPart(IEnumerable<string> addresses)
+        #region Protected Static Methods
+        protected static string GetAddressesUrlPart(IEnumerable<string> addresses)
         {
             return string.Join("|", addresses);
         }

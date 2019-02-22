@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
+using System;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -15,7 +16,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Public Properties
-        protected override string BaseUriPath => "https://web3.gastracker.io/";
+        protected override Uri BaseUriPath => new Uri("https://web3.gastracker.io/");
         #endregion
 
         #region Constructor

@@ -10,6 +10,6 @@ namespace CryptoCurrency.Net.Model.Cryptopia
 
     public class Balances
     {
-        public List<Balance> Data { get; set; }
+        public List<Balance> Data { get; } = new List<Balance>();
     }
 }

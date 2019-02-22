@@ -25,7 +25,7 @@ namespace CryptoCurrency.Net.Model.Insight
     {
         public string hex { get; set; }
         public string asm { get; set; }
-        public List<string> addresses { get; set; }
+        public List<string> addresses { get; } = new List<string>();
         public string type { get; set; }
     }
 
@@ -44,8 +44,8 @@ namespace CryptoCurrency.Net.Model.Insight
         public string txid { get; set; }
         public int version { get; set; }
         public int locktime { get; set; }
-        public List<Vin> vin { get; set; }
-        public List<Vout> vout { get; set; }
+        public List<Vin> vin { get; } = new List<Vin>();
+        public List<Vout> vout { get; } = new List<Vout>();
         public string blockhash { get; set; }
         public int blockheight { get; set; }
         public int confirmations { get; set; }

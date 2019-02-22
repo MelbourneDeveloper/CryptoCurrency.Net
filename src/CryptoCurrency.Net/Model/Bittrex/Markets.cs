@@ -12,6 +12,6 @@ namespace CryptoCurrency.Net.Model.Bittrex
 
     public class Markets
     {
-        public List<Values> result { get; set; }
+        public List<Values> result { get; } = new List<Values>();
     }
 }

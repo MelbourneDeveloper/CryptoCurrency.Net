@@ -25,6 +25,6 @@ namespace CryptoCurrency.Net.Model.Ethplorer
     {
         public ETH ETH { get; set; }
         public int countTxs { get; set; }
-        public List<Token> tokens { get; set; }
+        public List<Token> tokens { get; } = new List<Token>();
     }
 }
