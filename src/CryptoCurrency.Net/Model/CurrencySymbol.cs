@@ -50,7 +50,7 @@ namespace CryptoCurrency.Net.Model
 
         #region Public Constants
         public const decimal Satoshi = 100000000;
-        public const decimal Wei = 1000000000000000000;
+        public const long Wei = 1000000000000000000;
         public const string BitcoinCashSymbolName = "BCH";
         public const string BitcoinSymbolName = "BTC";
         public const string LitecoinSymbolName = "LTC";
