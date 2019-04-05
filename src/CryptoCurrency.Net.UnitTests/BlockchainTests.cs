@@ -156,6 +156,8 @@ namespace CryptoCurrency.Net.UnitTests
                         }
 
                         Assert.IsTrue(address.IsUnused.HasValue || address.TransactionCount.HasValue, "Can't tell if the address has transactions");
+
+                        Console.WriteLine($"Address: {address.Address} Balance: {address.Balance} Transaction Count: {address.TransactionCount} Is Unused: {address.IsUnused}");
                     }
                 }
             }
