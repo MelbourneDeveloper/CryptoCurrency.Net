@@ -88,6 +88,12 @@ namespace CryptoCurrency.Net.UnitTests
             await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
         }
 
+        [TestMethod]
+        public async Task GetEthereumClassicAddresses()
+        {
+            await TestCoin(CurrencySymbol.EthereumClassic, new List<string> { "0xDd25785b55d988aafD0B8FA1eFcdbb4d6178ab01", "0x6667ED6CB6E7aCCc4004E8844dBdd0E72D58c31C" });
+        }
+
         //[TestMethod]
         //public async Task GetBinanceAddresses()
         //{
