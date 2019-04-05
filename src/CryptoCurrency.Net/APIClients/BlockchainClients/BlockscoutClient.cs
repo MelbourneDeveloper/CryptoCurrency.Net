@@ -37,11 +37,14 @@ namespace CryptoCurrency.Net.APIClients
             {
                 var balance = BigInteger.Parse(result.balance);
 
-                var asdasd = balance / CurrencySymbol.Wei;
+                //TODO
+                //Warning: precision is lost here.
+                //https://stackoverflow.com/questions/11859111/biginteger-division-in-c-sharp#_=_
+                var balanceAsEthDouble = Math.Exp(BigInteger.Log(balance) - BigInteger.Log((long)CurrencySymbol.Wei));
 
-                var asdasds = (int)asdasd;
+                var ethBalance = Math.Round((decimal)balanceAsEthDouble, 18);
 
-                returnValue.Add(new BlockChainAddressInformation(result.account, asdasds, true));
+                returnValue.Add(new BlockChainAddressInformation(result.account, ethBalance, true));
             }
 
             return returnValue;
