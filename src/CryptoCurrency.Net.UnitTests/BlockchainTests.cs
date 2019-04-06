@@ -93,8 +93,13 @@ namespace CryptoCurrency.Net.UnitTests
         {
             await TestCoin(CurrencySymbol.EthereumClassic, new List<string>
             {
-                "0xDd25785b55d988aafD0B8FA1eFcdbb4d6178ab01",
-                "0x6667ED6CB6E7aCCc4004E8844dBdd0E72D58c31C"
+                "0x4afaf9ba702636dd05d633dff7e2f0fe652c1375",
+                "0xaaba597a965c781fc66dc93a32c371eccc0cccff"
+
+                //TODO: Reeable to test lots of transactions
+                //"0xDd25785b55d988aafD0B8FA1eFcdbb4d6178ab01",
+                //TODO: Reeanble to test big numbers
+                //"0x6667ED6CB6E7aCCc4004E8844dBdd0E72D58c31C"
             });
         }
 
