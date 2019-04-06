@@ -65,10 +65,6 @@ namespace CryptoCurrency.Net.UnitTests
             await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U", "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U" });
         }
 
-        /// <summary>
-        /// TODO: You will need an API Key here or this will fail
-        /// </summary>
-        /// <returns></returns>
         [TestMethod]
         public async Task GetLitecoinAddresses()
         {
