@@ -29,5 +29,10 @@ namespace CryptoCurrency.Net.Model.Blockscout
         public string status { get; set; }
         public List<TxListResult> result { get; set; }
         public string message { get; set; }
+
+        /// <summary>
+        /// This is not part of the Json payload. It's used to keep track of what address was queried
+        /// </summary>
+        public string Address { get; set; }
     }
 }

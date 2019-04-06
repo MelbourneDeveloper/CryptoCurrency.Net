@@ -5,6 +5,7 @@ using CryptoCurrency.Net.Model.Blockscout;
 using RestClientDotNet;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 
@@ -34,6 +35,9 @@ namespace CryptoCurrency.Net.APIClients
             var balanceMulti = await getAddressesArgs.RESTClient.GetAsync<BalanceMulti>($"?module=account&action=balancemulti&address={addresses}");
             var returnValue = new List<BlockChainAddressInformation>();
 
+            var tasks = getAddressesArgs.Addresses.Select(a => GetTransactions(a, getAddressesArgs.RESTClient));
+            var txLists = await Task.WhenAll(tasks);
+
             foreach (var result in balanceMulti.result)
             {
                 var balance = BigInteger.Parse(result.balance);
@@ -45,18 +49,22 @@ namespace CryptoCurrency.Net.APIClients
 
                 var ethBalance = Math.Round((decimal)balanceAsEthDouble, 18);
 
-                var transactions = await GetTransactions(result.account, getAddressesArgs.RESTClient);
+                var txList = txLists.FirstOrDefault(l => string.Compare(l.Address, result.account, StringComparison.OrdinalIgnoreCase) == 0);
 
-                returnValue.Add(new BlockChainAddressInformation(result.account, ethBalance, transactions.Count));
+                returnValue.Add(new BlockChainAddressInformation(result.account, ethBalance, txList.result.Count));
             }
 
             return returnValue;
         };
 
-        private static async Task<List<TxListResult>> GetTransactions(string address, RestClient restClient)
+        /// <summary>
+        /// TODO: Implement this so that transactions can be returned
+        /// </summary>
+        private static async Task<TxList> GetTransactions(string address, RestClient restClient)
         {
             var result = await restClient.GetAsync<TxList>($"?module=account&action=txlist&address={address}");
-            return result.result;
+            result.Address = address;
+            return result;
         }
 
         public override Task<BlockChainAddressInformation> GetAddress(string address)
