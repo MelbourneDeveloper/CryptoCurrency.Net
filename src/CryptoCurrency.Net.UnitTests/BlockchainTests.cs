@@ -72,7 +72,6 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetLitecoinAddresses()
         {
-            //ChainzClient.APIKey = 
             await TestCoin(CurrencySymbol.Litecoin, new List<string> { "LUcxeeZVoohbkkEMY2s6LmEXu9nMcL2rAS", "LSs49i5VEV57wUEeVrsrzwHwJCLx8uDMva" });
         }
 
@@ -86,6 +85,21 @@ namespace CryptoCurrency.Net.UnitTests
         public async Task GetBitcoinCashAddresses()
         {
             await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+        }
+
+        [TestMethod]
+        public async Task GetEthereumClassicAddresses()
+        {
+            await TestCoin(CurrencySymbol.EthereumClassic, new List<string>
+            {
+                "0x4afaf9ba702636dd05d633dff7e2f0fe652c1375",
+                "0xaaba597a965c781fc66dc93a32c371eccc0cccff"
+
+                //TODO: Reeable to test lots of transactions
+                //"0xDd25785b55d988aafD0B8FA1eFcdbb4d6178ab01",
+                //TODO: Reeanble to test big numbers
+                //"0x6667ED6CB6E7aCCc4004E8844dBdd0E72D58c31C"
+            });
         }
 
         //[TestMethod]
@@ -146,6 +160,8 @@ namespace CryptoCurrency.Net.UnitTests
                         }
 
                         Assert.IsTrue(address.IsUnused.HasValue || address.TransactionCount.HasValue, "Can't tell if the address has transactions");
+
+                        Console.WriteLine($"Address: {address.Address} Balance: {address.Balance} Transaction Count: {address.TransactionCount} Is Unused: {address.IsUnused}");
                     }
                 }
             }

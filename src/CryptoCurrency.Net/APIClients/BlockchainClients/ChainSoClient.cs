@@ -11,7 +11,7 @@ namespace CryptoCurrency.Net.APIClients
     public class ChainSoClient : BlockchainClientBase, IBlockchainClient, IDisposable
     {
         #region Private Fields
-        private SemaphoreSlim _SemaphoreSlim = new SemaphoreSlim(1,1);
+        private static readonly SemaphoreSlim _SemaphoreSlim = new SemaphoreSlim(1,1);
         private bool disposed;
         #endregion
 
@@ -50,10 +50,6 @@ namespace CryptoCurrency.Net.APIClients
                 var received = await RESTClient.GetAsync<ChainSoAddressReceived>($"/api/v2/get_address_received/{Currency}/{address}");
 
                 return new BlockChainAddressInformation(address, balance.data.confirmed_balance, received.data.confirmed_received_value == 0);
-            }
-            catch (Exception)
-            {
-                throw;
             }
             finally
             {
