@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace CryptoCurrency.Net.APIClients
 {
     //TODO: this api seems to support tokens for Ethereum classic. Should implement tokens here
+    //TODO: GraphQL: https://blockscout.com/etc/mainnet/graphiql
 
     /// <summary>
     /// https://blockscout.com/etc/mainnet/api_docs
@@ -44,11 +45,19 @@ namespace CryptoCurrency.Net.APIClients
 
                 var ethBalance = Math.Round((decimal)balanceAsEthDouble, 18);
 
-                returnValue.Add(new BlockChainAddressInformation(result.account, ethBalance, true));
+                var transactions = await GetTransactions(result.account, getAddressesArgs.RESTClient);
+
+                returnValue.Add(new BlockChainAddressInformation(result.account, ethBalance, transactions.Count));
             }
 
             return returnValue;
         };
+
+        private static async Task<List<TxListResult>> GetTransactions(string address, RestClient restClient)
+        {
+            var result = await restClient.GetAsync<TxList>($"?module=account&action=txlist&address={address}");
+            return result.result;
+        }
 
         public override Task<BlockChainAddressInformation> GetAddress(string address)
         {
