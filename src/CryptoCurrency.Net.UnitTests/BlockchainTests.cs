@@ -72,6 +72,12 @@ namespace CryptoCurrency.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task GetTronAddresses()
+        {
+            await TestCoin(CurrencySymbol.Tron, new List<string> { "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9", "TWd4WrZ9wn84f5x1hZhL4DHvk738ns5jwb" }, 3);
+        }
+
+        [TestMethod]
         public async Task GetZCashAddresses()
         {
             await TestCoin(CurrencySymbol.ZCash, new List<string> { "t1e8F9YdPuNKv8JjWspXPxoP8ZJADtwKdQs", "t3fJZ5jYsyxDtvNrWBeoMbvJaQCj4JJgbgX" });
@@ -135,11 +141,11 @@ namespace CryptoCurrency.Net.UnitTests
             }
         }
 
-        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses)
+        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses,int repeatCount = 10)
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < repeatCount; i++)
             {
                 var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
 
