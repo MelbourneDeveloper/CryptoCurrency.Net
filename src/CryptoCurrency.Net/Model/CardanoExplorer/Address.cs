@@ -1,0 +1,43 @@
+﻿using System.Collections.Generic;
+
+namespace CryptoCurrency.Net.Model.CardanoExplorer
+{
+    public class CaBalance
+    {
+        public decimal getCoin { get; set; }
+    }
+
+    public class CtbInputSum
+    {
+        public decimal getCoin { get; set; }
+    }
+
+    public class CtbOutputSum
+    {
+        public decimal getCoin { get; set; }
+    }
+
+    public class CaTxList
+    {
+        public string ctbId { get; set; }
+        public int ctbTimeIssued { get; set; }
+        public List<List<object>> ctbInputs { get; set; }
+        public List<List<object>> ctbOutputs { get; set; }
+        public CtbInputSum ctbInputSum { get; set; }
+        public CtbOutputSum ctbOutputSum { get; set; }
+    }
+
+    public class Right
+    {
+        public string caAddress { get; set; }
+        public string caType { get; set; }
+        public int caTxNum { get; set; }
+        public CaBalance caBalance { get; set; }
+        public List<CaTxList> caTxList { get; set; }
+    }
+
+    public class Address
+    {
+        public Right Right { get; set; }
+    }
+}

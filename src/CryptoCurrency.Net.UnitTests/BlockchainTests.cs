@@ -59,6 +59,13 @@ namespace CryptoCurrency.Net.UnitTests
             Console.WriteLine($"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
         }
 
+
+        [TestMethod]
+        public async Task GetCardanoAddresses()
+        {
+            await TestCoin(CurrencySymbol.Cardano, new List<string> { "DdzFFzCqrht1jU5aJCnkX2ZuaQbEEdoDQ3f5K6MYXvekgG8MyDWtpJwHmV7q1wxfdSTe3bUDxsAR6MZ3pUzGeWoWBuHATsXFxRg4etZu", "DdzFFzCqrhstM8aPuFQvUTkxV3sF4GBW8Ju6ZCDK6hJZE9bsW7fZ8JULxhoeRXdPTp5DnnbwiBhqsMY5eiD4xMovrxAuqkjb51S2Kgwt" });
+        }
+
         [TestMethod]
         public async Task GetBitcoinGoldAddresses()
         {
