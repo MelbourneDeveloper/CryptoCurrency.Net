@@ -20,7 +20,7 @@ namespace CryptoCurrency.Net.APIClients
         public async override Task<BlockChainAddressInformation> GetAddress(string address)
         {
             var addressResult = await  RESTClient.GetAsync<Address>($"api/addresses/summary/{address}");
-            return new BlockChainAddressInformation(address, addressResult.Right.caBalance.getCoin, addressResult.Right.caTxList.Count);
+            return new BlockChainAddressInformation(address, addressResult.Right.caBalance.getCoin * (decimal).000001, addressResult.Right.caTxList.Count);
         }
         #endregion
     }

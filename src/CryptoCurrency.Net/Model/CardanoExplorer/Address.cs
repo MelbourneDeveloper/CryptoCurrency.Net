@@ -4,17 +4,17 @@ namespace CryptoCurrency.Net.Model.CardanoExplorer
 {
     public class CaBalance
     {
-        public decimal getCoin { get; set; }
+        public long getCoin { get; set; }
     }
 
     public class CtbInputSum
     {
-        public decimal getCoin { get; set; }
+        public long getCoin { get; set; }
     }
 
     public class CtbOutputSum
     {
-        public decimal getCoin { get; set; }
+        public long getCoin { get; set; }
     }
 
     public class CaTxList
