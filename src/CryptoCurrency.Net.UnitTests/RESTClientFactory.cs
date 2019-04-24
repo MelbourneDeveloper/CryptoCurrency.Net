@@ -7,7 +7,7 @@ namespace CryptoCurrency.Net.UnitTests
     {
         public IRestClient CreateRESTClient(Uri baseUri)
         {
-            return new RestClient(new NewtonsoftSerializationAdapter(), baseUri);
+            return new RestClient(new NewtonsoftSerializationAdapter(), baseUri, new TimeSpan(0, 0, 10));
         }
     }
 }

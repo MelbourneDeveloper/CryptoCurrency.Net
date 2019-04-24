@@ -70,6 +70,8 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
             var retVal = new Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>();
 
+            Exception lastException = null;
+
             if (_BlockchainClientsByCurrencySymbol.TryGetValue(currencySymbol, out var blockChainClients))
             {
                 var capableclientTypes = _CapabilitiesByClientType.Keys.Where(clientType => _CapabilitiesByClientType[clientType] != null);
@@ -105,11 +107,13 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                         }
                         catch (Exception ex)
                         {
+                            lastException = ex;
                             Logger.Log($"Get Addresses failed. Client: {client.GetType().FullName}. Symbol: {currencySymbol}", ex, BlockchainClientBase.LogSection);
                         }
                     }
                     catch (Exception ex)
                     {
+                        lastException = ex;
                         Logger.Log($"Get Addresses failed. Client: {client.GetType().FullName}. Symbol: {currencySymbol}", ex, BlockchainClientBase.LogSection);
                     }
                 }
@@ -117,7 +121,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             }
 
             //TODO: reimplement code for taking stabs on coins that we don't know about
-            throw new NotImplementedException($"The currency {currencySymbol} is not currently supported, or the Blockchain services are out of action.");
+            throw new NotImplementedException($"The currency {currencySymbol} is not currently supported, or the Blockchain services are out of action.", lastException);
         }
         #endregion
     }
