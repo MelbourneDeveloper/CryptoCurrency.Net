@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public CardanoExplorerBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(BaseAddress);
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseAddress);
         }
 
         public async override Task<BlockChainAddressInformation> GetAddress(string address)

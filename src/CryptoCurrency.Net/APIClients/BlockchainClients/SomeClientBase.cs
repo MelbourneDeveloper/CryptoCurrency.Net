@@ -13,7 +13,7 @@ namespace CryptoCurrency.Net.APIClients
 
         protected SomeClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri(BaseUriPath));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri(BaseUriPath));
             Currency = currency;
         }
         #endregion

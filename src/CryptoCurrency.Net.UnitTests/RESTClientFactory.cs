@@ -5,7 +5,7 @@ namespace CryptoCurrency.Net.UnitTests
 {
     public class RESTClientFactory : IRestClientFactory
     {
-        public RestClient CreateRESTClient(Uri baseUri)
+        public IRestClient CreateRESTClient(Uri baseUri)
         {
             return new RestClient(new NewtonsoftSerializationAdapter(), baseUri);
         }

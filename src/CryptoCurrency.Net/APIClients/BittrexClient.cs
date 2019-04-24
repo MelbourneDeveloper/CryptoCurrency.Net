@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BittrexClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://bittrex.com/"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://bittrex.com/"));
         }
         #endregion
 
