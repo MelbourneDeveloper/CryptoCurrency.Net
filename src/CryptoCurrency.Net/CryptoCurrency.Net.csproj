@@ -9,10 +9,10 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Christian Findlay</Authors>
     <Company>Christian FindlayChristian Findlay</Company>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
-    <FileVersion>1.5.0.0</FileVersion>
-    <Version>1.5.0</Version>
-    <PackageLicenseUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net/blob/master/LICENSE</PackageLicenseUrl>
+    <AssemblyVersion>1.6.0.0</AssemblyVersion>
+    <FileVersion>1.6.0.0</FileVersion>
+    <Version>1.6.0</Version>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <Copyright>© 2019 Christian Findlay</Copyright>
     <PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
@@ -20,7 +20,8 @@
     <Description>Cross platform C# library for general Crypto Currency functionality, and communicating with Cryptocurrency exchanges, and Blockchain APIs.</Description>
     <NoWarn>1701;1702;CS0659;CA2007;CA1063;CA2235</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <PackageReleaseNotes>Fix get addresses for Ethereum Classic, and Litecoin</PackageReleaseNotes>
+    <PackageReleaseNotes>Cardano support, timeouts . https://github.com/MelbourneDeveloper/CryptoCurrency.Net/projects/2</PackageReleaseNotes>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -47,14 +48,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.3">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="RestClient.Net" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="RestClient.Net" Version="2.0.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 

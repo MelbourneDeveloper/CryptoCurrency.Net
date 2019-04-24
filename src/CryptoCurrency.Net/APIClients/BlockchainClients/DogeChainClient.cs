@@ -16,7 +16,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public DogeChainClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://dogechain.info"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://dogechain.info"));
         }
         #endregion
 

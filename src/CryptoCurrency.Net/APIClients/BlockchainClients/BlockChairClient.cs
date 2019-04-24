@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BlockChairClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri($"https://api.blockchair.com"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri($"https://api.blockchair.com"));
             Currency = currency;
         }
         #endregion

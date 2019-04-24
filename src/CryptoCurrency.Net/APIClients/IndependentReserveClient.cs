@@ -16,7 +16,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public IndependentReserveClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://api.independentreserve.com"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.independentreserve.com"));
         }
         #endregion
 

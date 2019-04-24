@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public OtcgoClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://otcgo.cn"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://otcgo.cn"));
         }
         #endregion
 

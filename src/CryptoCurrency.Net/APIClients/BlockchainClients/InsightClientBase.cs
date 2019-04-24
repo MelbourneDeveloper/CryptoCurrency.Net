@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
 
         protected InsightClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(BaseUriPath);
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseUriPath);
             Currency = currency;
         }
         #endregion

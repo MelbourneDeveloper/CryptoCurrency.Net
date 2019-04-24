@@ -20,7 +20,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BTCMarketsClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://api.btcmarkets.net"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.btcmarkets.net"));
         }
         #endregion
 

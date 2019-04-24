@@ -59,6 +59,13 @@ namespace CryptoCurrency.Net.UnitTests
             Console.WriteLine($"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
         }
 
+
+        [TestMethod]
+        public async Task GetCardanoAddresses()
+        {
+            await TestCoin(CurrencySymbol.Cardano, new List<string> { "DdzFFzCqrht1jU5aJCnkX2ZuaQbEEdoDQ3f5K6MYXvekgG8MyDWtpJwHmV7q1wxfdSTe3bUDxsAR6MZ3pUzGeWoWBuHATsXFxRg4etZu", "DdzFFzCqrhstM8aPuFQvUTkxV3sF4GBW8Ju6ZCDK6hJZE9bsW7fZ8JULxhoeRXdPTp5DnnbwiBhqsMY5eiD4xMovrxAuqkjb51S2Kgwt" });
+        }
+
         [TestMethod]
         public async Task GetBitcoinGoldAddresses()
         {
@@ -69,6 +76,12 @@ namespace CryptoCurrency.Net.UnitTests
         public async Task GetLitecoinAddresses()
         {
             await TestCoin(CurrencySymbol.Litecoin, new List<string> { "LUcxeeZVoohbkkEMY2s6LmEXu9nMcL2rAS", "LSs49i5VEV57wUEeVrsrzwHwJCLx8uDMva" });
+        }
+
+        [TestMethod]
+        public async Task GetTronAddresses()
+        {
+            await TestCoin(CurrencySymbol.Tron, new List<string> { "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9", "TWd4WrZ9wn84f5x1hZhL4DHvk738ns5jwb" }, 3);
         }
 
         [TestMethod]
@@ -135,11 +148,11 @@ namespace CryptoCurrency.Net.UnitTests
             }
         }
 
-        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses)
+        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses,int repeatCount = 10)
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < repeatCount; i++)
             {
                 var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
 

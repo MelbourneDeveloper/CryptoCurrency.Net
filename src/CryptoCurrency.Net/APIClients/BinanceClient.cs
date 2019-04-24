@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BinanceClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://api.binance.com"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.binance.com"));
         }
         #endregion
 

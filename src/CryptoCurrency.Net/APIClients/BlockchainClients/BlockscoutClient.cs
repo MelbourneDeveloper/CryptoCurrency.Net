@@ -26,7 +26,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BlockscoutClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://blockscout.com/etc/mainnet/api"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://blockscout.com/etc/mainnet/api"));
         }
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
