@@ -18,6 +18,7 @@ namespace CryptoCurrency.Net.Model
         public decimal? Balance { get; set; }
         public bool? IsChange { get; set; }
         public uint? Index { get; set; }
+        public uint? Account { get; set; }
         public DateTime? LastUpdate
         {
             get => _LastUpdate;
