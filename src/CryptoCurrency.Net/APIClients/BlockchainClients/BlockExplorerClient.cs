@@ -15,7 +15,8 @@ namespace CryptoCurrency.Net.APIClients
         #region Private Static Fields
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection
         {
-            CurrencySymbol.BitcoinCash,
+            //BCH Seems to be retired after the split
+            //CurrencySymbol.BitcoinCash,
             CurrencySymbol.Bitcoin,
             CurrencySymbol.ZCash
         };

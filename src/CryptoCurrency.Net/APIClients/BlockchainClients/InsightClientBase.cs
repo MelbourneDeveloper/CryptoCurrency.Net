@@ -28,7 +28,8 @@ namespace CryptoCurrency.Net.APIClients
         #region Private Methods
         private async Task<insight.Address> GetInsightAddress(string address)
         {
-            return await RESTClient.GetAsync<insight.Address>($"{AddressQueryStringBase}{address}");
+            var insightAddress = await RESTClient.GetAsync<insight.Address>($"{AddressQueryStringBase}{address}");
+            return insightAddress;
         }
         #endregion
 
