@@ -41,7 +41,7 @@ namespace CryptoCurrency.Net.APIClients
             foreach (var addressJToken in dataJToken)
             {
                 var address = addressJToken["address"].ToString();
-                decimal balance = long.Parse(addressJToken["balance"].ToString()) / CurrencySymbol.Satoshi ;
+                var balance = long.Parse(addressJToken["balance"].ToString()) / CurrencySymbol.Satoshi ;
 
                 blockChainAddressInformations.Add(
                 new BlockChainAddressInformation
