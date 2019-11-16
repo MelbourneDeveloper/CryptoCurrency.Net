@@ -29,9 +29,9 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             return retVal;
         };
 
-        protected virtual Func<GetTransactionsAtAddressArgs, Task<TransactionsAtAddress>> GetTransactionsAtAddressFunc { get; } = async getTransactionsAtAddressArgs =>
+        protected virtual Func<GetTransactionsAtAddressArgs, Task<TransactionsAtAddress>> GetTransactionsAtAddressFunc { get; } = getTransactionsAtAddressArgs =>
         {
-            return null;
+            return Task.FromResult<TransactionsAtAddress>(null);
         };
         #endregion
 

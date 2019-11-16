@@ -1,13 +1,13 @@
 ﻿namespace CryptoCurrency.Net.Model.ChainSo
 {
-    public class Data
+    public class Datum
     {
         public decimal confirmed_balance { get; set; }
     }
 
     public class ChainSoAddress
     {
-        public Data data { get; set; }
+        public Datum data { get; set; }
     }
 
 

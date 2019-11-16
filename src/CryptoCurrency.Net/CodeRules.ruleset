@@ -977,7 +977,7 @@
     <Rule Id="IDE0056WithoutSuggestion" Action="Error" />
     <Rule Id="IDE0057" Action="Error" />
     <Rule Id="IDE0057WithoutSuggestion" Action="Error" />
-    <Rule Id="IDE0058" Action="Error" />
+    <Rule Id="IDE0058" Action="Warning" />
     <Rule Id="IDE0059" Action="Error" />
     <Rule Id="IDE0060" Action="Error" />
     <Rule Id="IDE0061" Action="Error" />
@@ -1047,7 +1047,7 @@
     <Rule Id="CA1502" Action="Error" />
     <Rule Id="CA1505" Action="Error" />
     <Rule Id="CA1506" Action="Error" />
-    <Rule Id="CA1508" Action="Error" />
+    <Rule Id="CA1508" Action="Warning" />
     <Rule Id="CA1509" Action="Error" />
     <Rule Id="CA1707" Action="Error" />
     <Rule Id="CA1708" Action="Error" />

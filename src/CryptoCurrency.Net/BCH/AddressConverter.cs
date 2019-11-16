@@ -4,7 +4,8 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
-#pragma warning disable CA1307 // Specify StringComparison
+#pragma warning disable CA1307 
+#pragma warning disable CA1502 
 
 namespace CryptoCurrency.Net.BCH
 {
@@ -336,4 +337,5 @@ namespace CryptoCurrency.Net.BCH
     }
 }
 
-#pragma warning restore CA1307 // Specify StringComparison
+#pragma warning restore CA1307
+#pragma warning restore CA1502
