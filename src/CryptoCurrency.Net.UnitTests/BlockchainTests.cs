@@ -154,6 +154,8 @@ namespace CryptoCurrency.Net.UnitTests
 
             for (var i = 0; i < repeatCount; i++)
             {
+                decimal? firstBalance = null;
+
                 var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
 
                 foreach (var key in addressDictionary.Keys)
@@ -171,6 +173,16 @@ namespace CryptoCurrency.Net.UnitTests
                         Assert.IsTrue(address.IsUnused.HasValue || address.TransactionCount.HasValue, "Can't tell if the address has transactions");
 
                         Console.WriteLine($"Address: {address.Address} Balance: {address.Balance} Transaction Count: {address.TransactionCount} Is Unused: {address.IsUnused}");
+
+                        if (firstBalance == null)
+                        {
+                            firstBalance = address.Balance;
+                        }
+                        else
+                        {
+                            //Ensure the balance doesn't change on subsequent calls
+                            Assert.AreEqual(firstBalance, address.Balance);
+                        }
                     }
                 }
             }
