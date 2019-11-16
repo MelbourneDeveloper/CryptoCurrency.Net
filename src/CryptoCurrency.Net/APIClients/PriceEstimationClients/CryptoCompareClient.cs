@@ -13,7 +13,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
     {
         public CryptoCompareClient(IRestClientFactory restClientFactory) : base(restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://min-api.cryptocompare.com"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://min-api.cryptocompare.com"));
         }
 
         protected override Func<GetPricesArgs, Task<EstimatedPricesModel>> GetPricesFunc { get; } = async a =>

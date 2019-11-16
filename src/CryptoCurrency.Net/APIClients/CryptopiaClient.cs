@@ -114,7 +114,9 @@ namespace CryptoCurrency.Net.APIClients
             if (request.Content != null)
             {
                 // Hash content to ensure message integrity
+#pragma warning disable CA5351 // Cryptopia is using a broken algorithm?
                 using (var md5 = MD5.Create())
+#pragma warning restore CA5351 
                 {
                     requestContentBase64String = Convert.ToBase64String(md5.ComputeHash(await request.Content.ReadAsByteArrayAsync()));
                 }

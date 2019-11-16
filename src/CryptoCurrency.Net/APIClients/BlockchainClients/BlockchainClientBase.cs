@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.Model;
+using RestClientDotNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.Model;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {
@@ -12,7 +12,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
     {
         #region Protected Fields
         public const string LogSection = "Blockchain Clients";
-        protected CurrencySymbol Currency;
+        protected CurrencySymbol Currency { get; set; }
         #endregion
 
         #region Protected Virtual Fields
@@ -46,10 +46,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         /// <summary>
         /// This is a bit iffy that it's virtual. If we can get multiple addresses we should use the multiple address method, but this could also be an issue for new clients if we forget to fill in either method
         /// </summary>
-        public virtual Task<BlockChainAddressInformation> GetAddress(string address)
-        {
-            return null;
-        }
+        public abstract Task<BlockChainAddressInformation> GetAddress(string address);
 
         public async Task<IEnumerable<BlockChainAddressInformation>> GetAddresses(IEnumerable<string> addresses)
         {
@@ -66,7 +63,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         /// <summary>
         /// TODO: this should not be virtual because it means that performance won't be tracked. 
         /// </summary>
-        public async virtual Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
+        public virtual async Task<TransactionsAtAddress> GetTransactionsAtAddress(string address)
         {
             var startTime = DateTime.Now;
 

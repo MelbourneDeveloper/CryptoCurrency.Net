@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BlockChairClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri($"https://api.blockchair.com"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri($"https://api.blockchair.com"));
             Currency = currency;
         }
         #endregion
@@ -26,6 +26,11 @@ namespace CryptoCurrency.Net.APIClients
         #region Func
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
+            //30x per second is ok
+            var delay = 60000 / 29;
+
+            await Task.Delay(delay);
+
             var json = await RESTClient.GetAsync<string>($"/bitcoin-cash/dashboards/address/{address}");
             var baseObject = (JObject)JsonConvert.DeserializeObject(json);
             var dataObject = baseObject["data"];

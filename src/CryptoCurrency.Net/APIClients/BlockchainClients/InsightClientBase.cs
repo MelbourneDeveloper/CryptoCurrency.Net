@@ -14,13 +14,13 @@ namespace CryptoCurrency.Net.APIClients
 
         protected InsightClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri(BaseUriPath));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseUriPath);
             Currency = currency;
         }
         #endregion
 
         #region Protected Overridable Properties
-        protected abstract string BaseUriPath { get; }
+        protected abstract Uri BaseUriPath { get; }
         protected virtual string AddressQueryStringBase => "/insight-api/addr/";
         protected virtual string TransactionQueryStringBase => "/insight-api/tx/";
         #endregion
@@ -28,7 +28,8 @@ namespace CryptoCurrency.Net.APIClients
         #region Private Methods
         private async Task<insight.Address> GetInsightAddress(string address)
         {
-            return await RESTClient.GetAsync<insight.Address>($"{AddressQueryStringBase}{address}");
+            var insightAddress = await RESTClient.GetAsync<insight.Address>($"{AddressQueryStringBase}{address}");
+            return insightAddress;
         }
         #endregion
 

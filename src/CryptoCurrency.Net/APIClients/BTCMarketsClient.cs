@@ -1,26 +1,26 @@
-﻿using System;
+﻿using CryptoCurrency.Net.Helpers;
+using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Model.BTCMarkets;
+using Newtonsoft.Json;
+using RestClientDotNet;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.BTCMarkets;
-using Newtonsoft.Json;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients
 {
-    public class BTCMarketsClient : ExchangeAPIClientBase, IExchangeAPIClient
+    public partial class BTCMarketsClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         public const string ACCOUNT_BALANCE_PATH = "/account/balance";
 
         #region Constructor
         public BTCMarketsClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri("https://api.btcmarkets.net"));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.btcmarkets.net"));
         }
         #endregion
 
@@ -46,18 +46,9 @@ namespace CryptoCurrency.Net.APIClients
         {
             throw new NotImplementedException();
         }
+
         #endregion
-
         #region Private Methods
-
-        public class HeaderConstants
-        {
-            public const string APIKEY_HEADER = "apikey";
-            public const string TIMESTAMP_HEADER = "timestamp";
-            public const string SIGNATURE_HEADER = "signature";
-            public const string ENCODING = "UTF-8";
-            public const string CONTENT = "application/json";
-        }
 
         /// <summary>
         /// Private IR Call: GetAccounts
@@ -80,11 +71,11 @@ namespace CryptoCurrency.Net.APIClients
             lock (RESTClient.Headers)
             {
                 RESTClient.Headers.Clear();
-                RESTClient.Headers.Add("Accept", HeaderConstants.CONTENT);
-                RESTClient.Headers.Add("Accept-Charset", HeaderConstants.ENCODING);
-                RESTClient.Headers.Add(HeaderConstants.APIKEY_HEADER, ApiKey);
-                RESTClient.Headers.Add(HeaderConstants.SIGNATURE_HEADER, signature);
-                RESTClient.Headers.Add(HeaderConstants.TIMESTAMP_HEADER, timestamp);
+                RESTClient.Headers.Add("Accept", BTCMarketsHeaderConstants.CONTENT);
+                RESTClient.Headers.Add("Accept-Charset", BTCMarketsHeaderConstants.ENCODING);
+                RESTClient.Headers.Add(BTCMarketsHeaderConstants.APIKEY_HEADER, ApiKey);
+                RESTClient.Headers.Add(BTCMarketsHeaderConstants.SIGNATURE_HEADER, signature);
+                RESTClient.Headers.Add(BTCMarketsHeaderConstants.TIMESTAMP_HEADER, timestamp);
             }
 
             List<Balance> result;

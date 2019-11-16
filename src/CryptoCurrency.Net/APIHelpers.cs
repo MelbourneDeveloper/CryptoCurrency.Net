@@ -40,8 +40,8 @@ namespace CryptoCurrency.Net.Helpers
                     return new HMACSHA512();
                 case HashAlgorithmType.HMACThreeEightFour:
                     return new HMACSHA384();
-                case HashAlgorithmType.Md5:
-                    return MD5.Create();
+                //case HashAlgorithmType.Md5:
+                //    return MD5.Create();
                 default:
                     throw new NotImplementedException();
             }

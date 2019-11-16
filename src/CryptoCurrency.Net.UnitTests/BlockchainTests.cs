@@ -59,10 +59,29 @@ namespace CryptoCurrency.Net.UnitTests
             Console.WriteLine($"Token: {nonEthereumResult.Key} Balance: {nonEthereumResult.Value.First().Balance}");
         }
 
+
+        [TestMethod]
+        public async Task GetCardanoAddresses()
+        {
+            await TestCoin(CurrencySymbol.Cardano, new List<string> { "DdzFFzCqrht1jU5aJCnkX2ZuaQbEEdoDQ3f5K6MYXvekgG8MyDWtpJwHmV7q1wxfdSTe3bUDxsAR6MZ3pUzGeWoWBuHATsXFxRg4etZu", "DdzFFzCqrhstM8aPuFQvUTkxV3sF4GBW8Ju6ZCDK6hJZE9bsW7fZ8JULxhoeRXdPTp5DnnbwiBhqsMY5eiD4xMovrxAuqkjb51S2Kgwt" });
+        }
+
         [TestMethod]
         public async Task GetBitcoinGoldAddresses()
         {
             await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U", "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U" });
+        }
+
+        [TestMethod]
+        public async Task GetLitecoinAddresses()
+        {
+            await TestCoin(CurrencySymbol.Litecoin, new List<string> { "LUcxeeZVoohbkkEMY2s6LmEXu9nMcL2rAS", "LSs49i5VEV57wUEeVrsrzwHwJCLx8uDMva" });
+        }
+
+        [TestMethod]
+        public async Task GetTronAddresses()
+        {
+            await TestCoin(CurrencySymbol.Tron, new List<string> { "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9", "TWd4WrZ9wn84f5x1hZhL4DHvk738ns5jwb" }, 3);
         }
 
         [TestMethod]
@@ -74,7 +93,29 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
         {
-            await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            var result = await TestCoin(CurrencySymbol.BitcoinCash, 
+                new List<string> 
+                { 
+                    "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p",
+                    BCH.AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address, 
+                    BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address, 
+                    "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" 
+                });
+        }
+
+        [TestMethod]
+        public async Task GetEthereumClassicAddresses()
+        {
+            await TestCoin(CurrencySymbol.EthereumClassic, new List<string>
+            {
+                "0x4afaf9ba702636dd05d633dff7e2f0fe652c1375",
+                "0xaaba597a965c781fc66dc93a32c371eccc0cccff"
+
+                //TODO: Reeable to test lots of transactions
+                //"0xDd25785b55d988aafD0B8FA1eFcdbb4d6178ab01",
+                //TODO: Reeanble to test big numbers
+                //"0x6667ED6CB6E7aCCc4004E8844dBdd0E72D58c31C"
+            });
         }
 
         //[TestMethod]
@@ -114,21 +155,50 @@ namespace CryptoCurrency.Net.UnitTests
             }
         }
 
-        private static async Task TestCoin(CurrencySymbol symbol, IReadOnlyCollection<string> addresses2)
+        private static async Task<List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>> TestCoin(CurrencySymbol symbol, List<string> inputAddresses, int repeatCount = 10)
         {
+            var returnValue = new List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>();
+
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < repeatCount; i++)
             {
-                var addressDictionary = await blockchainClientManager.GetAddresses(symbol, addresses2);
+                var firstBalance = new Dictionary<string, decimal?>();
+
+                var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
 
                 foreach (var key in addressDictionary.Keys)
                 {
-                    var addresses = addressDictionary[key];
-                    foreach (var address in addresses)
+                    var outputAddresses = addressDictionary[key].ToList();
+                    foreach (var address in outputAddresses)
+                    {
+                        Assert.AreEqual(inputAddresses.Count, outputAddresses.Count, "The number of addresses returned was not the same as the number of addresses called");
+
+                        for (var x = 0; x < inputAddresses.Count; x++)
+                        {
+                            Assert.AreEqual(inputAddresses[x].ToLower(), outputAddresses[x].Address.ToLower(), "An inputted address turned out to be different to the outputted address");
+                        }
+
                         Assert.IsTrue(address.IsUnused.HasValue || address.TransactionCount.HasValue, "Can't tell if the address has transactions");
+
+                        Console.WriteLine($"Address: {address.Address} Balance: {address.Balance} Transaction Count: {address.TransactionCount} Is Unused: {address.IsUnused}");
+
+                        if (!firstBalance.ContainsKey(address.Address))
+                        {
+                            firstBalance.Add(address.Address, address.Balance);
+                        }
+                        else
+                        {
+                            //Ensure the balance doesn't change on subsequent calls
+                            Assert.AreEqual(firstBalance[address.Address], address.Balance, "The first balance returned doesn't match a subsequent balance");
+                        }
+                    }
+
+                    returnValue.Add(addressDictionary);
                 }
             }
+
+            return returnValue;
         }
     }
 }

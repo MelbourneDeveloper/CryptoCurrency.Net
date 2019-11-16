@@ -5,6 +5,6 @@ namespace CryptoCurrency.Net.Model.Insight
     public class Address
     {
         public decimal balance { get; set; }
-        public List<string> transactions { get; set; }
+        public List<string> transactions { get; } = new List<string>();
     }
 }

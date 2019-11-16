@@ -10,5 +10,17 @@ namespace CryptoCurrency.Net.Model.BTCMarkets
         {
             ErrorResult = errorResult;
         }
+
+        public BTCMarketsException()
+        {
+        }
+
+        public BTCMarketsException(string message) : base(message)
+        {
+        }
+
+        public BTCMarketsException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
+using System;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -14,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Properties
-        protected override string BaseUriPath => "https://digiexplorer.info/";
+        protected override Uri BaseUriPath => new Uri("https://digiexplorer.info/");
 
         protected override string AddressQueryStringBase => "/api/addr/";
         #endregion

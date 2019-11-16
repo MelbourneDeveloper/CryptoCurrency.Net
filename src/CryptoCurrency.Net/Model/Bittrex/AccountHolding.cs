@@ -11,7 +11,7 @@ namespace CryptoCurrency.Net.Model.Bittrex
     public class GetBalancesResult
     {
         public bool success { get; set; }
-        public List<AccountHolding> result { get; set; }
+        public List<AccountHolding> result { get; } = new List<AccountHolding>();
     }
 
 }

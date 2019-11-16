@@ -35,13 +35,13 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         protected JSONRPCClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = restClientFactory.CreateRESTClient(new Uri(BaseUriPath));
+            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseUriPath);
             Currency = currency;
         }
         #endregion
 
         #region Protected Overridable Properties
-        protected abstract string BaseUriPath { get; }
+        protected abstract Uri BaseUriPath { get; }
         #endregion
 
         #region Func
@@ -113,7 +113,7 @@ namespace CryptoCurrency.Net.APIClients
 
         public async Task<IEnumerable<ResultBase>> PostAsync(IEnumerable<RequestBase> requests)
         {
-            return await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null);
+            return await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null, default);
         }
 
         public async Task<IList<GetTokenBalanceResult>> GetTokenBalances(IList<GetTokenBalanceArgs> tokenBalanceArgsList)

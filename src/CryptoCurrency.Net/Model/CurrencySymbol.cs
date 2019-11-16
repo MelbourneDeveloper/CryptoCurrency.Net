@@ -67,6 +67,7 @@ namespace CryptoCurrency.Net.Model
         public const string DigiByteSymbolName = "DGB";
         public const string DogeCoinSymbolName = "DOGE";
         public const string VertCoinSymbolName = "VTC";
+        public const string TronSymbolName = "TRX";
 
         public static CurrencySymbol Bitcoin { get; } = new CurrencySymbol(BitcoinSymbolName);
         public static CurrencySymbol Litecoin { get; } = new CurrencySymbol(LitecoinSymbolName);
@@ -84,6 +85,7 @@ namespace CryptoCurrency.Net.Model
         public static CurrencySymbol Ripple { get; } = new CurrencySymbol(RippleSymbolName);
         public static CurrencySymbol Neo { get; } = new CurrencySymbol(NEOSymbolName);
         public static CurrencySymbol Stellar { get; } = new CurrencySymbol(StellerSymbolName);
+        public static CurrencySymbol Tron { get; } = new CurrencySymbol(TronSymbolName);
         #endregion
 
         #region Constructor
