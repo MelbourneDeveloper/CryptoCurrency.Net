@@ -1,4 +1,7 @@
 # CryptoCurrency.Net
+
+[![Build Status](https://dev.azure.com/christianfindlay0657/christian_findlay/_apis/build/status/MelbourneDeveloper.CryptoCurrency.Net?branchName=master)](https://dev.azure.com/christianfindlay0657/christian_findlay/_build/latest?definitionId=3&branchName=master)
+
 Cross platform C# library for general Crypto Currency functionality, communicating with Cryptocurrency exchanges, and Blockchain APIs.
 
 This library is designed for any project that works with cryptocurrency in any way. It attempts to put a layer over several aspects of querying the blockchain such as getting address balances, transactions and so on.

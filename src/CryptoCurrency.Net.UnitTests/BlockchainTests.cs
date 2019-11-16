@@ -93,7 +93,14 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
         {
-            await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            var result = await TestCoin(CurrencySymbol.BitcoinCash, 
+                new List<string> 
+                { 
+                    "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p",
+                    BCH.AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address, 
+                    BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address, 
+                    "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" 
+                });
         }
 
         [TestMethod]
@@ -148,12 +155,16 @@ namespace CryptoCurrency.Net.UnitTests
             }
         }
 
-        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses,int repeatCount = 10)
+        private static async Task<List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>> TestCoin(CurrencySymbol symbol, List<string> inputAddresses, int repeatCount = 10)
         {
+            var returnValue = new List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>();
+
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
 
             for (var i = 0; i < repeatCount; i++)
             {
+                var firstBalance = new Dictionary<string, decimal?>();
+
                 var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
 
                 foreach (var key in addressDictionary.Keys)
@@ -171,9 +182,23 @@ namespace CryptoCurrency.Net.UnitTests
                         Assert.IsTrue(address.IsUnused.HasValue || address.TransactionCount.HasValue, "Can't tell if the address has transactions");
 
                         Console.WriteLine($"Address: {address.Address} Balance: {address.Balance} Transaction Count: {address.TransactionCount} Is Unused: {address.IsUnused}");
+
+                        if (!firstBalance.ContainsKey(address.Address))
+                        {
+                            firstBalance.Add(address.Address, address.Balance);
+                        }
+                        else
+                        {
+                            //Ensure the balance doesn't change on subsequent calls
+                            Assert.AreEqual(firstBalance[address.Address], address.Balance, "The first balance returned doesn't match a subsequent balance");
+                        }
                     }
+
+                    returnValue.Add(addressDictionary);
                 }
             }
+
+            return returnValue;
         }
     }
 }

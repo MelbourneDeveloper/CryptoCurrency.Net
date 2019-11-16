@@ -26,6 +26,11 @@ namespace CryptoCurrency.Net.APIClients
         #region Func
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
+            //30x per second is ok
+            var delay = 60000 / 29;
+
+            await Task.Delay(delay);
+
             var json = await RESTClient.GetAsync<string>($"/bitcoin-cash/dashboards/address/{address}");
             var baseObject = (JObject)JsonConvert.DeserializeObject(json);
             var dataObject = baseObject["data"];
