@@ -92,6 +92,13 @@ namespace CryptoCurrency.Net.UnitTests
             var addresses = await TestCoin(CurrencySymbol.DogeCoin, new List<string> { "DNV9WBignnoW4QGfxUmtwiVybed2LG9efq", "D5REemsjWX3ihGyp4MaRhRnp7z94NDAwfW" });
         }
 
+        //Not supported
+        //[TestMethod]
+        //public async Task GetNEOAddresses()
+        //{
+        //    var addresses = await TestCoin(CurrencySymbol.Neo, new List<string> { "AR5zQt2P6t1GCH9ZSmEWUjZMy2Z7AfULN4" });
+        //}
+
         [TestMethod]
         public async Task GetEmptyRippleAddress()
         {
