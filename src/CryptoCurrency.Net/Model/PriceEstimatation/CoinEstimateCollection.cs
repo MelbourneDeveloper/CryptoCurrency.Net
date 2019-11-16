@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 namespace CryptoCurrency.Net.Model.PriceEstimatation
 {
     [Serializable]
-    public class CoinEstimateList : ObservableCollection<CoinEstimate>
+    public class CoinEstimateCollection : ObservableCollection<CoinEstimate>
     {
 
     }

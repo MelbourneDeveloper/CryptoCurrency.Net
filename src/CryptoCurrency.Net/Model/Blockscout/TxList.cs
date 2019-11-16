@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+#pragma warning disable CA2227 // Collection properties should be read only
+
 namespace CryptoCurrency.Net.Model.Blockscout
 {
     public class TxListResult
@@ -36,3 +38,4 @@ namespace CryptoCurrency.Net.Model.Blockscout
         public string Address { get; set; }
     }
 }
+#pragma warning restore CA2227 // Collection properties should be read only
