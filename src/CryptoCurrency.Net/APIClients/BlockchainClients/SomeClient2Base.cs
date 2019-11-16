@@ -63,7 +63,7 @@ namespace CryptoCurrency.Net.APIClients
 
             foreach (var address in getAddressesArgs.Addresses)
             {
-                var addressInfo = retVal.FirstOrDefault(a => string.Equals(a.Address, address, StringComparison.CurrentCultureIgnoreCase));
+                var addressInfo = retVal.FirstOrDefault(a => string.Equals(a.Address, address, StringComparison.OrdinalIgnoreCase));
                 if (addressInfo == null)
                 {
                     //The server did not return a result for this address. This may be that he address is invalid but more likely that is just not used, so just report that

@@ -2,6 +2,7 @@
 
 namespace CryptoCurrency.Net.Model.Tronscan
 {
+#pragma warning disable CA1056 // Uri properties should not be strings
     public class Trc20tokenBalances
     {
         public string symbol { get; set; }
@@ -107,3 +108,5 @@ namespace CryptoCurrency.Net.Model.Tronscan
         public Representative representative { get; set; }
     }
 }
+
+#pragma warning restore CA1056 // Uri properties should not be strings

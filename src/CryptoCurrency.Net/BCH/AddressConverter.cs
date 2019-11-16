@@ -116,6 +116,8 @@ namespace CryptoCurrency.Net.BCH
 
         public static AddressInfo ToNewFormat(string fromAddress, bool addPrefix)
         {
+            if (fromAddress == null) throw new ArgumentNullException(nameof(fromAddress));
+
             bool isP2PKH;
             bool mainnet;
 
@@ -220,6 +222,8 @@ namespace CryptoCurrency.Net.BCH
 
         public static AddressInfo ToOldFormat(string fromAddress)
         {
+            if (fromAddress == null) throw new ArgumentNullException(nameof(fromAddress));
+
             fromAddress = fromAddress.ToLower();
             if (fromAddress.Length != 54 && fromAddress.Length != 42 && fromAddress.Length != 50)
             {

@@ -42,8 +42,8 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 
                 var allProperties = fiatNode.First.Children().Cast<JProperty>().ToList();
 
-                var change24HourProperty = allProperties.FirstOrDefault(p => string.Compare(p.Name, "CHANGEPCT24HOUR", true) == 0);
-                var priceProperty = allProperties.FirstOrDefault(p => string.Compare(p.Name, "PRICE", true) == 0);
+                var change24HourProperty = allProperties.FirstOrDefault(p => string.Compare(p.Name, "CHANGEPCT24HOUR", StringComparison.OrdinalIgnoreCase) == 0);
+                var priceProperty = allProperties.FirstOrDefault(p => string.Compare(p.Name, "PRICE", StringComparison.OrdinalIgnoreCase) == 0);
 
                 var price = (decimal)priceProperty.Value;
                 var change24Hour = (decimal)change24HourProperty.Value;

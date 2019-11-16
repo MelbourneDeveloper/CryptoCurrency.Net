@@ -111,7 +111,7 @@ namespace CryptoCurrency.Net.Model
 
         public override bool Equals(object obj)
         {
-            return !(obj is CurrencySymbol currencySymbol) ? false : string.Equals(currencySymbol.Name, Name);
+            return !(obj is CurrencySymbol currencySymbol) ? false : string.Equals(currencySymbol.Name, Name, StringComparison.Ordinal);
         }
 
         public override int GetHashCode()

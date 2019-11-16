@@ -32,6 +32,8 @@ namespace CryptoCurrency.Net.APIClients
         #region Func Overrides
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
+            if (address == null) throw new ArgumentNullException(nameof(address));
+
             //https://www.blockcypher.com/dev/bitcoin/#rate-limits-and-tokens
             await Task.Delay(MillisecondsDelay);
 

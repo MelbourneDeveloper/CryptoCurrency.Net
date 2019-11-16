@@ -51,9 +51,9 @@ namespace CryptoCurrency.Net.Model
             switch (obj)
             {
                 case BlockChainAddressInformation blockChainAddressInformation:
-                    return Address.Equals(blockChainAddressInformation.Address, StringComparison.CurrentCultureIgnoreCase);
+                    return Address.Equals(blockChainAddressInformation.Address, StringComparison.OrdinalIgnoreCase);
                 case string objAsString:
-                    return Address.Equals(objAsString, StringComparison.CurrentCultureIgnoreCase);
+                    return Address.Equals(objAsString, StringComparison.OrdinalIgnoreCase);
             }
 
             return false;
