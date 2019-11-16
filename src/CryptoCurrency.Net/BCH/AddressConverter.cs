@@ -4,11 +4,14 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
+#pragma warning disable CA1307 // Specify StringComparison
+
 namespace CryptoCurrency.Net.BCH
 {
     /// <summary>
     /// Converts addresses To/From the legacy/new address format. Thanks heaps to this: https://github.com/cashaddress/SharpCashAddr/blob/master/SharpCashAddr/SharpCashAddr.cs
     /// </summary>
+    /// 
     public static class AddressConverter
     {
         #region Fields
@@ -43,7 +46,7 @@ namespace CryptoCurrency.Net.BCH
             for (uint i = 0; i < 42; i++)
             {
                 var c0 = startValue >> 35;
-                startValue = ((startValue & 0x07ffffffff) << 5) ^ ((ulong)input[i]);
+                startValue = ((startValue & 0x07ffffffff) << 5) ^ input[i];
                 if ((c0 & 0x01) != 0)
                 {
                     startValue ^= 0x98f2bc8e61;
@@ -67,38 +70,38 @@ namespace CryptoCurrency.Net.BCH
             }
             return startValue ^ 1;
         }
-        private static byte[] convertBitsEightToFive(byte[] bytes)
+        private static byte[] ConvertBitsEightToFive(byte[] bytes)
         {
             var converted = new byte[34 + 8];
             int a1 = 0, a2 = 0;
             for (; a1 < 32; a1 += 8, a2 += 5)
             {
                 converted[a1] = (byte)(bytes[a2] >> 3);
-                converted[a1 + 1] = (byte)(bytes[a2] % 8 << 2 | bytes[a2 + 1] >> 6);
-                converted[a1 + 2] = (byte)(bytes[a2 + 1] % 64 >> 1);
-                converted[a1 + 3] = (byte)(bytes[a2 + 1] % 2 << 4 | bytes[a2 + 2] >> 4);
-                converted[a1 + 4] = (byte)(bytes[a2 + 2] % 16 << 1 | bytes[a2 + 3] >> 7);
-                converted[a1 + 5] = (byte)(bytes[a2 + 3] % 128 >> 2);
-                converted[a1 + 6] = (byte)(bytes[a2 + 3] % 4 << 3 | bytes[a2 + 4] >> 5);
+                converted[a1 + 1] = (byte)(((bytes[a2] % 8) << 2) | (bytes[a2 + 1] >> 6));
+                converted[a1 + 2] = (byte)((bytes[a2 + 1] % 64) >> 1);
+                converted[a1 + 3] = (byte)(((bytes[a2 + 1] % 2) << 4) | (bytes[a2 + 2] >> 4));
+                converted[a1 + 4] = (byte)(((bytes[a2 + 2] % 16) << 1) | (bytes[a2 + 3] >> 7));
+                converted[a1 + 5] = (byte)((bytes[a2 + 3] % 128) >> 2);
+                converted[a1 + 6] = (byte)(((bytes[a2 + 3] % 4) << 3) | (bytes[a2 + 4] >> 5));
                 converted[a1 + 7] = (byte)(bytes[a2 + 4] % 32);
             }
             converted[a1] = (byte)(bytes[a2] >> 3);
-            converted[a1 + 1] = (byte)(bytes[a2] % 8 << 2);
+            converted[a1 + 1] = (byte)((bytes[a2] % 8) << 2);
             return converted;
         }
-        private static byte[] convertBitsFiveToEight(byte[] bytes)
+        private static byte[] ConvertBitsFiveToEight(byte[] bytes)
         {
-            var converted = new byte[(1 + 20) + 4];
+            var converted = new byte[1 + 20 + 4];
             int a1 = 0, a2 = 0;
             for (; a2 < 32; a1 += 5, a2 += 8)
             {
-                converted[a1] = (byte)(bytes[a2] << 3 | bytes[a2 + 1] >> 2);
-                converted[a1 + 1] = (byte)(bytes[a2 + 1] % 4 << 6 | bytes[a2 + 2] << 1 | bytes[a2 + 3] >> 4);
-                converted[a1 + 2] = (byte)(bytes[a2 + 3] % 16 << 4 | bytes[a2 + 4] >> 1);
-                converted[a1 + 3] = (byte)(bytes[a2 + 4] % 2 << 7 | bytes[a2 + 5] << 2 | bytes[a2 + 6] >> 3);
-                converted[a1 + 4] = (byte)(bytes[a2 + 6] % 8 << 5 | bytes[a2 + 7]);
+                converted[a1] = (byte)((bytes[a2] << 3) | (bytes[a2 + 1] >> 2));
+                converted[a1 + 1] = (byte)(((bytes[a2 + 1] % 4) << 6) | (bytes[a2 + 2] << 1) | (bytes[a2 + 3] >> 4));
+                converted[a1 + 2] = (byte)(((bytes[a2 + 3] % 16) << 4) | (bytes[a2 + 4] >> 1));
+                converted[a1 + 3] = (byte)(((bytes[a2 + 4] % 2) << 7) | (bytes[a2 + 5] << 2) | (bytes[a2 + 6] >> 3));
+                converted[a1 + 4] = (byte)(((bytes[a2 + 6] % 8) << 5) | bytes[a2 + 7]);
             }
-            converted[a1] = (byte)(bytes[a2] << 3 | bytes[a2 + 1] >> 2);
+            converted[a1] = (byte)((bytes[a2] << 3) | (bytes[a2 + 1] >> 2));
             if (bytes[a2 + 1] % 4 != 0)
                 throw new CashAddrConversionException("Invalid CashAddr.");
             return converted;
@@ -185,12 +188,16 @@ namespace CryptoCurrency.Net.BCH
             {
                 throw new CashAddrConversionException("Old address is longer or shorter than expected.");
             }
-            var hasher = SHA256.Create();
-            var checksum = hasher.ComputeHash(hasher.ComputeHash(addrBytes, 0, 21));
-            if (addrBytes[21] != checksum[0] || addrBytes[22] != checksum[1] || addrBytes[23] != checksum[2] || addrBytes[24] != checksum[3])
-                throw new CashAddrConversionException("Address checksum doesn't match. Have you made a mistake while typing it?");
+
+            using (var hasher = SHA256.Create())
+            {
+                var checksum = hasher.ComputeHash(hasher.ComputeHash(addrBytes, 0, 21));
+                if (addrBytes[21] != checksum[0] || addrBytes[22] != checksum[1] || addrBytes[23] != checksum[2] || addrBytes[24] != checksum[3])
+                    throw new CashAddrConversionException("Address checksum doesn't match. Have you made a mistake while typing it?");
+            }
+
             addrBytes[0] = (byte)(isP2PKH ? 0x00 : 0x08);
-            var cashAddr = convertBitsEightToFive(addrBytes);
+            var cashAddr = ConvertBitsEightToFive(addrBytes);
 
             var stringBuilder = new StringBuilder();
             if (addPrefix)
@@ -264,7 +271,7 @@ namespace CryptoCurrency.Net.BCH
             }
             if (PolyMod(decodedBytes, (ulong)(mainnet ? 1058337025301 : 584719417569)) != 0)
                 throw new CashAddrConversionException("Address checksum doesn't match. Have you made a mistake while typing it?");
-            decodedBytes = convertBitsFiveToEight(decodedBytes);
+            decodedBytes = ConvertBitsFiveToEight(decodedBytes);
             bool isP2PKH;
             switch (decodedBytes[0])
             {
@@ -286,13 +293,17 @@ namespace CryptoCurrency.Net.BCH
             else
                 // Warning! Bigger than 0x80.
                 decodedBytes[0] = 0xc4;
-            var hasher = SHA256.Create();
-            var checksum = hasher.ComputeHash(hasher.ComputeHash(decodedBytes, 0, 21));
-            decodedBytes[21] = checksum[0];
-            decodedBytes[22] = checksum[1];
-            decodedBytes[23] = checksum[2];
-            decodedBytes[24] = checksum[3];
-            var ret = new System.Text.StringBuilder(40);
+
+            using (var hasher = SHA256.Create())
+            {
+                var checksum = hasher.ComputeHash(hasher.ComputeHash(decodedBytes, 0, 21));
+                decodedBytes[21] = checksum[0];
+                decodedBytes[22] = checksum[1];
+                decodedBytes[23] = checksum[2];
+                decodedBytes[24] = checksum[3];
+            }
+
+            var ret = new StringBuilder(40);
             for (var numZeros = 0; numZeros < 25 && decodedBytes[numZeros] == 0; numZeros++)
                 ret.Append("1");
             {
@@ -321,3 +332,5 @@ namespace CryptoCurrency.Net.BCH
         #endregion
     }
 }
+
+#pragma warning restore CA1307 // Specify StringComparison
