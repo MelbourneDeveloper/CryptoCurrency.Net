@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+#pragma warning disable CA2227 
+
 namespace CryptoCurrency.Net.Model.CardanoExplorer
 {
     public class CaBalance
@@ -41,3 +43,4 @@ namespace CryptoCurrency.Net.Model.CardanoExplorer
         public Right Right { get; set; }
     }
 }
+#pragma warning restore CA2227

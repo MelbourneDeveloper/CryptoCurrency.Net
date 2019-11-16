@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+#pragma warning disable CA2227 
+
 namespace CryptoCurrency.Net.Model.Blockscout
 {
     public class BalanceMultiResult
@@ -15,3 +17,4 @@ namespace CryptoCurrency.Net.Model.Blockscout
         public string message { get; set; }
     }
 }
+#pragma warning restore CA2227 

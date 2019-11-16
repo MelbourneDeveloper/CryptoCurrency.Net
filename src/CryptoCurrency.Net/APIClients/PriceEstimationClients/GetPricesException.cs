@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     [Serializable]
-    internal class GetPricesException : Exception
+    public class GetPricesException : Exception
     {
         public GetPricesException()
         {

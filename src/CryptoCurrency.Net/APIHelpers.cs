@@ -19,7 +19,6 @@ namespace CryptoCurrency.Net.Helpers
             HMACEightBit,
             HMACNineBit,
             HMACThreeEightFour,
-            Md5
         }
         #endregion
 
@@ -40,8 +39,6 @@ namespace CryptoCurrency.Net.Helpers
                     return new HMACSHA512();
                 case HashAlgorithmType.HMACThreeEightFour:
                     return new HMACSHA384();
-                //case HashAlgorithmType.Md5:
-                //    return MD5.Create();
                 default:
                     throw new NotImplementedException();
             }
@@ -67,6 +64,8 @@ namespace CryptoCurrency.Net.Helpers
 
         public static byte[] GetHashAsBytes(string message, string key, HashAlgorithmType hashAlgorithmType, Encoding encoding)
         {
+            if (encoding == null) throw new ArgumentNullException(nameof(encoding));
+
             var messageBytes = encoding.GetBytes(message);
             var keyBytes = encoding.GetBytes(key);
             return GetHashAsBytes(messageBytes, keyBytes, hashAlgorithmType);
@@ -98,7 +97,7 @@ namespace CryptoCurrency.Net.Helpers
                 var value = requestParameters[key];
 
                 var resultValue = value != null && value.GetType().IsArray
-                    ? !(value is string[] array) || !array.Any() ? string.Empty : string.Join(",", array.Select(tt =>$"{tt}"))
+                    ? !(value is string[] array) || !array.Any() ? string.Empty : string.Join(",", array.Select(tt => $"{tt}"))
                     : value is string s ? s.Replace("\r", "").Replace("\n", "") : value;
 
                 input.AppendFormat(CultureInfo.InvariantCulture, "{0}={1}", key, resultValue);

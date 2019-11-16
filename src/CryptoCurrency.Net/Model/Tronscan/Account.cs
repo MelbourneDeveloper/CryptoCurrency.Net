@@ -11,7 +11,7 @@ namespace CryptoCurrency.Net.Model.Tronscan
         public string name { get; set; }
         public string contract_address { get; set; }
     }
-  
+
     public class Bandwidth
     {
         public int energyRemaining { get; set; }

@@ -5,3 +5,5 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1030:Use events where appropriate", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.Model.ModelBase.RaisePropertyChanged(System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1055:Uri return values should not be strings", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.APIClients.SomeClient2Base.GetAddressesUrlPart(System.Collections.Generic.IEnumerable{System.String})~System.String")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~P:CryptoCurrency.Net.Model.CurrencySymbol.Name")]

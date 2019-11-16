@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace CryptoCurrency.Net.APIClients
 {
     [Serializable]
-    internal class GetHoldingsException : Exception
+    public class GetHoldingsException : Exception
     {
         public GetHoldingsException()
         {

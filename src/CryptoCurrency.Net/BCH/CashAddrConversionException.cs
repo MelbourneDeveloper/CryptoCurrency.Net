@@ -2,6 +2,7 @@
 
 namespace CryptoCurrency.Net.BCH
 {
+    [Serializable]
     public class CashAddrConversionException : Exception
     {
         public CashAddrConversionException()
