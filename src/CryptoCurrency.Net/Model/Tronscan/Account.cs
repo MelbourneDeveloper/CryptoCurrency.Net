@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 
+#pragma warning disable CA2227 // Collection properties should be read only
+#pragma warning disable CA1056 // Uri properties should not be strings
+
 namespace CryptoCurrency.Net.Model.Tronscan
 {
-#pragma warning disable CA1056 // Uri properties should not be strings
     public class Trc20tokenBalances
     {
         public string symbol { get; set; }
@@ -109,4 +111,5 @@ namespace CryptoCurrency.Net.Model.Tronscan
     }
 }
 
+#pragma warning restore CA2227 // Collection properties should be read only
 #pragma warning restore CA1056 // Uri properties should not be strings

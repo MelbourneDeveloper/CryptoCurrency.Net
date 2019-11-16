@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+#pragma warning disable CA2227
+
 namespace CryptoCurrency.Net.Model.Tronscan
 {
     public class ContractData
@@ -34,3 +36,5 @@ namespace CryptoCurrency.Net.Model.Tronscan
         public List<Datum> data { get; set; }
     }
 }
+
+#pragma warning restore CA2227

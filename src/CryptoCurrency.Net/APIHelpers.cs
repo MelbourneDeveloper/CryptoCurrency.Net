@@ -85,10 +85,10 @@ namespace CryptoCurrency.Net.Helpers
             }
         }
 
-#pragma warning disable CA1054
         public static string GetSignature(Uri baseUri, string url, IDictionary<string, object> requestParameters, string apiSecret, HashAlgorithmType hmacshaType)
-#pragma warning restore CA1054
         {
+            if (requestParameters == null) throw new ArgumentNullException(nameof(requestParameters));
+
             var input = new StringBuilder(new Uri(baseUri, url).ToString());
 
             foreach (var key in requestParameters.Keys)
