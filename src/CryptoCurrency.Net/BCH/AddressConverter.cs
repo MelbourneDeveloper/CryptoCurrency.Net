@@ -19,7 +19,7 @@ namespace CryptoCurrency.Net.BCH
         private const string CHARSET_BASE58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
         private const string CHARSET_CASHADDR = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
         // https://play.golang.org/p/zZhIxabo-AQ
-        private static readonly sbyte[] DICT_CASHADDR = new sbyte[128]{
+        private static readonly sbyte[] DICT_CASHADDR = {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -29,7 +29,7 @@ namespace CryptoCurrency.Net.BCH
             -1, 29, -1, 24, 13, 25,  9,  8, 23, -1, 18, 22, 31, 27, 19, -1,
              1,  0,  3, 16, 11, 28, 12, 14,  6,  4,  2, -1, -1, -1, -1, -1
         };
-        private static readonly sbyte[] DICT_BASE58 = new sbyte[128]{
+        private static readonly sbyte[] DICT_BASE58 = {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -125,9 +125,9 @@ namespace CryptoCurrency.Net.BCH
             // BigInteger wouldn't be needed, but that would result in the use a MIT License
             var address = new BigInteger(0);
             var baseFiftyEight = new BigInteger(58);
-            for (var x = 0; x < fromAddress.Length; x++)
+            foreach (var character in fromAddress)
             {
-                int value = DICT_BASE58[fromAddress[x]];
+                int value = DICT_BASE58[character];
                 if (value != -1)
                 {
                     address = BigInteger.Multiply(address, baseFiftyEight);
@@ -180,10 +180,8 @@ namespace CryptoCurrency.Net.BCH
                     isP2PKH = false;
                     mainnet = false;
                     break;
-                case 0x1c:
-                // BitPay P2PKH, obsolete!
-                case 0x28:
-                // BitPay P2SH, obsolete!
+                // 0x1c BitPay P2PKH, obsolete!
+                // 0x28 BitPay P2SH, obsolete!
                 default:
                     throw new CashAddrConversionException("Unexpected address byte.");
             }
@@ -214,9 +212,9 @@ namespace CryptoCurrency.Net.BCH
             {
                 cashAddr[i + 34] = (byte)((mod >> (5 * (7 - i))) & 0x1f);
             }
-            for (var i = 0; i < cashAddr.Length; i++)
+            foreach (var character in cashAddr)
             {
-                stringBuilder.Append(CHARSET_CASHADDR[cashAddr[i]]);
+                stringBuilder.Append(CHARSET_CASHADDR[character]);
             }
             return new AddressInfo { Address = stringBuilder.ToString(), IsMainnet = mainnet, IsP2PKH = isP2PKH };
         }

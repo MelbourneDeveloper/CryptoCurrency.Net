@@ -29,10 +29,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             return retVal;
         };
 
-        protected virtual Func<GetTransactionsAtAddressArgs, Task<TransactionsAtAddress>> GetTransactionsAtAddressFunc { get; } = getTransactionsAtAddressArgs =>
-        {
-            return Task.FromResult<TransactionsAtAddress>(null);
-        };
+        private Func<GetTransactionsAtAddressArgs, Task<TransactionsAtAddress>> GetTransactionsAtAddressFunc { get; } = getTransactionsAtAddressArgs => Task.FromResult<TransactionsAtAddress>(null);
         #endregion
 
         #region Constructor

@@ -74,44 +74,40 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
             Exception lastException = null;
 
-            if (_BlockchainClientsByCurrencySymbol.TryGetValue(currencySymbol, out var blockChainClients))
+            if (!_BlockchainClientsByCurrencySymbol.TryGetValue(currencySymbol, out var blockChainClients))
+                throw new NotImplementedException(
+                    $"The currency {currencySymbol} is not currently supported, or the Blockchain services are out of action.",
+                    lastException);
+
+            var capableclientTypes = _CapabilitiesByClientType.Keys.Where(clientType => _CapabilitiesByClientType[clientType] != null);
+
+            var capableClients = blockChainClients.Where(bcc => capableclientTypes.Contains(bcc.GetType()));
+
+            //Don't need to worry about CanGetMultipleAddresses because this will be faster so it will automatically bubble to the top
+
+            var clients = capableClients.OrderByDescending(bcc => bcc.SuccessRate).ThenBy(bcc => bcc.AverageCallTimespan.TotalMilliseconds).ToList();
+
+            ShuffleNotTestedClientToFirst(clients);
+
+            foreach (var client in clients)
             {
-                var capableclientTypes = _CapabilitiesByClientType.Keys.Where(clientType => _CapabilitiesByClientType[clientType] != null);
-
-                var capableClients = blockChainClients.Where(bcc => capableclientTypes.Contains(bcc.GetType()));
-
-                //Don't need to worry about CanGetMultipleAddresses because this will be faster so it will automatically bubble to the top
-
-                var clients = capableClients.OrderByDescending(bcc => bcc.SuccessRate).ThenBy(bcc => bcc.AverageCallTimespan.TotalMilliseconds).ToList();
-
-                ShuffleNotTestedClientToFirst(clients);
-
-                foreach (var client in clients)
+                try
                 {
                     try
                     {
-                        try
+                        var blockchainAddressInformations = await client.GetAddresses(addressList);
+                        retVal.Add(currencySymbol, blockchainAddressInformations);
+
+                        if (!currencySymbol.Equals(CurrencySymbol.Ethereum)) return retVal;
+
+                        var tokenBalances = await new InfuraJSONRPCClient(CurrencySymbol.Ethereum, _RESTClientFactory).GetTokenBalances(blockchainAddressInformations.Select(b => b.Address));
+
+                        foreach (var tokenBalance in tokenBalances)
                         {
-                            var blockchainAddressInformations = await client.GetAddresses(addressList);
-                            retVal.Add(currencySymbol, blockchainAddressInformations);
-
-                            if (currencySymbol.Equals(CurrencySymbol.Ethereum))
-                            {
-                                var tokenBalances = await new InfuraJSONRPCClient(CurrencySymbol.Ethereum, _RESTClientFactory).GetTokenBalances(blockchainAddressInformations.Select(b => b.Address));
-
-                                foreach (var tokenBalance in tokenBalances)
-                                {
-                                    retVal.Add(tokenBalance.CurrencySymbol, new List<BlockChainAddressInformation> { new BlockChainAddressInformation(tokenBalance.EthereumAddress, tokenBalance.Balance, false) });
-                                }
-                            }
-
-                            return retVal;
+                            retVal.Add(tokenBalance.CurrencySymbol, new List<BlockChainAddressInformation> { new BlockChainAddressInformation(tokenBalance.EthereumAddress, tokenBalance.Balance, false) });
                         }
-                        catch (Exception ex)
-                        {
-                            lastException = ex;
-                            Logger.Log($"Get Addresses failed. Client: {client.GetType().FullName}. Symbol: {currencySymbol}", ex, BlockchainClientBase.LogSection);
-                        }
+
+                        return retVal;
                     }
                     catch (Exception ex)
                     {
@@ -119,7 +115,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                         Logger.Log($"Get Addresses failed. Client: {client.GetType().FullName}. Symbol: {currencySymbol}", ex, BlockchainClientBase.LogSection);
                     }
                 }
-
+                catch (Exception ex)
+                {
+                    lastException = ex;
+                    Logger.Log($"Get Addresses failed. Client: {client.GetType().FullName}. Symbol: {currencySymbol}", ex, BlockchainClientBase.LogSection);
+                }
             }
 
             //TODO: reimplement code for taking stabs on coins that we don't know about

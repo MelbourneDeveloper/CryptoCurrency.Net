@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Helpers;
@@ -26,14 +27,8 @@ namespace CryptoCurrency.Net.APIClients
             var result = await GetBalances();
             if (result.success)
             {
-                foreach (var accountHolding in result.result)
+                foreach (var accountHolding in result.result.Where(accountHolding => accountHolding.Balance != 0))
                 {
-                    if (accountHolding.Balance == 0)
-                    {
-                        //Don't load 0 balances
-                        continue;
-                    }
-
                     retVal.Result.Add(new CurrencyHolding(new CurrencySymbol(accountHolding.Currency), new BlockChainAddressInformation(null, accountHolding.Balance, false)));
                 }
             }
