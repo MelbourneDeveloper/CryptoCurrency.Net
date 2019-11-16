@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Model;
 
-namespace CryptoCurrency.Net
+namespace CryptoCurrency.Net.Abstractions.APIClients
 {
     public interface IExchangeAPIClient
     {

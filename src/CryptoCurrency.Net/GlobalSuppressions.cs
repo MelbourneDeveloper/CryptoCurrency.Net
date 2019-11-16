@@ -8,3 +8,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1055:Uri return values should not be strings", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.APIClients.SomeClient2Base.GetAddressesUrlPart(System.Collections.Generic.IEnumerable{System.String})~System.String")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~P:CryptoCurrency.Net.Model.CurrencySymbol.Name")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.Model.BTCMarkets.BTCMarketsException.#ctor(CryptoCurrency.Net.Model.BTCMarkets.ErrorResult)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.AddressManagement.AddressPathBase.ParseElement(System.String)~CryptoCurrency.Net.AddressManagement.AddressPathElement")]
+

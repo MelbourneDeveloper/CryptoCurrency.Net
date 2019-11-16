@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
 
-namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
+namespace CryptoCurrency.Net.Abstractions.APIClients
 {
     public interface IPriceEstimationClient
     {

@@ -40,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Abstractions\IEthereumTransaction.cs" />
+    <Compile Remove="Abstractions\ISignedEthereumTransaction.cs" />
+    <Compile Remove="Abstractions\ISignedTransaction.cs" />
+    <Compile Remove="Abstractions\ITransaction.cs" />
+    <Compile Remove="Abstractions\ITransactionSigner.cs" />
     <Compile Remove="APIClients\CoinspotClient.cs" />
     <Compile Remove="APIClients\CryptopiaClient.cs" />
     <Compile Remove="ConsoleAppIsolatedStoragePersister.cs" />
