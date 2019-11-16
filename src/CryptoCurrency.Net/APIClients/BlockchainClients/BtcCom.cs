@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.BCH;
 using CryptoCurrency.Net.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,7 +28,9 @@ namespace CryptoCurrency.Net.APIClients
         #region Overrides
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
         {
-            var addresses = getAddressesArgs.Addresses.Select(ad=> BCH.AddressConverter.cashAddrToOldAddr(ad).Address );
+            var blockChainAddressInformations = new List<BlockChainAddressInformation>();
+
+            var addresses = getAddressesArgs.Addresses.Select(ad => AddressConverter.ToOldFormat(ad).Address);
             var addressesString = string.Join(",", addresses);
             var json = await getAddressesArgs.RESTClient.GetAsync<string>($"v3/address/{addressesString}");
 
@@ -37,11 +40,17 @@ namespace CryptoCurrency.Net.APIClients
             foreach (var addressJToken in dataJToken)
             {
                 var address = addressJToken["address"].ToString();
-                address = BCH.AddressConverter.ToNewFormat(address).Address;
-                var balance = addressJToken["balance"];
+                decimal balance = long.Parse(addressJToken["balance"].ToString()) / CurrencySymbol.Satoshi ;
+
+                blockChainAddressInformations.Add(
+                new BlockChainAddressInformation
+                {
+                    Address = AddressConverter.ToNewFormat(address, false).Address,
+                    Balance = balance
+                });
             }
 
-            throw new NotImplementedException();
+            return blockChainAddressInformations;
         };
 
         public override Task<BlockChainAddressInformation> GetAddress(string address)
