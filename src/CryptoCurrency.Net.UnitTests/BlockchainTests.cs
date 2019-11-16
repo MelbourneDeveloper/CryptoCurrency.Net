@@ -87,6 +87,12 @@ namespace CryptoCurrency.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task GetDogeAddresses()
+        {
+            var addresses = await TestCoin(CurrencySymbol.DogeCoin, new List<string> { "DNV9WBignnoW4QGfxUmtwiVybed2LG9efq", "D5REemsjWX3ihGyp4MaRhRnp7z94NDAwfW" });
+        }
+
+        [TestMethod]
         public async Task GetEmptyRippleAddress()
         {
             var rippleClient = new RippleClient(CurrencySymbol.Ripple, new RESTClientFactory());
