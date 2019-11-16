@@ -93,7 +93,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
         {
-            await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address, "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            var result = await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address, "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
         }
 
         [TestMethod]
@@ -148,8 +148,10 @@ namespace CryptoCurrency.Net.UnitTests
             }
         }
 
-        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses, int repeatCount = 10)
+        private static async Task<List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>> TestCoin(CurrencySymbol symbol, List<string> inputAddresses, int repeatCount = 10)
         {
+            var returnValue = new List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>();
+
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
 
             for (var i = 0; i < repeatCount; i++)
@@ -184,8 +186,12 @@ namespace CryptoCurrency.Net.UnitTests
                             Assert.AreEqual(firstBalance[address.Address], address.Balance, "The first balance returned doesn't match a subsequent balance");
                         }
                     }
+
+                    returnValue.Add(addressDictionary);
                 }
             }
+
+            return returnValue;
         }
     }
 }
