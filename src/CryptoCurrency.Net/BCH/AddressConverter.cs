@@ -39,7 +39,7 @@ namespace CryptoCurrency.Net.BCH
         {
             for (uint i = 0; i < 42; i++)
             {
-                ulong c0 = startValue >> 35;
+                var c0 = startValue >> 35;
                 startValue = ((startValue & 0x07ffffffff) << 5) ^ ((ulong)input[i]);
                 if ((c0 & 0x01) != 0)
                 {
@@ -66,7 +66,7 @@ namespace CryptoCurrency.Net.BCH
         }
         private static byte[] convertBitsEightToFive(byte[] bytes)
         {
-            byte[] converted = new byte[34 + 8];
+            var converted = new byte[34 + 8];
             int a1 = 0, a2 = 0;
             for (; a1 < 32; a1 += 8, a2 += 5)
             {
@@ -85,7 +85,7 @@ namespace CryptoCurrency.Net.BCH
         }
         private static byte[] convertBitsFiveToEight(byte[] bytes)
         {
-            byte[] converted = new byte[(1 + 20) + 4];
+            var converted = new byte[(1 + 20) + 4];
             int a1 = 0, a2 = 0;
             for (; a2 < 32; a1 += 5, a2 += 8)
             {
@@ -101,12 +101,15 @@ namespace CryptoCurrency.Net.BCH
             return converted;
         }
 
-        public static string oldAddrToCashAddr(string oldAddress, out bool isP2PKH, out bool mainnet)
+        public static AddressInfo oldAddrToCashAddr(string oldAddress)
         {
+            bool isP2PKH;
+            bool mainnet;
+
             // BigInteger wouldn't be needed, but that would result in the use a MIT License
-            BigInteger address = new BigInteger(0);
-            BigInteger baseFiftyEight = new BigInteger(58);
-            for (int x = 0; x < oldAddress.Length; x++)
+            var address = new BigInteger(0);
+            var baseFiftyEight = new BigInteger(58);
+            for (var x = 0; x < oldAddress.Length; x++)
             {
                 int value = DICT_BASE58[oldAddress[x]];
                 if (value != -1)
@@ -119,9 +122,9 @@ namespace CryptoCurrency.Net.BCH
                     throw new CashAddrConversionException("Address contains unexpected character.");
                 }
             }
-            int numZeros = 0;
+            var numZeros = 0;
             for (; (numZeros < oldAddress.Length) && (oldAddress[numZeros] == Convert.ToChar("1")); numZeros++) { }
-            byte[] addrBytes = address.ToByteArray();
+            var addrBytes = address.ToByteArray();
             Array.Reverse(addrBytes);
             // Reminder, addrBytes was converted from BigInteger. So the first byte,
             // the sign byte should be skipped, **if exists**
@@ -172,26 +175,34 @@ namespace CryptoCurrency.Net.BCH
             {
                 throw new CashAddrConversionException("Old address is longer or shorter than expected.");
             }
-            SHA256 hasher = SHA256Managed.Create();
-            byte[] checksum = hasher.ComputeHash(hasher.ComputeHash(addrBytes, 0, 21));
+            var hasher = SHA256Managed.Create();
+            var checksum = hasher.ComputeHash(hasher.ComputeHash(addrBytes, 0, 21));
             if (addrBytes[21] != checksum[0] || addrBytes[22] != checksum[1] || addrBytes[23] != checksum[2] || addrBytes[24] != checksum[3])
                 throw new CashAddrConversionException("Address checksum doesn't match. Have you made a mistake while typing it?");
             addrBytes[0] = (byte)(isP2PKH ? 0x00 : 0x08);
-            byte[] cashAddr = convertBitsEightToFive(addrBytes);
+            var cashAddr = convertBitsEightToFive(addrBytes);
             var ret = new System.Text.StringBuilder(mainnet ? "bitcoincash:" : "bchtest:");
             // https://play.golang.org/p/sM_CE4AQ7Vp
-            ulong mod = PolyMod(cashAddr, (ulong)(mainnet ? 1058337025301 : 584719417569));
-            for (int i = 0; i < 8; ++i)
+            var mod = PolyMod(cashAddr, (ulong)(mainnet ? 1058337025301 : 584719417569));
+            for (var i = 0; i < 8; ++i)
             {
                 cashAddr[i + 34] = (byte)((mod >> (5 * (7 - i))) & 0x1f);
             }
-            for (int i = 0; i < cashAddr.Length; i++)
+            for (var i = 0; i < cashAddr.Length; i++)
             {
                 ret.Append(CHARSET_CASHADDR[cashAddr[i]]);
             }
-            return ret.ToString();
+            return new AddressInfo { Address = ret.ToString(), IsMainnet = mainnet, IsP2PKH = isP2PKH };
         }
-        public static string cashAddrToOldAddr(string cashAddr, out bool isP2PKH, out bool mainnet)
+
+        public class AddressInfo
+        {
+            public string Address { get; set; }
+            public bool IsP2PKH { get; set; }
+            public bool IsMainnet { get; set; }
+        }
+
+        public static AddressInfo cashAddrToOldAddr(string cashAddr)
         {
             cashAddr = cashAddr.ToLower();
             if (cashAddr.Length != 54 && cashAddr.Length != 42 && cashAddr.Length != 50)
@@ -201,6 +212,7 @@ namespace CryptoCurrency.Net.BCH
                 throw new CashAddrConversionException("Address to be decoded is longer or shorter than expected.");
             }
             int afterPrefix;
+            bool mainnet;
             if (cashAddr.StartsWith("bitcoincash:"))
             {
                 mainnet = true;
@@ -223,13 +235,13 @@ namespace CryptoCurrency.Net.BCH
                 else
                     throw new CashAddrConversionException("Unexpected colon character.");
             }
-            int max = afterPrefix + 42;
+            var max = afterPrefix + 42;
             if (max != cashAddr.Length)
             {
                 throw new CashAddrConversionException("Address to be decoded is longer or shorter than expected.");
             }
-            byte[] decodedBytes = new byte[42];
-            for (int i = afterPrefix; i < max; i++)
+            var decodedBytes = new byte[42];
+            for (var i = afterPrefix; i < max; i++)
             {
                 int value = DICT_CASHADDR[cashAddr[i]];
                 if (value != -1)
@@ -244,6 +256,7 @@ namespace CryptoCurrency.Net.BCH
             if (PolyMod(decodedBytes, (ulong)(mainnet ? 1058337025301 : 584719417569)) != 0)
                 throw new CashAddrConversionException("Address checksum doesn't match. Have you made a mistake while typing it?");
             decodedBytes = convertBitsFiveToEight(decodedBytes);
+            bool isP2PKH;
             switch (decodedBytes[0])
             {
                 case 0x00:
@@ -264,14 +277,14 @@ namespace CryptoCurrency.Net.BCH
             else
                 // Warning! Bigger than 0x80.
                 decodedBytes[0] = 0xc4;
-            SHA256 hasher = SHA256Managed.Create();
-            byte[] checksum = hasher.ComputeHash(hasher.ComputeHash(decodedBytes, 0, 21));
+            var hasher = SHA256Managed.Create();
+            var checksum = hasher.ComputeHash(hasher.ComputeHash(decodedBytes, 0, 21));
             decodedBytes[21] = checksum[0];
             decodedBytes[22] = checksum[1];
             decodedBytes[23] = checksum[2];
             decodedBytes[24] = checksum[3];
-            System.Text.StringBuilder ret = new System.Text.StringBuilder(40);
-            for (int numZeros = 0; numZeros < 25 && decodedBytes[numZeros] == 0; numZeros++)
+            var ret = new System.Text.StringBuilder(40);
+            for (var numZeros = 0; numZeros < 25 && decodedBytes[numZeros] == 0; numZeros++)
                 ret.Append("1");
             {
                 var temp = new List<byte>(decodedBytes);
@@ -281,11 +294,11 @@ namespace CryptoCurrency.Net.BCH
                 decodedBytes = temp.ToArray();
             }
 
-            byte[] retArr = new byte[40];
-            int retIdx = 0;
-            BigInteger baseChanger = BigInteger.Abs(new BigInteger(decodedBytes));
-            BigInteger baseFiftyEight = new BigInteger(58);
-            BigInteger modulo = new BigInteger();
+            var retArr = new byte[40];
+            var retIdx = 0;
+            var baseChanger = BigInteger.Abs(new BigInteger(decodedBytes));
+            var baseFiftyEight = new BigInteger(58);
+            var modulo = new BigInteger();
             while (!baseChanger.IsZero)
             {
                 baseChanger = BigInteger.DivRem(baseChanger, baseFiftyEight, out modulo);
@@ -293,17 +306,8 @@ namespace CryptoCurrency.Net.BCH
             }
             for (retIdx--; retIdx >= 0; retIdx--)
                 ret.Append(CHARSET_BASE58[retArr[retIdx]]);
-            return ret.ToString();
-        }
 
-        public static string ToCashAddress(this string oldAddress)
-        {
-            return oldAddrToCashAddr(oldAddress, out _, out _);
-        }
-
-        public static string ToOldAddress(this string cashAddr)
-        {
-            return cashAddrToOldAddr(cashAddr, out _, out _);
+            return new AddressInfo { Address = ret.ToString(), IsP2PKH = isP2PKH, IsMainnet = mainnet };
         }
     }
 }
