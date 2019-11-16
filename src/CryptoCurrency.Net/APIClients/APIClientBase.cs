@@ -26,17 +26,7 @@ namespace CryptoCurrency.Net.APIClients
         {
             get
             {
-                if (CallCount == 0)
-                {
-                    return 1;
-                }
-
-                if (SuccessfulCallCount == 0)
-                {
-                    return 0;
-                }
-
-                return SuccessfulCallCount / (decimal)CallCount;
+                return CallCount == 0 ? 1 : SuccessfulCallCount == 0 ? 0 : SuccessfulCallCount / (decimal)CallCount;
             }
         }
 
@@ -53,6 +43,8 @@ namespace CryptoCurrency.Net.APIClients
         #region Protected Methods
         protected async Task<T> Call<T>(Delegate func, object arg)
         {
+            if (func == null) throw new ArgumentNullException(nameof(func));
+
             var startTime = DateTime.Now;
             CallCount++;
             var task = (Task<T>)func.DynamicInvoke(arg);
