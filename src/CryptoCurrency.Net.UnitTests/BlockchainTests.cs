@@ -154,7 +154,7 @@ namespace CryptoCurrency.Net.UnitTests
 
             for (var i = 0; i < repeatCount; i++)
             {
-                decimal? firstBalance = null;
+                var firstBalance = new Dictionary<string, decimal?>();
 
                 var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
 
@@ -174,14 +174,14 @@ namespace CryptoCurrency.Net.UnitTests
 
                         Console.WriteLine($"Address: {address.Address} Balance: {address.Balance} Transaction Count: {address.TransactionCount} Is Unused: {address.IsUnused}");
 
-                        if (firstBalance == null)
+                        if (!firstBalance.ContainsKey(address.Address))
                         {
-                            firstBalance = address.Balance;
+                            firstBalance.Add(address.Address, address.Balance);
                         }
                         else
                         {
                             //Ensure the balance doesn't change on subsequent calls
-                            Assert.AreEqual(firstBalance, address.Balance);
+                            Assert.AreEqual(firstBalance[address.Address], address.Balance, "The first balance returned doesn't match a subsequent balance");
                         }
                     }
                 }

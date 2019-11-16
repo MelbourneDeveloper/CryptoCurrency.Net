@@ -46,7 +46,8 @@ namespace CryptoCurrency.Net.APIClients
                 new BlockChainAddressInformation
                 {
                     Address = AddressConverter.ToNewFormat(address, false).Address,
-                    Balance = balance
+                    Balance = balance,
+                    TransactionCount = int.Parse(addressJToken["tx_count"].ToString())                    
                 });
             }
 
