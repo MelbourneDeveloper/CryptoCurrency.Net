@@ -9,29 +9,29 @@ namespace CryptoCurrency.Net.Model.Tronscan
     {
         public string symbol { get; set; }
         public string balance { get; set; }
-        public int decimals { get; set; }
+        public long decimals { get; set; }
         public string name { get; set; }
         public string contract_address { get; set; }
     }
 
     public class Bandwidth
     {
-        public int energyRemaining { get; set; }
+        public long energyRemaining { get; set; }
         public long totalEnergyLimit { get; set; }
-        public int totalEnergyWeight { get; set; }
-        public int netUsed { get; set; }
-        public int storageLimit { get; set; }
+        public long totalEnergyWeight { get; set; }
+        public long netUsed { get; set; }
+        public long storageLimit { get; set; }
         public double storagePercentage { get; set; }
         public double netPercentage { get; set; }
-        public int storageUsed { get; set; }
-        public int storageRemaining { get; set; }
-        public int freeNetLimit { get; set; }
-        public int energyUsed { get; set; }
-        public int freeNetRemaining { get; set; }
-        public int netLimit { get; set; }
-        public int netRemaining { get; set; }
-        public int energyLimit { get; set; }
-        public int freeNetUsed { get; set; }
+        public long storageUsed { get; set; }
+        public long storageRemaining { get; set; }
+        public long freeNetLimit { get; set; }
+        public long energyUsed { get; set; }
+        public long freeNetRemaining { get; set; }
+        public long netLimit { get; set; }
+        public long netRemaining { get; set; }
+        public long energyLimit { get; set; }
+        public long freeNetUsed { get; set; }
         public long totalNetWeight { get; set; }
         public double freeNetPercentage { get; set; }
         public double energyPercentage { get; set; }
@@ -40,7 +40,7 @@ namespace CryptoCurrency.Net.Model.Tronscan
 
     public class Frozen
     {
-        public int total { get; set; }
+        public long total { get; set; }
         public List<object> balances { get; set; }
     }
 
@@ -70,7 +70,7 @@ namespace CryptoCurrency.Net.Model.Tronscan
     public class ReceivedDelegatedResource
     {
         public long expire_time_for_energy { get; set; }
-        public int frozen_balance_for_energy { get; set; }
+        public long frozen_balance_for_energy { get; set; }
         public string from { get; set; }
         public string to { get; set; }
     }
@@ -85,8 +85,8 @@ namespace CryptoCurrency.Net.Model.Tronscan
 
     public class Representative
     {
-        public int lastWithDrawTime { get; set; }
-        public int allowance { get; set; }
+        public long lastWithDrawTime { get; set; }
+        public long allowance { get; set; }
         public bool enabled { get; set; }
         public string url { get; set; }
     }
@@ -98,7 +98,7 @@ namespace CryptoCurrency.Net.Model.Tronscan
         public string address { get; set; }
         public List<object> frozen_supply { get; set; }
         public Bandwidth bandwidth { get; set; }
-        public int accountType { get; set; }
+        public long accountType { get; set; }
         public List<object> exchanges { get; set; }
         public Frozen frozen { get; set; }
         public AccountResource accountResource { get; set; }
