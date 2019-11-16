@@ -66,7 +66,7 @@ namespace CryptoCurrency.Net.APIClients
 
         private async Task<Address> GetAddressModel(string address)
         {
-            var apiKeyPart = !string.IsNullOrEmpty(APIKey) ? $"?apiKey={APIKey}" : string.Empty;
+            var apiKeyPart = $"?apiKey={(!string.IsNullOrEmpty(APIKey) ? APIKey : "freekey")}";
             return await RESTClient.GetAsync<Address>($"/getAddressInfo/{address}{apiKeyPart}");
         }
 
