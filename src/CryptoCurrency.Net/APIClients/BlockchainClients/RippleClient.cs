@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
@@ -25,10 +26,21 @@ namespace CryptoCurrency.Net.APIClients
         #region Func
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
-            var addressModel = await RESTClient.GetAsync<Address>($"/v2/accounts/{address}/balances");
-            var balance = addressModel.balances.FirstOrDefault();
+            try
+            {
+                var addressModel = await RESTClient.GetAsync<Address>($"/v2/accounts/{address}/balances");
+                var balance = addressModel.balances.FirstOrDefault();
+                return balance == null ? null : new BlockChainAddressInformation(address, balance.value, false);
+            }
+            catch (HttpStatusException hex)
+            {
+                if (hex.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return new BlockChainAddressInformation(address, 0, true);
+                }
 
-            return balance == null ? null : new BlockChainAddressInformation(address, null, balance.value);
+                throw;
+            }
         }
         #endregion
     }

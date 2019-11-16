@@ -81,6 +81,21 @@ namespace CryptoCurrency.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task GetRippleAddresses()
+        {
+            var addresses = await TestCoin(CurrencySymbol.Ripple, new List<string> { "rraUBy8yVKUJho1UiHPx9Pv8M8NPGPa5GL", "razqQKzJRdB4UxFPWf5NEpEG3WMkmwgcXA" });
+        }
+
+        [TestMethod]
+        public async Task GetEmptyRippleAddress()
+        {
+            var rippleClient = new RippleClient(CurrencySymbol.Ripple, new RESTClientFactory());
+            var emptyPaperWalletAddress = "rwyZFyk7VfBWpzNRV1SBSLcfNPfC8BgWWX";
+            var address = await rippleClient.GetAddress(emptyPaperWalletAddress);
+            Assert.IsTrue(address.IsUnused.Value);
+        }
+
+        [TestMethod]
         public async Task GetTronAddresses()
         {
             await TestCoin(CurrencySymbol.Tron, new List<string> { "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9", "TWd4WrZ9wn84f5x1hZhL4DHvk738ns5jwb" }, 3);

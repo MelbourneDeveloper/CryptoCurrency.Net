@@ -9,6 +9,8 @@ namespace CryptoCurrency.Net.Model.Ripple
 
     public class Address
     {
+        public string message { get; set; }
+        public string result { get; set; }
         public List<Balance> balances { get; } = new List<Balance>();
     }
 }
