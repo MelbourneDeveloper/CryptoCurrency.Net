@@ -2,9 +2,13 @@
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.UnitTests
@@ -93,7 +97,20 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
         {
-            await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl", "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            var asdasd = BCH.AddressConverter.cashAddrToOldAddr("qq6a7lnd4fsrjwcw6fr55gt382z95gsjm5w322u8z0", out var a, out var b);
+            var asdsasd = await new HttpClient().GetAsync($"https://bch-chain.api.btc.com/v3/address/15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew,{asdasd}");
+            var json = await asdsasd.Content.ReadAsStringAsync();
+
+            //var json = File.ReadAllText(@"c:\temp\json3json.json");
+            var rootJObject = (JObject) JsonConvert.DeserializeObject(json);
+            var dataJToken = rootJObject["data"];
+
+            foreach(var addressJToken in dataJToken)
+            {
+                var address = addressJToken["address"].ToString();
+                address = BCH.AddressConverter.oldAddrToCashAddr(address, out  a, out  b);
+                var balance = addressJToken["balance"];
+            }
         }
 
         [TestMethod]
