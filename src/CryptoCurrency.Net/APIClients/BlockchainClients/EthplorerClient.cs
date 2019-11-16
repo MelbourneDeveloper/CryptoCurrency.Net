@@ -40,6 +40,8 @@ namespace CryptoCurrency.Net.APIClients
         /// </summary>
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
+            if (address == null) throw new ArgumentNullException(nameof(address));
+
             address = address.ToLower();
 
             //https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API#personal-key-limits
@@ -49,7 +51,7 @@ namespace CryptoCurrency.Net.APIClients
             var addressModel = await GetAddressModel(address);
             if (addressModel == null)
             {
-                throw new Exception("ethplorer no good");
+                throw new GetAddressException("ethplorer no good");
             }
 
             if (_CachedAddresses.ContainsKey(address))
@@ -70,23 +72,15 @@ namespace CryptoCurrency.Net.APIClients
 
         public async Task<IEnumerable<TokenBalance>> GetTokenBalances(IEnumerable<string> addresses)
         {
+            if (addresses == null) throw new ArgumentNullException(nameof(addresses));
+
             var retVal = new List<TokenBalance>();
 
             foreach (var casedAddress in addresses)
             {
                 var address = casedAddress.ToLower();
 
-                Address addressModel;
-
-                if (_CachedAddresses.ContainsKey(address))
-                {
-                    addressModel = _CachedAddresses[address];
-                }
-                else
-                {
-                    addressModel = await GetAddressModel(address);
-                }
-
+                var addressModel = _CachedAddresses.ContainsKey(address) ? _CachedAddresses[address] : await GetAddressModel(address);
                 if (addressModel.tokens == null) continue;
                 foreach (var token in addressModel.tokens)
                 {
@@ -94,7 +88,7 @@ namespace CryptoCurrency.Net.APIClients
 
                     for (var i = 0; i < token.tokenInfo.decimals; i++)
                     {
-                        balance = balance / 10;
+                        balance /= 10;
                     }
 
                     retVal.Add(new TokenBalance(new CurrencySymbol(token.tokenInfo.symbol), balance, address, null));

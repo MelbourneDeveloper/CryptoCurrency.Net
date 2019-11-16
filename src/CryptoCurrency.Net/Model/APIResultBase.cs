@@ -2,7 +2,7 @@
 {
     public abstract class APIResultBase
     {
-        public APIResultBase(object tag)
+        protected APIResultBase(object tag)
         {
             Tag = tag;
         }

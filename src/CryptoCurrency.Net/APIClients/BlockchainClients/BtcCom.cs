@@ -45,14 +45,14 @@ namespace CryptoCurrency.Net.APIClients
             foreach (var addressJToken in dataJToken)
             {
                 var address = addressJToken["address"].ToString();
-                var balance = long.Parse(addressJToken["balance"].ToString()) / CurrencySymbol.Satoshi ;
+                var balance = long.Parse(addressJToken["balance"].ToString()) / CurrencySymbol.Satoshi;
 
                 blockChainAddressInformations.Add(
                 new BlockChainAddressInformation
                 {
                     Address = AddressConverter.ToNewFormat(address, false).Address,
                     Balance = balance,
-                    TransactionCount = int.Parse(addressJToken["tx_count"].ToString())                    
+                    TransactionCount = int.Parse(addressJToken["tx_count"].ToString())
                 });
             }
 

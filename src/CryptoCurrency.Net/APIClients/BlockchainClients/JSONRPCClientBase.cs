@@ -74,7 +74,7 @@ namespace CryptoCurrency.Net.APIClients
 
                 if (balanceResult.Error != null)
                 {
-                    throw new Exception($"Error getting address: {request.Params[0]}.\r\nCode: {balanceResult.Error.Code} Message: {balanceResult.Error.Message}");
+                    throw new GetAddressException($"Error getting address: {request.Params[0]}.\r\nCode: {balanceResult.Error.Code} Message: {balanceResult.Error.Message}");
                 }
 
                 var balance = GetEthFromHex(balanceResult.Result);
@@ -100,7 +100,7 @@ namespace CryptoCurrency.Net.APIClients
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
             await Task.Delay(1);
-            throw new Exception($"{nameof(GetAddressesFunc)} should be used.");
+            throw new GetAddressException($"{nameof(GetAddressesFunc)} should be used.");
         }
 
         public async Task<IEnumerable<ResultBase>> PostAsync(IEnumerable<RequestBase> requests)
@@ -110,6 +110,8 @@ namespace CryptoCurrency.Net.APIClients
 
         public async Task<IList<GetTokenBalanceResult>> GetTokenBalances(IList<GetTokenBalanceArgs> tokenBalanceArgsList)
         {
+            if (tokenBalanceArgsList == null) throw new ArgumentNullException(nameof(tokenBalanceArgsList));
+
             var retVal = new List<GetTokenBalanceResult>();
             var argsById = new Dictionary<int, GetTokenBalanceArgs>();
             var requests = new List<RequestBase>();

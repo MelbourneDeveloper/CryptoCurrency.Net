@@ -65,7 +65,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
                 }
             }
 
-            throw new Exception("Can't get prices");
+            throw new GetPricesException("Can't get prices");
         }
         #endregion
     }

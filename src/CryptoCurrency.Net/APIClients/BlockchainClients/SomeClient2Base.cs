@@ -23,7 +23,9 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Overridable Properties
+#pragma warning disable CA1056 
         protected abstract string BaseUriPath { get; }
+#pragma warning restore CA1056 
         #endregion
 
         #region Protected Static Methods

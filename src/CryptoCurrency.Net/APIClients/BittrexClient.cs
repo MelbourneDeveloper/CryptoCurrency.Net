@@ -39,7 +39,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             else
             {
-                throw new Exception("Error connecting to Bittrex");
+                throw new GetHoldingsException("Error connecting to Bittrex");
             }
 
             return retVal;

@@ -86,7 +86,9 @@ namespace CryptoCurrency.Net.Helpers
             }
         }
 
+#pragma warning disable CA1054
         public static string GetSignature(Uri baseUri, string url, IDictionary<string, object> requestParameters, string apiSecret, HashAlgorithmType hmacshaType)
+#pragma warning restore CA1054
         {
             var input = new StringBuilder(new Uri(baseUri, url).ToString());
 
@@ -94,23 +96,10 @@ namespace CryptoCurrency.Net.Helpers
             {
                 input.Append(',');
                 var value = requestParameters[key];
-                object resultValue;
 
-                if (value != null && value.GetType().IsArray)
-                {
-                    resultValue = !(value is string[] array) || !array.Any() ? string.Empty : string.Join(",", array.Select(tt =>$"{tt}"));
-                }
-                else
-                {
-                    if (value is string s)
-                    {
-                        resultValue = s.Replace("\r", "").Replace("\n", "");
-                    }
-                    else
-                    {
-                        resultValue = value;
-                    }
-                }
+                var resultValue = value != null && value.GetType().IsArray
+                    ? !(value is string[] array) || !array.Any() ? string.Empty : string.Join(",", array.Select(tt =>$"{tt}"))
+                    : value is string s ? s.Replace("\r", "").Replace("\n", "") : value;
 
                 input.AppendFormat(CultureInfo.InvariantCulture, "{0}={1}", key, resultValue);
             }

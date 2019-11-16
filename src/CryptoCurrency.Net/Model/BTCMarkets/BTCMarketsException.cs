@@ -2,6 +2,7 @@
 
 namespace CryptoCurrency.Net.Model.BTCMarkets
 {
+    [Serializable]
     public class BTCMarketsException : Exception
     {
         public ErrorResult ErrorResult { get; }
