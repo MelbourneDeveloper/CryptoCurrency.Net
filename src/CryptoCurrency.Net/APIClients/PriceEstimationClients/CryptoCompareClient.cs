@@ -13,6 +13,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
     {
         public CryptoCompareClient(IRestClientFactory restClientFactory) : base(restClientFactory)
         {
+            if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://min-api.cryptocompare.com"));
         }
 

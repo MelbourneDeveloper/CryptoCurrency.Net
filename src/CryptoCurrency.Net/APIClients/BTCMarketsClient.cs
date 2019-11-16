@@ -15,11 +15,12 @@ namespace CryptoCurrency.Net.APIClients
 {
     public partial class BTCMarketsClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
-        public const string ACCOUNT_BALANCE_PATH = "/account/balance";
+        public const string ACCOUNTBALANCEPATH = "/account/balance";
 
         #region Constructor
         public BTCMarketsClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
+            if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.btcmarkets.net"));
         }
         #endregion
@@ -62,7 +63,7 @@ namespace CryptoCurrency.Net.APIClients
             var timestamp = APIHelpers.GetCurrentUnixTimestamp().ToString();
 
             // create the string that needs to be signed
-            var stringToSign = BuildStringToSign(ACCOUNT_BALANCE_PATH, null, timestamp);
+            var stringToSign = BuildStringToSign(ACCOUNTBALANCEPATH, null, timestamp);
 
             // build signature to be included in the http header
             //TODO: API Secret?
@@ -82,7 +83,7 @@ namespace CryptoCurrency.Net.APIClients
 
             try
             {
-                result = await RESTClient.GetAsync<List<Balance>>(ACCOUNT_BALANCE_PATH);
+                result = await RESTClient.GetAsync<List<Balance>>(ACCOUNTBALANCEPATH);
             }
             catch (DeserializationException dex)
             {

@@ -22,6 +22,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public ChainSoClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
+            if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://chain.so"));
         }
         #endregion

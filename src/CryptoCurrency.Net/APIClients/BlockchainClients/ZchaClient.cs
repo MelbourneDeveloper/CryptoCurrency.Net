@@ -17,6 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public ZchaClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
+            if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.zcha.in"));
 
             //When this client can't see the address it returns "null" with a status code of 404 so we just return a blank address instead

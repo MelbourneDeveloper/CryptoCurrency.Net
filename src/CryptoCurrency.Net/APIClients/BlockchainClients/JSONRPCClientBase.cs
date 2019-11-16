@@ -34,6 +34,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         protected JSONRPCClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
+            if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseUriPath);
             Currency = currency;
         }
