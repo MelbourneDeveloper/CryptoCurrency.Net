@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -97,20 +96,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
         {
-            var asdasd = BCH.AddressConverter.cashAddrToOldAddr("qq6a7lnd4fsrjwcw6fr55gt382z95gsjm5w322u8z0", out var a, out var b);
-            var asdsasd = await new HttpClient().GetAsync($"https://bch-chain.api.btc.com/v3/address/15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew,{asdasd}");
-            var json = await asdsasd.Content.ReadAsStringAsync();
-
-            //var json = File.ReadAllText(@"c:\temp\json3json.json");
-            var rootJObject = (JObject) JsonConvert.DeserializeObject(json);
-            var dataJToken = rootJObject["data"];
-
-            foreach(var addressJToken in dataJToken)
-            {
-                var address = addressJToken["address"].ToString();
-                address = BCH.AddressConverter.oldAddrToCashAddr(address, out  a, out  b);
-                var balance = addressJToken["balance"];
-            }
+            await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew").Address, "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
         }
 
         [TestMethod]
@@ -165,7 +151,7 @@ namespace CryptoCurrency.Net.UnitTests
             }
         }
 
-        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses,int repeatCount = 10)
+        private static async Task TestCoin(CurrencySymbol symbol, List<string> inputAddresses, int repeatCount = 10)
         {
             var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
 

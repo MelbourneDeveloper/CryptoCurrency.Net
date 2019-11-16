@@ -37,7 +37,7 @@ namespace CryptoCurrency.Net.APIClients
             foreach (var addressJToken in dataJToken)
             {
                 var address = addressJToken["address"].ToString();
-                address = BCH.AddressConverter.oldAddrToCashAddr(address).Address;
+                address = BCH.AddressConverter.ToNewFormat(address).Address;
                 var balance = addressJToken["balance"];
             }
 

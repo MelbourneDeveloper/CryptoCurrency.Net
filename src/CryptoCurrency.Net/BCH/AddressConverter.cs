@@ -101,7 +101,7 @@ namespace CryptoCurrency.Net.BCH
             return converted;
         }
 
-        public static AddressInfo oldAddrToCashAddr(string oldAddress)
+        public static AddressInfo ToNewFormat(string oldAddress)
         {
             bool isP2PKH;
             bool mainnet;
