@@ -22,13 +22,7 @@ namespace CryptoCurrency.Net.APIClients
         public int SuccessfulCallCount { get; private set; }
         public int CallCount { get; private set; }
 
-        public decimal SuccessRate
-        {
-            get
-            {
-                return CallCount == 0 ? 1 : SuccessfulCallCount == 0 ? 0 : SuccessfulCallCount / (decimal)CallCount;
-            }
-        }
+        public decimal SuccessRate => CallCount == 0 ? 1 : SuccessfulCallCount == 0 ? 0 : SuccessfulCallCount / (decimal)CallCount;
 
         public TimeSpan AverageCallTimespan => _CallTimes.Count == 0 ? new TimeSpan() : new TimeSpan(0, 0, 0, 0, (int)_CallTimes.Average(c => c.TotalMilliseconds));
         #endregion
@@ -36,7 +30,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         protected APIClientBase(IRestClientFactory restClientFactory)
         {
-            RESTClientFactory = restClientFactory;
+            RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
         }
         #endregion
 
