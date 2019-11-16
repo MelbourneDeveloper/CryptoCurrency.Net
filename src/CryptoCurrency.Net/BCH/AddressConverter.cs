@@ -320,8 +320,7 @@ namespace CryptoCurrency.Net.BCH
             var baseFiftyEight = new BigInteger(58);
             while (!baseChanger.IsZero)
             {
-                BigInteger modulo;
-                baseChanger = BigInteger.DivRem(baseChanger, baseFiftyEight, out modulo);
+                baseChanger = BigInteger.DivRem(baseChanger, baseFiftyEight, out var modulo);
                 retArr[retIdx++] = (byte)modulo;
             }
             for (retIdx--; retIdx >= 0; retIdx--)

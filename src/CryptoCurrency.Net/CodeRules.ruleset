@@ -66,8 +66,8 @@
     <Rule Id="CA1301" Action="Error" />
     <Rule Id="CA1302" Action="Error" />
     <Rule Id="CA1303" Action="Warning" />
-    <Rule Id="CA1304" Action="Error" />
-    <Rule Id="CA1305" Action="Error" />
+    <Rule Id="CA1304" Action="Warning" />
+    <Rule Id="CA1305" Action="Warning" />
     <Rule Id="CA1306" Action="Error" />
     <Rule Id="CA1307" Action="Error" />
     <Rule Id="CA1308" Action="Error" />
@@ -992,8 +992,8 @@
     <Rule Id="IDE0066WithoutSuggestion" Action="Error" />
     <Rule Id="IDE1005" Action="Error" />
     <Rule Id="IDE1005WithoutSuggestion" Action="Error" />
-    <Rule Id="IDE1006" Action="Error" />
-    <Rule Id="IDE1006WithoutSuggestion" Action="Error" />
+    <Rule Id="IDE1006" Action="Warning" />
+    <Rule Id="IDE1006WithoutSuggestion" Action="Warning" />
     <Rule Id="RE0001" Action="Error" />
     <Rule Id="RE0001WithoutSuggestion" Action="Error" />
   </Rules>
@@ -1102,8 +1102,6 @@
     <Rule Id="CA2234" Action="Error" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
-    <Rule Id="CA1304" Action="Error" />
-    <Rule Id="CA1305" Action="Error" />
     <Rule Id="CA1307" Action="Error" />
     <Rule Id="CA1308" Action="Error" />
     <Rule Id="CA1401" Action="Error" />

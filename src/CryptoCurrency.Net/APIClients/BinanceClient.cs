@@ -76,7 +76,7 @@ namespace CryptoCurrency.Net.APIClients
             var binanceTimeModel = await RESTClient.GetAsync<BinanceTime>("/api/v1/time");
             var binanceTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(binanceTimeModel.serverTime);
             var timeTaken = DateTime.Now - startTime;
-            var timeOffset = ((binanceTime - DateTime.Now).TotalMilliseconds) - timeTaken.TotalMilliseconds / 2;
+            var timeOffset = (binanceTime - DateTime.Now).TotalMilliseconds - (timeTaken.TotalMilliseconds / 2);
             var timestamp = APIHelpers.GetUnixTimestamp(DateTime.UtcNow.AddMilliseconds(timeOffset)).ToString();
             var queryString = $"api/v3/account?recvWindow=10000000000&timestamp={timestamp}";
             var uri = new Uri($"{RESTClient.BaseUri}{queryString}");

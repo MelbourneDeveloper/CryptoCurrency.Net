@@ -57,7 +57,7 @@ namespace CryptoCurrency.Net.APIClients
             {
                 var address = addresses[i];
                 requests.Add(new RequestBase { Method = Method.eth_getBalance, Id = i * 2, Params = { address.ToLower(), DefaultBlock.latest.ToString() } });
-                requests.Add(new RequestBase { Method = Method.eth_getTransactionCount, Id = i * 2 + 1, Params = { address.ToLower(), DefaultBlock.latest.ToString() } });
+                requests.Add(new RequestBase { Method = Method.eth_getTransactionCount, Id = (i * 2) + 1, Params = { address.ToLower(), DefaultBlock.latest.ToString() } });
             }
 
             var client = (JSONRPCClientBase)getAddressesArgs.Client;
@@ -154,7 +154,7 @@ namespace CryptoCurrency.Net.APIClients
         public async Task<IList<GetTokenBalanceResult>> GetTokenBalances(IEnumerable<string> addresses, IEnumerable<string> contracts)
         {
             var contractList = contracts.ToList();
-            var tokenBalanceArgsList = (from address in addresses from contract in contractList select new GetTokenBalanceArgs {Address = address, Contract = contract}).ToList();
+            var tokenBalanceArgsList = (from address in addresses from contract in contractList select new GetTokenBalanceArgs { Address = address, Contract = contract }).ToList();
 
             return await GetTokenBalances(tokenBalanceArgsList);
         }
@@ -177,7 +177,7 @@ namespace CryptoCurrency.Net.APIClients
                 decimal balance = tokenBalance.Result;
                 for (var i = 0; i < token.Decimals; i++)
                 {
-                    balance = balance / 10;
+                    balance /= 10;
                 }
 
                 retVal.Add(new TokenBalance(new CurrencySymbol(token.Symbol), balance, tokenBalance.Address, token.Contract));

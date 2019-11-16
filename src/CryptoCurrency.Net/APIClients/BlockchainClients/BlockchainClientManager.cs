@@ -66,6 +66,8 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
         public async Task<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>> GetAddresses(CurrencySymbol currencySymbol, IEnumerable<string> addresses)
         {
+            if (currencySymbol == null) throw new ArgumentNullException(nameof(currencySymbol));
+
             var addressList = addresses.ToList();
 
             var retVal = new Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>();
