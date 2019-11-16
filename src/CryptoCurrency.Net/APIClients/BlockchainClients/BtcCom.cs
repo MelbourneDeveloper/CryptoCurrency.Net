@@ -29,6 +29,10 @@ namespace CryptoCurrency.Net.APIClients
         #region Overrides
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
         {
+            //https://dev.btc.com/docs/js - 300 request per minute
+            var delay = 60000 / 299;
+            await Task.Delay(delay);
+
             var blockChainAddressInformations = new List<BlockChainAddressInformation>();
 
             var addresses = getAddressesArgs.Addresses.Select(ad => AddressConverter.ToOldFormat(ad).Address);
