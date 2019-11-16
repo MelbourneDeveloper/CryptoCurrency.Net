@@ -93,7 +93,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
         {
-            await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew").Address, "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
+            await TestCoin(CurrencySymbol.BitcoinCash, new List<string> { BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address, "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
         }
 
         [TestMethod]
