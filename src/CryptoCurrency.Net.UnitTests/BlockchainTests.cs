@@ -69,7 +69,8 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinGoldAddresses()
         {
-            await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U", "GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U" });
+            await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "AGSEHET3e5PV2LKEJ9KjDKNetjz6a4qp2V", "GHxCasViKiah6Xh98oQnoNnt1nCPPxkkwu" });
+            //This address: GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U keeps changing balance. No idea why
         }
 
         [TestMethod]
@@ -93,13 +94,13 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
         {
-            var result = await TestCoin(CurrencySymbol.BitcoinCash, 
-                new List<string> 
-                { 
+            var result = await TestCoin(CurrencySymbol.BitcoinCash,
+                new List<string>
+                {
                     "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p",
-                    BCH.AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address, 
-                    BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address, 
-                    "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" 
+                    BCH.AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address,
+                    BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address,
+                    "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p"
                 });
         }
 
