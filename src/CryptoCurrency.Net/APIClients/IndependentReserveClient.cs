@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Dynamic;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.Abstractions.APIClients;
+﻿using CryptoCurrency.Net.Abstractions.APIClients;
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.IndependentReserve;
 using RestClientDotNet;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -55,15 +54,17 @@ namespace CryptoCurrency.Net.APIClients
         {
             var nonce = APIHelpers.GetNonce();
 
-            dynamic data = new ExpandoObject();
-            data.apiKey = ApiKey;
-            data.nonce = nonce;
-
             var getAccountsArgs = new GetAccountsArgs
             {
                 apiKey = ApiKey,
                 nonce = nonce,
-                signature = APIHelpers.GetSignature(RESTClient.BaseUri, "/Private/GetAccounts", data, ApiSecret, APIHelpers.HashAlgorithmType.HMACEightBit)
+                signature = APIHelpers.GetSignature(RESTClient.BaseUri, "/Private/GetAccounts", 
+                new Dictionary<string, object>
+                {
+                    { "apiKey", ApiKey },
+                    { "nonce", nonce }
+                }, 
+                ApiSecret, APIHelpers.HashAlgorithmType.HMACEightBit)
             };
 
             return await RESTClient.PostAsync<List<AccountHolding>, GetAccountsArgs>(getAccountsArgs, "Private/GetAccounts");
