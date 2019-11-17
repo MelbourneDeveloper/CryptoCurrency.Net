@@ -5,14 +5,14 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hardwarewallets.Net.UnitTests
+namespace CryptoCurrency.Net.UnitTests
 {
-    public abstract class UnitTestBase
+    [TestClass]
+    public  class AddressDerivationTests
     {
         //TODO: Unit tests have been disabled until the latest changes have been rolled in to all libraries.
 
-        public static IAddressDeriver HardwarewalletManager { get; protected set; }
-        public abstract Task Initialize();
+        public static IAddressDeriver AddressDeriver { get; } = new DummyAddressDeriver();
 
         //[Fact]
         //public async Task GetBitcoinAddress()
@@ -41,6 +41,27 @@ namespace Hardwarewallets.Net.UnitTests
         //    Assert.IsTrue(addresses.Accounts[0].ChangeAddresses.Count == numberOfAddresses);
         //    Assert.IsTrue(addresses.Accounts[1].ChangeAddresses.Count == numberOfAddresses);
         //}
+
+        [TestMethod]
+        public async Task GetBitcoinPublicKey()
+        {
+            var publicKey = await AddressDeriver.GetAddressAsync(new BIP44AddressPath(true, 0, 0, false, 0), true, true);
+            Assert.AreEqual("02a1633cafcc01ebfb6d78e39f687a1f0995c62fc95f51ead10a02ee0be551b5dc", publicKey);
+        }
+
+        [TestMethod]
+        public async Task GetEthereumAddress()
+        {
+            var address = await AddressDeriver.GetAddressAsync(new BIP44AddressPath(true, 60, 0, false, 0), false, true);
+            Assert.AreEqual("0x3f2dD9850509367b57C900F7e1C5f4F0bfF1014B", address);
+        }
+
+        [TestMethod]
+        public async Task GetEthereumPublicKey()
+        {
+            var publicKey = await AddressDeriver.GetAddressAsync(new BIP44AddressPath(true, 60, 0, false, 0), true, true);
+            Assert.AreEqual("0x3f2dD9850509367b57C900F7e1C5f4F0bfF1014Bf4F0bfF1014B", publicKey);
+        }
 
         [TestMethod]
         public void TestParser()

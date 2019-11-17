@@ -15,16 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="a\DummyEthereumTransaction.cs" />
-    <Compile Remove="a\DummySignedEthereumTransaction.cs" />
-    <Compile Remove="a\KeepKeyUnitTests.cs" />
-    <Compile Remove="a\LedgerDotNetApiTests.cs" />
-    <Compile Remove="a\LedgerDotNetApiWrapper.cs" />
-    <Compile Remove="a\LedgerDotNetTests.cs" />
-    <Compile Remove="a\TrezorUnitTests.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />

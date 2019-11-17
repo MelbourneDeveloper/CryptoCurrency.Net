@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.AddressManagement;
 
-namespace Hardwarewallets.Net.UnitTests
+namespace CryptoCurrency.Net.UnitTests
 {
     public class CustomAddressPath : AddressPathBase
     {

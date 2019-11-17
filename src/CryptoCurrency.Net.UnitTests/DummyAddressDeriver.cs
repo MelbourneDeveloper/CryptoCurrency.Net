@@ -2,9 +2,9 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Hardwarewallets.Net
+namespace CryptoCurrency.Net.UnitTests
 {
-    public class DummyWalletManager : IAddressDeriver
+    public class DummyAddressDeriver : IAddressDeriver
     {
         public async Task<string> GetAddressAsync(IAddressPath addressPath, bool isPublicKey, bool display)
         {
