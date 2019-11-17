@@ -21,7 +21,7 @@
     <NoWarn>1701;1702;CS0659;CA2007;CA1063;CA2235</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <PackageReleaseNotes>Various Blockchain API stability fixes. Address derivation. Code cleanup.</PackageReleaseNotes>
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -64,7 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="License.txt">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
