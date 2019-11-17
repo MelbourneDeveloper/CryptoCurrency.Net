@@ -8,19 +8,19 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Christian Findlay</Authors>
-    <Company>Christian FindlayChristian Findlay</Company>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-    <FileVersion>1.6.0.0</FileVersion>
-    <Version>1.6.0</Version>
+    <Company>Christian Findlay</Company>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Copyright>© 2019 Christian Findlay</Copyright>
     <PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
-    <PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance, Ethereum Classic, Litecoin</PackageTags>
-    <Description>Cross platform C# library for general Crypto Currency functionality, and communicating with Cryptocurrency exchanges, and Blockchain APIs.</Description>
+    <PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance, Ethereum Classic, Litecoin, Hardwarewallets</PackageTags>
+    <Description>Cross platform C# library for general Crypto Currency functionality, and communicating with Cryptocurrency exchanges, Hardwarewallets and Blockchain APIs.</Description>
     <NoWarn>1701;1702;CS0659;CA2007;CA1063;CA2235</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <PackageReleaseNotes>Cardano support, timeouts . https://github.com/MelbourneDeveloper/CryptoCurrency.Net/projects/2</PackageReleaseNotes>
+    <PackageReleaseNotes>Various Blockchain API stability fixes. Address derivation. Code cleanup.</PackageReleaseNotes>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
 
