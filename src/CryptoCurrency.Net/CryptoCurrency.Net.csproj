@@ -56,9 +56,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="RestClient.Net" Version="2.0.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestClient.Net" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
