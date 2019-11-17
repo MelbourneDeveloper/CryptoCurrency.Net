@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using CryptoCurrency.Net.Abstractions.APIClients;
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.IndependentReserve;

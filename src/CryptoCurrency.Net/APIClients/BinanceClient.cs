@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.Helpers;
+﻿using CryptoCurrency.Net.Abstractions.APIClients;
+using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Binance;
 using RestClientDotNet;

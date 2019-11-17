@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CryptoCurrency.Net.Abstractions.APIClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
 using Newtonsoft.Json;
