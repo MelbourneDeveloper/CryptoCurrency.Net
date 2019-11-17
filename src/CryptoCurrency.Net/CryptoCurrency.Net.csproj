@@ -22,6 +22,9 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <PackageReleaseNotes>Various Blockchain API stability fixes. Address derivation. Code cleanup.</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>CryptoCurrencyNet.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
