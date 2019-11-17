@@ -14,34 +14,6 @@ namespace CryptoCurrency.Net.UnitTests
 
         public static IAddressDeriver AddressDeriver { get; } = new DummyAddressDeriver();
 
-        //[Fact]
-        //public async Task GetBitcoinAddress()
-        //{
-        //    await Initialize();
-        //    var address = await AddressDeriver.GetAddressAsync(AddressPathBase.Parse<BIP44AddressPath>("49/0/0/0/0"), false, true);
-        //}
-
-        //[Fact]
-        //public async Task GetBitcoinAddresses()
-        //{
-        //    await Initialize();
-
-        //    var addressManager = new AddressManager(AddressDeriver, new BIP44AddressPathFactory(true, 0));
-
-        //    //Get 10 addresses with all the trimming
-        //    const int numberOfAddresses = 3;
-        //    const int numberOfAccounts = 2;
-        //    var addresses = await addressManager.GetAddressesAsync(0, numberOfAddresses, numberOfAccounts, true, true);
-
-        //    Assert.IsTrue(addresses != null);
-        //    Assert.IsTrue(addresses.Accounts != null);
-        //    Assert.IsTrue(addresses.Accounts.Count == numberOfAccounts);
-        //    Assert.IsTrue(addresses.Accounts[0].Addresses.Count == numberOfAddresses);
-        //    Assert.IsTrue(addresses.Accounts[1].Addresses.Count == numberOfAddresses);
-        //    Assert.IsTrue(addresses.Accounts[0].ChangeAddresses.Count == numberOfAddresses);
-        //    Assert.IsTrue(addresses.Accounts[1].ChangeAddresses.Count == numberOfAddresses);
-        //}
-
         [TestMethod]
         public async Task GetBitcoinPublicKey()
         {
