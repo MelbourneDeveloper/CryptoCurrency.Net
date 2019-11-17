@@ -14,9 +14,9 @@ namespace CryptoCurrency.Net.UnitTests
                     switch (bip44AddressPath.CoinType)
                     {
                         case 0:
-                            return "1EdcJ3XAZ1jMHka8kwD6oyMkHuJC5qVu8p";
+                            return "02a1633cafcc01ebfb6d78e39f687a1f0995c62fc95f51ead10a02ee0be551b5dc";
                         case 60:
-                            return "0x3f2dD9850509367b57C900F7e1C5f4F0bfF1014B";
+                            return "0x3f2dD9850509367b57C900F7e1C5f4F0bfF1014Bf4F0bfF1014B";
                         default:
                             throw new NotImplementedException();
                     }
@@ -26,7 +26,7 @@ namespace CryptoCurrency.Net.UnitTests
                         case 0:
                             return "02a1633cafcc01ebfb6d78e39f687a1f0995c62fc95f51ead10a02ee0be551b5dc";
                         case 60:
-                            return "0x3f2dD9850509367b57C900F7e1C5f4F0bfF1014Bf4F0bfF1014B";
+                            return "0x3f2dD9850509367b57C900F7e1C5f4F0bfF1014B";
                         default:
                             throw new NotImplementedException();
                     }
