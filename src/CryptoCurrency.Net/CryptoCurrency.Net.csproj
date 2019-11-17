@@ -38,10 +38,6 @@
     <Compile Remove="APIClients\CryptopiaClient.cs" />    
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.IO.IsolatedStorage" Version="4.3.0" />
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="Abstractions\IEthereumTransaction.cs" />
     <Compile Remove="Abstractions\ISignedEthereumTransaction.cs" />
@@ -63,7 +59,6 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="RestClient.Net" Version="2.0.0" />
-    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
