@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace CryptoCurrency.Net
+namespace CryptoCurrency.Net.Base
 {
     /// <summary>
     /// TODO: Dependency injection

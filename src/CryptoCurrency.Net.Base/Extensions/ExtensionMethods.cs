@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace CryptoCurrency.Net
+namespace CryptoCurrency.Net.Base.Extensions
 {
     public static class MyExtensions
     {

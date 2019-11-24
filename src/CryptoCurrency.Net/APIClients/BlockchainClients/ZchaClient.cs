@@ -5,6 +5,7 @@ using RestClientDotNet;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using CryptoCurrency.Net.Base;
 
 namespace CryptoCurrency.Net.APIClients
 {

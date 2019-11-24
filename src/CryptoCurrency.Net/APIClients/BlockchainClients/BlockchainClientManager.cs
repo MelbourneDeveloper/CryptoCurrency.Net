@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.Base.Model;
+﻿using CryptoCurrency.Net.Base;
+using CryptoCurrency.Net.Base.Model;
 using RestClientDotNet;
 using System;
 using System.Collections.Generic;
