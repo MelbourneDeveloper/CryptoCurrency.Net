@@ -16,6 +16,8 @@ namespace CryptoCurrency.Net.Model
             get => _Name;
             set
             {
+                if (value == null) throw new ArgumentNullException(nameof(Name));
+
                 _Name = value.ToUpper().Trim();
 
                 //Use BTC instead of XBT

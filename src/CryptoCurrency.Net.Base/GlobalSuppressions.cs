@@ -6,3 +6,4 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.AddressManagement.AddressPathBase.ParseElement(System.String)~CryptoCurrency.Net.AddressManagement.AddressPathElement")]
 
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1030:Use events where appropriate", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.Model.ModelBase.RaisePropertyChanged(System.String)")]

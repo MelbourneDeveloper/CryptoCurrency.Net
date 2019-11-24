@@ -1,5 +1,5 @@
-﻿using CryptoCurrency.Net.Abstractions.AddressManagement;
-using CryptoCurrency.Net.AddressManagement;
+﻿using CryptoCurrency.Net.AddressManagement;
+using CryptoCurrency.Net.Base.Abstractions.AddressManagement;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;

@@ -80,9 +80,9 @@ namespace CryptoCurrency.Net.Model
                     return Address.Equals(blockChainAddressInformation.Address, StringComparison.OrdinalIgnoreCase);
                 case string objAsString:
                     return Address.Equals(objAsString, StringComparison.OrdinalIgnoreCase);
+                default:
+                    return false;
             }
-
-            return false;
         }
         #endregion
     }

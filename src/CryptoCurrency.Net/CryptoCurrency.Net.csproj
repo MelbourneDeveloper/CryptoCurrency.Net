@@ -70,5 +70,9 @@
     <ProjectReference Include="..\CryptoCurrency.Net.Base\CryptoCurrency.Net.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+  </ItemGroup>
+
 
 </Project>
