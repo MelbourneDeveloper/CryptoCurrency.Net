@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>2.0.0</Version>
+    <Authors>Christian Findlay</Authors>
+    <Company>Christian Findlay</Company>
+    <Description>Cross platform C# library for general Crypto Currency functionality such as communicating with Cryptocurrency exchanges, Hardwarewallets and Blockchain APIs.</Description>
+    <Copyright>© 2019 Christian Findlay</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
+    <PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance, Ethereum Classic, Litecoin, Hardwarewallets</PackageTags>
+    <PackageReleaseNotes>Moved from Hardwarewallets.Net (https://github.com/MelbourneDeveloper/Hardwarewallets.Net)</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -15,6 +27,13 @@
     <Compile Remove="Abstractions\IEthereumTransaction.cs" />
     <Compile Remove="Abstractions\ITransaction.cs" />
     <Compile Remove="Abstractions\ITransactionSigner.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\CryptoCurrency.Net\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
