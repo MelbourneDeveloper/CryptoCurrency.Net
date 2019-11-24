@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace CryptoCurrency.Net.Model
+namespace CryptoCurrency.Net.Base.Model
 {
     [Serializable]
     public class CurrencyHolding

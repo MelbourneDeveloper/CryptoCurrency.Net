@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.PriceEstimatation;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.Base.Model.PriceEstimatation;
 
-namespace CryptoCurrency.Net.Abstractions.APIClients
+namespace CryptoCurrency.Net.Base.Abstractions.APIClients
 {
     public interface IPriceEstimationClient
     {

@@ -4,6 +4,6 @@
 // Project-level suppressions either have no target or are given 
 // a specific target and scoped to a namespace, type, member, etc.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.AddressManagement.AddressPathBase.ParseElement(System.String)~CryptoCurrency.Net.AddressManagement.AddressPathElement")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.Base.AddressManagement.AddressPathBase.ParseElement(System.String)~CryptoCurrency.Net.Base.AddressManagement.AddressPathElement")]
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1030:Use events where appropriate", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.Model.ModelBase.RaisePropertyChanged(System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1030:Use events where appropriate", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.Base.Model.ModelBase.RaisePropertyChanged(System.String)")]

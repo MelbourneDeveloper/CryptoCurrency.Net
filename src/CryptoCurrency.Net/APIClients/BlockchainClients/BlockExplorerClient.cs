@@ -1,5 +1,5 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using RestClientDotNet;
 using System;
 
@@ -37,9 +37,9 @@ namespace CryptoCurrency.Net.APIClients
                         return new Uri($"https://{retval}");
                     case CurrencySymbol.ZCashSymbolName:
                         return new Uri($"https://zcash.{retval}");
+                    default:
+                        return null;
                 }
-
-                return null;
             }
         }
 

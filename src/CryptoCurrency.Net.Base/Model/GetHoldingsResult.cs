@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CryptoCurrency.Net.Model
+namespace CryptoCurrency.Net.Base.Model
 {
     public class GetHoldingsResult : APIResultBase
     {

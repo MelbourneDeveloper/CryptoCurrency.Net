@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CryptoCurrency.Net.AddressManagement
+namespace CryptoCurrency.Net.Base.AddressManagement
 {
     public abstract class AddressPathBase : IAddressPath
     {

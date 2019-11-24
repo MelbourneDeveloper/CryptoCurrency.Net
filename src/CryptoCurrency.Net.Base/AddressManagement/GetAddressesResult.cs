@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CryptoCurrency.Net.AddressManagement
+namespace CryptoCurrency.Net.Base.AddressManagement
 {
     public class GetAddressesResult
     {

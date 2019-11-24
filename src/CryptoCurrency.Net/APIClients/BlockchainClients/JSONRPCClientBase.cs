@@ -1,13 +1,14 @@
-﻿using System;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Model.JSONRPC;
+using RestClientDotNet;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.JSONRPC;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients
 {

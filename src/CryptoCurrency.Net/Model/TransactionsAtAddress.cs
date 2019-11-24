@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoCurrency.Net.Base.Model;
+using System;
 using System.Collections.Generic;
 
 namespace CryptoCurrency.Net.Model
@@ -54,9 +55,9 @@ namespace CryptoCurrency.Net.Model
                     return Address.Equals(blockChainAddressInformation.Address, StringComparison.OrdinalIgnoreCase);
                 case string objAsString:
                     return Address.Equals(objAsString, StringComparison.OrdinalIgnoreCase);
+                default:
+                    return false;
             }
-
-            return false;
         }
         #endregion
     }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace CryptoCurrency.Net.Model
+namespace CryptoCurrency.Net.Base.Model
 {
     public class ModelBase : INotifyPropertyChanged
     {

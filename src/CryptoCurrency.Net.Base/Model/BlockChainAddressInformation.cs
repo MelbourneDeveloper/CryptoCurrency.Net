@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CryptoCurrency.Net.Model
+namespace CryptoCurrency.Net.Base.Model
 {
     /// <summary>
     /// TODO: Does this really need to implement INotifyPropertyChanged? It's not really view anywhere yet...

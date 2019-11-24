@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model.SomeClient;
 using RestClientDotNet;
+using System;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients
 {

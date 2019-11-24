@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients

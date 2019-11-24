@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
 

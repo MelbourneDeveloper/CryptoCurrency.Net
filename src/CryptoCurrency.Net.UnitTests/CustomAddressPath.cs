@@ -1,4 +1,4 @@
-﻿using CryptoCurrency.Net.AddressManagement;
+﻿using CryptoCurrency.Net.Base.AddressManagement;
 
 namespace CryptoCurrency.Net.UnitTests
 {

@@ -1,16 +1,17 @@
-﻿using System;
+﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.Helpers;
+using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Model.Bitfinex;
+using Newtonsoft.Json;
+using RestClientDotNet;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Abstractions.APIClients;
-using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.Bitfinex;
-using Newtonsoft.Json;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients
 {

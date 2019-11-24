@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.Abstractions.APIClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.PriceEstimatation;
+﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.Base.Model.PriceEstimatation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestClientDotNet;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {

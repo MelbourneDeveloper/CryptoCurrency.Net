@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CryptoCurrency.Net.Model.PriceEstimatation
+namespace CryptoCurrency.Net.Base.Model.PriceEstimatation
 {
     [Serializable]
     public class EstimatedPricesModel

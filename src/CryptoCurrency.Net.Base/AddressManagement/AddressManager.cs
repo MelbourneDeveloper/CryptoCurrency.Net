@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CryptoCurrency.Net.AddressManagement
+namespace CryptoCurrency.Net.Base.AddressManagement
 {
     public class AddressManager
     {

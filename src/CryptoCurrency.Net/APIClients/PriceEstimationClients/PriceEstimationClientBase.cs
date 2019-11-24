@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.Base.Model.PriceEstimatation;
+using RestClientDotNet;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.PriceEstimatation;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {

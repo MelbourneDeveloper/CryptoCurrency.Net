@@ -1,4 +1,4 @@
-﻿using CryptoCurrency.Net.Model;
+﻿using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model.Tronscan;
 using RestClientDotNet;
 using System;

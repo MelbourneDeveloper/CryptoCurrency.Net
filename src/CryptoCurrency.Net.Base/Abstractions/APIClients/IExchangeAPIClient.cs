@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 
-namespace CryptoCurrency.Net.Abstractions.APIClients
+namespace CryptoCurrency.Net.Base.Abstractions.APIClients
 {
     public interface IExchangeAPIClient
     {

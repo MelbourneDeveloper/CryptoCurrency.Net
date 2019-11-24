@@ -1,5 +1,5 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestClientDotNet;

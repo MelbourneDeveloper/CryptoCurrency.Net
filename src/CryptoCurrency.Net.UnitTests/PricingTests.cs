@@ -1,5 +1,5 @@
 ﻿using CryptoCurrency.Net.APIClients.PriceEstimationClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

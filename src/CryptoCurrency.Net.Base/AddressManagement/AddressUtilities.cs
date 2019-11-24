@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CryptoCurrency.Net.AddressManagement
+namespace CryptoCurrency.Net.Base.AddressManagement
 {
     public static class AddressUtilities
     {

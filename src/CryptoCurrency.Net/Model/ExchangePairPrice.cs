@@ -1,4 +1,6 @@
-﻿namespace CryptoCurrency.Net.Model
+﻿using CryptoCurrency.Net.Base.Model;
+
+namespace CryptoCurrency.Net.Model
 {
     public class ExchangePairPrice
     {
