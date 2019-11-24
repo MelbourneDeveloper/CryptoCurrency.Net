@@ -1,4 +1,4 @@
-﻿namespace CryptoCurrency.Net.Abstractions
+﻿namespace CryptoCurrency.Net.Base.Abstractions
 {
     public interface ICoinUtility
     {

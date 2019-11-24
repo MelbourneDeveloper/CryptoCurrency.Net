@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CryptoCurrency.Net.Abstractions.AddressManagement
+namespace CryptoCurrency.Net.Base.Abstractions.AddressManagement
 {
     /// <summary>
     /// An broken up in to its constituent parts for the purpose of performing operations on a Hardwarewallet device.

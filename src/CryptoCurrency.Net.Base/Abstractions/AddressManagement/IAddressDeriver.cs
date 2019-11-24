@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CryptoCurrency.Net.Abstractions.AddressManagement
+namespace CryptoCurrency.Net.Base.Abstractions.AddressManagement
 {
     public interface IAddressDeriver
     {
