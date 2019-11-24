@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <CodeAnalysisRuleSet>../CryptoCurrency.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Version>2.0.0</Version>
@@ -24,12 +25,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Abstractions\IEthereumTransaction.cs" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>  
+    <Compile Remove="Abstractions\IEthereumTransaction.cs" />  
+    <Compile Remove="Abstractions\ISignedEthereumTransaction.cs" />  
+    <Compile Remove="Abstractions\ISignedTransaction.cs" />
     <Compile Remove="Abstractions\ITransaction.cs" />
     <Compile Remove="Abstractions\ITransactionSigner.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\CryptoCurrency.Net\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
