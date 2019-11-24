@@ -1,5 +1,4 @@
 ﻿using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

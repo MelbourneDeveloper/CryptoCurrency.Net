@@ -1,6 +1,4 @@
-﻿using CryptoCurrency.Net.Base.Model;
-
-namespace CryptoCurrency.Net.Model
+﻿namespace CryptoCurrency.Net.Base.Model
 {
     public class TokenBalance
     {

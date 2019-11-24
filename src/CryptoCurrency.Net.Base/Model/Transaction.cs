@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace CryptoCurrency.Net.Model
+namespace CryptoCurrency.Net.Base.Model
 {
     public class Transaction
     {

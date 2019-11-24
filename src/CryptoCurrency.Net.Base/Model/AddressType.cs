@@ -1,4 +1,4 @@
-﻿namespace CryptoCurrency.Net.Model
+﻿namespace CryptoCurrency.Net.Base.Model
 {
     public enum AddressType
     {

@@ -1,7 +1,6 @@
 ﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Bitfinex;
 using Newtonsoft.Json;
 using RestClientDotNet;

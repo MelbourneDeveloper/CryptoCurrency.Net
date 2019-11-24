@@ -1,8 +1,7 @@
-﻿using CryptoCurrency.Net.Base.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace CryptoCurrency.Net.Model
+namespace CryptoCurrency.Net.Base.Model
 {
     [Serializable]
     public class TransactionsAtAddress : ModelBase

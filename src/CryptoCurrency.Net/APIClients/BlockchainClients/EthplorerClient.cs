@@ -1,6 +1,5 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Ethplorer;
 using RestClientDotNet;
 using System;
