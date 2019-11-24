@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.Base.AddressManagement.BCH;
 using CryptoCurrency.Net.Base.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -127,8 +128,8 @@ namespace CryptoCurrency.Net.UnitTests
                 new List<string>
                 {
                     "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p",
-                    BCH.AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address,
-                    BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address,
+                    AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address,
+                    AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address,
                     "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p"
                 });
         }

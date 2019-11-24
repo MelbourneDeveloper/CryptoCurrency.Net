@@ -7,7 +7,7 @@ using System.Text;
 #pragma warning disable CA1307 
 #pragma warning disable CA1502 
 
-namespace CryptoCurrency.Net.BCH
+namespace CryptoCurrency.Net.Base.AddressManagement.BCH
 {
     /// <summary>
     /// Converts addresses To/From the legacy/new address format. Thanks heaps to this: https://github.com/cashaddress/SharpCashAddr/blob/master/SharpCashAddr/SharpCashAddr.cs

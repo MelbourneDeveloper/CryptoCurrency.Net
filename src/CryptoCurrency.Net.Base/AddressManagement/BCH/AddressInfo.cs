@@ -1,4 +1,4 @@
-﻿namespace CryptoCurrency.Net.BCH
+﻿namespace CryptoCurrency.Net.Base.AddressManagement.BCH
 {
     public class AddressInfo
     {

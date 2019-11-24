@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.Base.AddressManagement.BCH;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.BCH;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestClientDotNet;

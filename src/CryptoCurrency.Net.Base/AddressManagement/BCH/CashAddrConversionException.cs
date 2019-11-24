@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CryptoCurrency.Net.BCH
+namespace CryptoCurrency.Net.Base.AddressManagement.BCH
 {
     [Serializable]
     public class CashAddrConversionException : Exception
