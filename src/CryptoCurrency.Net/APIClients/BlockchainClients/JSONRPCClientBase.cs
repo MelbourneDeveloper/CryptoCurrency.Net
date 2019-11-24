@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.JSONRPC;
+using CryptoCurrency.Net.APIClients.Model.JSONRPC;
 using RestClientDotNet;
 using System;
 using System.Collections.Generic;

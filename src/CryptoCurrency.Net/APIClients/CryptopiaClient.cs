@@ -7,8 +7,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.Cryptopia;
+using CryptoCurrency.Net.APIClients.Model;
+using CryptoCurrency.Net.APIClients.Model.Cryptopia;
 using Newtonsoft.Json;
 using RestClientDotNet;
 

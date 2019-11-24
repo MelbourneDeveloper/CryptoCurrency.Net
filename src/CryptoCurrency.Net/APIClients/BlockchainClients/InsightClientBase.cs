@@ -4,7 +4,7 @@ using RestClientDotNet;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using insight = CryptoCurrency.Net.Model.Insight;
+using insight = CryptoCurrency.Net.APIClients.Model.Insight;
 
 namespace CryptoCurrency.Net.APIClients
 {

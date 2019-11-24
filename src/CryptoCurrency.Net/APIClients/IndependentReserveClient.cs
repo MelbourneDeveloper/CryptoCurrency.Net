@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Model.IndependentReserve;
+using CryptoCurrency.Net.APIClients.Model.IndependentReserve;
 using RestClientDotNet;
 using System;
 using System.Collections.Generic;

@@ -42,7 +42,7 @@
     <Compile Remove="APIClients\CoinspotClient.cs" />
     <Compile Remove="APIClients\CryptopiaClient.cs" />
     <Compile Remove="ConsoleAppIsolatedStoragePersister.cs" />
-    <Compile Remove="Model\CoinInfo.cs" />
+    <Compile Remove="APIClients\Model\CoinInfo.cs" />
     <Compile Remove="PersisterBase.cs" />
   </ItemGroup>
 

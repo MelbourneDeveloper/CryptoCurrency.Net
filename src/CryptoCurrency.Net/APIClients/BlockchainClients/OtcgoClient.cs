@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Octgo;
+using CryptoCurrency.Net.APIClients.Model.Octgo;
 using RestClientDotNet;
 using System;
 using System.Linq;

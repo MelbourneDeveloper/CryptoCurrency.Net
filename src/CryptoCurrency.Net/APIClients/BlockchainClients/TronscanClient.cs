@@ -1,9 +1,9 @@
 ﻿using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Tronscan;
+using CryptoCurrency.Net.APIClients.Model.Tronscan;
 using RestClientDotNet;
 using System;
 using System.Threading.Tasks;
-using ts = CryptoCurrency.Net.Model.Tronscan;
+using ts = CryptoCurrency.Net.APIClients.Model.Tronscan;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {

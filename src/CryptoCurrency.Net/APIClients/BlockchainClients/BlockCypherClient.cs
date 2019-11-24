@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Blockcypher;
+using CryptoCurrency.Net.APIClients.Model.Blockcypher;
 using RestClientDotNet;
 using System;
 using System.Threading.Tasks;

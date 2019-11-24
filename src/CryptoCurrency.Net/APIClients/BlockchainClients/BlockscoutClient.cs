@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.APIClients.Model.Blockscout;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Blockscout;
 using RestClientDotNet;
 using System;
 using System.Collections.Generic;

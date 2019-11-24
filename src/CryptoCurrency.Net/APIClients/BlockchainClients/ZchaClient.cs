@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Zcha;
+using CryptoCurrency.Net.APIClients.Model.Zcha;
 using RestClientDotNet;
 using System;
 using System.Net;
