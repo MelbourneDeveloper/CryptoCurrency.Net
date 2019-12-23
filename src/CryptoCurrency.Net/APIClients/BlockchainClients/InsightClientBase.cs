@@ -54,7 +54,7 @@ namespace CryptoCurrency.Net.APIClients
 
             foreach (var transaction in returnValue.Transactions)
             {
-                var insightTransaction = await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{transaction.TransactionId}");
+                insight.Transaction insightTransaction = await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{transaction.TransactionId}");
                 transaction.TransactionId = insightTransaction.txid;
                 transaction.Fees = insightTransaction.fees;
                 foreach (var vin in insightTransaction.vin)

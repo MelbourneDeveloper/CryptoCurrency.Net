@@ -50,7 +50,7 @@ namespace CryptoCurrency.Net.APIClients
         public override async Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType)
         {
             var retVal = new Collection<ExchangePairPrice>();
-            var symbols = await RESTClient.GetAsync<List<string>>("/v1/symbols");
+            List<string> symbols = await RESTClient.GetAsync<List<string>>("/v1/symbols");
 
             foreach (var symbol in symbols)
             {
@@ -103,13 +103,13 @@ namespace CryptoCurrency.Net.APIClients
             var jsonObj = JsonConvert.SerializeObject(bitfinexPostBase);
             var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonObj));
 
-            RESTClient.Headers.Clear();
-            RESTClient.Headers.Add("X-BFX-APIKEY", ApiKey);
-            RESTClient.Headers.Add("X-BFX-PAYLOAD", payload);
+            RESTClient.DefaultRequestHeaders.Clear();
+            RESTClient.DefaultRequestHeaders.Add("X-BFX-APIKEY", ApiKey);
+            RESTClient.DefaultRequestHeaders.Add("X-BFX-PAYLOAD", payload);
 
             //Notice the ToLower here. This is specific to Bitfinex
             var signature = APIHelpers.GetHash(payload, ApiSecret, APIHelpers.HashAlgorithmType.HMACThreeEightFour, Encoding.UTF8).ToLower();
-            RESTClient.Headers.Add("X-BFX-SIGNATURE", signature);
+            RESTClient.DefaultRequestHeaders.Add("X-BFX-SIGNATURE", signature);
 
             var retVal = await RESTClient.GetAsync<List<Balance>>(BalanceRequestUrl);
             return retVal;

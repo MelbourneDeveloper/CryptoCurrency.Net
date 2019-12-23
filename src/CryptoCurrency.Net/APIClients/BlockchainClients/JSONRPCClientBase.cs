@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.JSONRPC;
 using RestClientDotNet;
 using RestClientDotNet.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -106,7 +106,7 @@ namespace CryptoCurrency.Net.APIClients
 
         public async Task<IEnumerable<ResultBase>> PostAsync(IEnumerable<RequestBase> requests)
         {
-            return await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null, default);
+            return (IEnumerable<ResultBase>)await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null, default);
         }
 
         public async Task<IList<GetTokenBalanceResult>> GetTokenBalances(IList<GetTokenBalanceArgs> tokenBalanceArgsList)

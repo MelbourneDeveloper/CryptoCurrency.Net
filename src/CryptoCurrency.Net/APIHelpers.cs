@@ -119,7 +119,7 @@ namespace CryptoCurrency.Net.Helpers
 
         public static async Task<DateTime> GetCurrentDateTimeFromConvertUnixTimeAsync()
         {
-            var currentTimeModel = await GetDateRESTClient.GetAsync<CurrentTime>("api?timestamp=now");
+            CurrentTime currentTimeModel = await GetDateRESTClient.GetAsync<CurrentTime>("api?timestamp=now");
             return GetDateTimeFromSecondsSinceEpoch(currentTimeModel.timestamp);
         }
 

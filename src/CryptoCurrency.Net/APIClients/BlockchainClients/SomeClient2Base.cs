@@ -55,7 +55,7 @@ namespace CryptoCurrency.Net.APIClients
 
             var queryString = ((SomeClient2Base)getAddressesArgs.Client).GetQueryString(addressesPart);
 
-            var addresses = await getAddressesArgs.RESTClient.GetAsync<AddressResult>(queryString);
+            AddressResult addresses = await getAddressesArgs.RESTClient.GetAsync<AddressResult>(queryString);
 
             var retVal = new List<BlockChainAddressInformation>();
 

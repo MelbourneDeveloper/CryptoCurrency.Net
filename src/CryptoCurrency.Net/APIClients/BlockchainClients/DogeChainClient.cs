@@ -30,7 +30,7 @@ namespace CryptoCurrency.Net.APIClients
             if (balance == 0)
             {
                 //There is no balance so check to see if the address was ever used
-                var received = await RESTClient.GetAsync<Received>($"/api/v1/address/received/{address}");
+                Received received = await RESTClient.GetAsync<Received>($"/api/v1/address/received/{address}");
                 unused = received.received == 0;
             }
             else

@@ -38,7 +38,7 @@ namespace CryptoCurrency.Net.APIClients
                 //5 requests/second * 3
                 await Task.Delay(400);
 
-                var balance = await RESTClient.GetAsync<ChainSoAddress>($"/api/v2/get_address_balance/{Currency}/{address}");
+                ChainSoAddress balance = await RESTClient.GetAsync<ChainSoAddress>($"/api/v2/get_address_balance/{Currency}/{address}");
                 if (balance.data.confirmed_balance != 0)
                 {
                     //TODO: This should include both confirmed and unconformed...
@@ -48,7 +48,7 @@ namespace CryptoCurrency.Net.APIClients
                 //There is no balance so check to see if the address was ever used
                 await Task.Delay(400);
 
-                var received = await RESTClient.GetAsync<ChainSoAddressReceived>($"/api/v2/get_address_received/{Currency}/{address}");
+                ChainSoAddressReceived received = await RESTClient.GetAsync<ChainSoAddressReceived>($"/api/v2/get_address_received/{Currency}/{address}");
 
                 return new BlockChainAddressInformation(address, balance.data.confirmed_balance, received.data.confirmed_received_value == 0);
             }

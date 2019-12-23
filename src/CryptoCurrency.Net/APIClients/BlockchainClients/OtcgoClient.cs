@@ -25,7 +25,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Func
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
-            var addressModel = await RESTClient.GetAsync<Address>($"/api/v1/balances/{address}");
+            Address addressModel = await RESTClient.GetAsync<Address>($"/api/v1/balances/{address}");
             var balance = addressModel.balances.FirstOrDefault(b => b.name == CurrencySymbol.NEOSymbolName);
             return balance != null ? new BlockChainAddressInformation(address, null, balance.total) : null;
         }

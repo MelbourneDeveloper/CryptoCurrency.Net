@@ -46,7 +46,7 @@ namespace CryptoCurrency.Net.APIClients
         public override async Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType)
         {
             var retVal = new Collection<ExchangePairPrice>();
-            var prices = await RESTClient.GetAsync<Collection<PairPrice>>("/api/v1/ticker/price");
+            Collection<PairPrice> prices = await RESTClient.GetAsync<Collection<PairPrice>>("/api/v1/ticker/price");
 
             foreach (var price in prices)
             {
@@ -76,7 +76,7 @@ namespace CryptoCurrency.Net.APIClients
             //Whacky stuff...
             //No idea why any of this is necessary, but code was pieces together from Binance.NET
             var startTime = DateTime.Now;
-            var binanceTimeModel = await RESTClient.GetAsync<BinanceTime>("/api/v1/time");
+            BinanceTime binanceTimeModel = await RESTClient.GetAsync<BinanceTime>("/api/v1/time");
             var binanceTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(binanceTimeModel.serverTime);
             var timeTaken = DateTime.Now - startTime;
             var timeOffset = (binanceTime - DateTime.Now).TotalMilliseconds - (timeTaken.TotalMilliseconds / 2);
@@ -85,8 +85,8 @@ namespace CryptoCurrency.Net.APIClients
             var uri = new Uri($"{RESTClient.BaseUri}{queryString}");
             var hmacAsBytes = APIHelpers.GetHashAsBytes(uri.Query.Replace("?", ""), ApiSecret, APIHelpers.HashAlgorithmType.HMACEightBit, Encoding.UTF8);
             queryString += $"&signature={hmacAsBytes.ToHexString()}";
-            RESTClient.Headers.Clear();
-            RESTClient.Headers.Add("X-MBX-APIKEY", ApiKey);
+            RESTClient.DefaultRequestHeaders.Clear();
+            RESTClient.DefaultRequestHeaders.Add("X-MBX-APIKEY", ApiKey);
             return await RESTClient.GetAsync<Account>(queryString);
         }
 

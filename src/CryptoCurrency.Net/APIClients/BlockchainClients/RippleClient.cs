@@ -29,7 +29,7 @@ namespace CryptoCurrency.Net.APIClients
         {
             try
             {
-                var addressModel = await RESTClient.GetAsync<Address>($"/v2/accounts/{address}/balances");
+                Address addressModel = await RESTClient.GetAsync<Address>($"/v2/accounts/{address}/balances");
                 var balance = addressModel.balances.FirstOrDefault();
                 return balance == null ? null : new BlockChainAddressInformation(address, balance.value, false);
             }

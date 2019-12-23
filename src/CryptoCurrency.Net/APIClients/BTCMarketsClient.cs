@@ -70,14 +70,14 @@ namespace CryptoCurrency.Net.APIClients
             //TODO: API Secret?
             var signature = ComputeHash(ApiSecret, stringToSign);
 
-            lock (RESTClient.Headers)
+            lock (RESTClient.DefaultRequestHeaders)
             {
-                RESTClient.Headers.Clear();
-                RESTClient.Headers.Add("Accept", BTCMarketsHeaderConstants.CONTENT);
-                RESTClient.Headers.Add("Accept-Charset", BTCMarketsHeaderConstants.ENCODING);
-                RESTClient.Headers.Add(BTCMarketsHeaderConstants.APIKEY_HEADER, ApiKey);
-                RESTClient.Headers.Add(BTCMarketsHeaderConstants.SIGNATURE_HEADER, signature);
-                RESTClient.Headers.Add(BTCMarketsHeaderConstants.TIMESTAMP_HEADER, timestamp);
+                RESTClient.DefaultRequestHeaders.Clear();
+                RESTClient.DefaultRequestHeaders.Add("Accept", BTCMarketsHeaderConstants.CONTENT);
+                RESTClient.DefaultRequestHeaders.Add("Accept-Charset", BTCMarketsHeaderConstants.ENCODING);
+                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.APIKEY_HEADER, ApiKey);
+                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.SIGNATURE_HEADER, signature);
+                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.TIMESTAMP_HEADER, timestamp);
             }
 
             List<Balance> result;

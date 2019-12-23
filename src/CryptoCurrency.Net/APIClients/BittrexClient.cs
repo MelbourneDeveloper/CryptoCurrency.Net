@@ -44,7 +44,7 @@ namespace CryptoCurrency.Net.APIClients
         public override async Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType)
         {
             var retVal = new Collection<ExchangePairPrice>();
-            var markets = await RESTClient.GetAsync<Markets>("/api/v1.1/public/getmarketsummaries");
+            Markets markets = await RESTClient.GetAsync<Markets>("/api/v1.1/public/getmarketsummaries");
 
             foreach (var pair in markets.result)
             {
@@ -81,8 +81,8 @@ namespace CryptoCurrency.Net.APIClients
 
             var hmac = APIHelpers.GetHash(uri, ApiSecret, APIHelpers.HashAlgorithmType.HMACNineBit, Encoding.ASCII);
 
-            RESTClient.Headers.Clear();
-            RESTClient.Headers.Add("apisign", hmac);
+            RESTClient.DefaultRequestHeaders.Clear();
+            RESTClient.DefaultRequestHeaders.Add("apisign", hmac);
 
             //TODO: Remove GetBalancesArgs. No idea why we are passing GetBalancesArgs in...
             return await RESTClient.PostAsync<GetBalancesResult, object>(new object(), $"https://bittrex.com/api/v1.1//account/getbalances?apikey={ApiKey}&nonce={nonce}");

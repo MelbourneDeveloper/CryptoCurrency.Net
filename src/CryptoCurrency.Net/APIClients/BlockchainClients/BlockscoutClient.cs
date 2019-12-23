@@ -33,7 +33,7 @@ namespace CryptoCurrency.Net.APIClients
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
         {
             var addresses = string.Join(",", getAddressesArgs.Addresses);
-            var balanceMulti = await getAddressesArgs.RESTClient.GetAsync<BalanceMulti>($"?module=account&action=balancemulti&address={addresses}");
+            BalanceMulti balanceMulti = await getAddressesArgs.RESTClient.GetAsync<BalanceMulti>($"?module=account&action=balancemulti&address={addresses}");
             var returnValue = new List<BlockChainAddressInformation>();
 
             var tasks = getAddressesArgs.Addresses.Select(a => GetTransactions(a, getAddressesArgs.RESTClient));
@@ -63,7 +63,7 @@ namespace CryptoCurrency.Net.APIClients
         /// </summary>
         private static async Task<TxList> GetTransactions(string address, RestClient restClient)
         {
-            var result = await restClient.GetAsync<TxList>($"?module=account&action=txlist&address={address}");
+            TxList result = await restClient.GetAsync<TxList>($"?module=account&action=txlist&address={address}");
             result.Address = address;
             return result;
         }

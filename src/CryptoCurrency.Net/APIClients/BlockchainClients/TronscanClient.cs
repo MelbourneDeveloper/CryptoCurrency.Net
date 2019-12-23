@@ -21,9 +21,9 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
-            var account = await RESTClient.GetAsync<Account>($"api/account?address={address}");
+            Account account = await RESTClient.GetAsync<Account>($"api/account?address={address}");
 
-            var transactions = await RESTClient.GetAsync<ts.Transaction>($"api/transaction?sort=-timestamp&count=true&limit=1&start=0&address={address}");
+            ts.Transaction transactions = await RESTClient.GetAsync<ts.Transaction>($"api/transaction?sort=-timestamp&count=true&limit=1&start=0&address={address}");
 
             var balance = account.balance;
             return new BlockChainAddressInformation(account.address, balance * (decimal).000001, transactions.data.Count > 0);

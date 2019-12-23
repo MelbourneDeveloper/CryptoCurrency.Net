@@ -43,7 +43,7 @@ namespace CryptoCurrency.Net.APIClients
             address = isEthereum ? address.ToLower() : address;
 
             var apiKeyPart = !string.IsNullOrEmpty(APIKey) ? $"?token={APIKey}" : string.Empty;
-            var balanceModel = await RESTClient.GetAsync<Address>($"v1/{Currency.Name.ToLower()}/main/addrs/{address}/balance{apiKeyPart}");
+            Address balanceModel = await RESTClient.GetAsync<Address>($"v1/{Currency.Name.ToLower()}/main/addrs/{address}/balance{apiKeyPart}");
 
             //This website returns satoshis/wei so need to divide
             var balance = isEthereum ? balanceModel.balance / CurrencySymbol.Wei : balanceModel.balance / CurrencySymbol.Satoshi;

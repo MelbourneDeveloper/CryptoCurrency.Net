@@ -37,7 +37,7 @@ namespace CryptoCurrency.Net.APIClients
         {
             try
             {
-                var addressModel = await RESTClient.GetAsync<Address>($"/v2/mainnet/accounts/{address}");
+                Address addressModel = await RESTClient.GetAsync<Address>($"/v2/mainnet/accounts/{address}");
                 return new BlockChainAddressInformation(address, addressModel.balance, addressModel.totalRecv == 0);
             }
             catch (Exception ex)
