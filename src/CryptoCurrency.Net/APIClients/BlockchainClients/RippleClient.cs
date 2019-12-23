@@ -35,7 +35,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (HttpStatusException hex)
             {
-                if (hex.StatusCode == (int)HttpStatusCode.NotFound)
+                if (hex.RestResponse.StatusCode == (int)HttpStatusCode.NotFound)
                 {
                     return new BlockChainAddressInformation(address, 0, true);
                 }
