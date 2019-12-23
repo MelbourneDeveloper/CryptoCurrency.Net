@@ -3,6 +3,7 @@ using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Binance;
 using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

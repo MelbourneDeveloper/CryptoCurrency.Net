@@ -7,6 +7,7 @@ using CryptoCurrency.Net.Model.PriceEstimatation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {

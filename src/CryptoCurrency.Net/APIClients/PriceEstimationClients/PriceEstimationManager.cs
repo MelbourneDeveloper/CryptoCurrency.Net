@@ -8,6 +8,7 @@ using CryptoCurrency.Net.Abstractions.APIClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
 using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
