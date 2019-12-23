@@ -3,7 +3,7 @@ using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.BTCMarkets;
 using Newtonsoft.Json;
-using RestClientDotNet;
+using RestClientDotNet; using RestClientDotNet.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +22,7 @@ namespace CryptoCurrency.Net.APIClients
         public BTCMarketsClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.btcmarkets.net"));
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://api.btcmarkets.net"));
         }
         #endregion
 

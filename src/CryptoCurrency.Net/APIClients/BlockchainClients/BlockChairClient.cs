@@ -2,7 +2,7 @@
 using CryptoCurrency.Net.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestClientDotNet;
+using RestClientDotNet; using RestClientDotNet.Abstractions;
 using System;
 using System.Threading.Tasks;
 
@@ -19,7 +19,7 @@ namespace CryptoCurrency.Net.APIClients
         public BlockChairClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.blockchair.com"));
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://api.blockchair.com"));
             Currency = currency;
         }
         #endregion

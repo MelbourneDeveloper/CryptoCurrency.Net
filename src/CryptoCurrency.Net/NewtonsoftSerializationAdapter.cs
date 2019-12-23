@@ -1,44 +1,31 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RestClientDotNet.Abstractions;
+using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace RestClientDotNet
 {
-    public class NewtonsoftSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
+    public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
         #region Implementation
-        public async Task<T> DeserializeAsync<T>(byte[] binary)
+        public async Task<T> DeserializeAsync<T>(byte[] data)
         {
-            var retVal = await DeserializeAsync(binary, typeof(T));
-            return (T)retVal;
-        }
+            var markup = Encoding.UTF8.GetString(data);
 
-        public async Task<object> DeserializeAsync(byte[] data, Type type)
-        {
-            string markup = null;
-            try
+            object markupAsObject = markup;
+
+            if (typeof(T) == typeof(string))
             {
-                markup = GetMarkup(data);
-
-                if (type == typeof(string))
-                {
-                    return markup;
-                }
-
-                var retVal = await Task.Run(() => JsonConvert.DeserializeObject(markup, type));
-
-                return retVal;
+                return (T)markupAsObject;
             }
-            catch (Exception ex)
-            {
-                throw new DeserializationException(data, markup, ex);
-            }
+
+            return await Task.Run(() => JsonConvert.DeserializeObject<T>(markup));
         }
 
         public async Task<byte[]> SerializeAsync<T>(T value)
         {
             var json = await Task.Run(() => JsonConvert.SerializeObject(value));
-            var binary = await Task.Run(() => Encoding.GetBytes(json));
+            var binary = await Task.Run(() => Encoding.UTF8.GetBytes(json));
             return binary;
         }
         #endregion

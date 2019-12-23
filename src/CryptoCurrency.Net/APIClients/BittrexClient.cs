@@ -7,7 +7,7 @@ using CryptoCurrency.Net.Abstractions.APIClients;
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Bittrex;
-using RestClientDotNet;
+using RestClientDotNet; using RestClientDotNet.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         public BittrexClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://bittrex.com/"));
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://bittrex.com/"));
         }
         #endregion
 

@@ -6,6 +6,7 @@ using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Ripple;
 using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -19,7 +20,7 @@ namespace CryptoCurrency.Net.APIClients
         public RippleClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://data.ripple.com"));
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://data.ripple.com"));
         }
         #endregion
 
@@ -34,7 +35,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (HttpStatusException hex)
             {
-                if (hex.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                if (hex.StatusCode == (int)HttpStatusCode.NotFound)
                 {
                     return new BlockChainAddressInformation(address, 0, true);
                 }

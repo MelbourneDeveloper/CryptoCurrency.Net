@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.DogeChain;
-using RestClientDotNet;
+using RestClientDotNet; using RestClientDotNet.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         public DogeChainClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://dogechain.info"));
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://dogechain.info"));
         }
         #endregion
 

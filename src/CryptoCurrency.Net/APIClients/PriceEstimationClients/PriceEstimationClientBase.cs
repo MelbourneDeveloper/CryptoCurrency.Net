@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
-using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {

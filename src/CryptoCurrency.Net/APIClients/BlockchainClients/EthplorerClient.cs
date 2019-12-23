@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Ethplorer;
-using RestClientDotNet;
+using RestClientDotNet; using RestClientDotNet.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,7 +29,7 @@ namespace CryptoCurrency.Net.APIClients
         public EthplorerClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.ethplorer.io"));
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://api.ethplorer.io"));
         }
         #endregion
 

@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Blockcypher;
-using RestClientDotNet;
+using RestClientDotNet; using RestClientDotNet.Abstractions;
 using System;
 using System.Threading.Tasks;
 

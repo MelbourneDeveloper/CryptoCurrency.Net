@@ -5,6 +5,7 @@ using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Zcha;
 using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -18,7 +19,7 @@ namespace CryptoCurrency.Net.APIClients
         public ZchaClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.zcha.in"));
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://api.zcha.in"));
 
             //When this client can't see the address it returns "null" with a status code of 404 so we just return a blank address instead
             //TODO: Check that this isn't just returning null for all ZEC addresses

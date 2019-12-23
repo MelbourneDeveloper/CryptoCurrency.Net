@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
-
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public class GetPricesArgs

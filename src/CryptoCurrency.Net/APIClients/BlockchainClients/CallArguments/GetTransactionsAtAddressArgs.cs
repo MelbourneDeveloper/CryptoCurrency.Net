@@ -1,6 +1,5 @@
 ﻿using CryptoCurrency.Net.Model;
 using RestClientDotNet;
-
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {
     public class GetTransactionsAtAddressArgs

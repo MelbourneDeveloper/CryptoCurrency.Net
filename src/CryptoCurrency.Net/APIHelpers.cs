@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Model.ConvertUnixTime;
 using RestClientDotNet;
-
 namespace CryptoCurrency.Net.Helpers
 {
     public static class APIHelpers

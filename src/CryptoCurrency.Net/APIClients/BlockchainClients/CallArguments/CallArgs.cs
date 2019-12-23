@@ -1,5 +1,4 @@
 ﻿using RestClientDotNet;
-
 namespace CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments
 {
     public class CallArgs

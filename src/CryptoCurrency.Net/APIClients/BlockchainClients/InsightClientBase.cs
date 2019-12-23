@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace CryptoCurrency.Net.APIClients
         protected InsightClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseUriPath);
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(BaseUriPath);
             Currency = currency;
         }
         #endregion

@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Tronscan;
 using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 using System;
 using System.Threading.Tasks;
 using ts = CryptoCurrency.Net.Model.Tronscan;

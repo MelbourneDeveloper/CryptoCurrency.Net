@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 // ReSharper disable UnusedMember.Global
 
 namespace CryptoCurrency.Net.APIClients

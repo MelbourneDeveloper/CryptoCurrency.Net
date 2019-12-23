@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.CardanoExplorer;
-using RestClientDotNet;
+using RestClientDotNet; using RestClientDotNet.Abstractions;
 using System;
 using System.Threading.Tasks;
 
@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
         protected CardanoExplorerBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseAddress);
+            RESTClient = (RestClient)restClientFactory.CreateRestClient(BaseAddress);
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
