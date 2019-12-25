@@ -2,7 +2,6 @@
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.BTCMarkets;
-using Newtonsoft.Json;
 using RestClientDotNet;
 using RestClientDotNet.Abstractions;
 using System;
@@ -89,10 +88,8 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (DeserializationException dex)
             {
-
-                var errorResult = JsonConvert.DeserializeObject<ErrorResult>(dex.Markup);
+                var errorResult = await dex.RestClient.SerializationAdapter.DeserializeAsync<ErrorResult>(dex.GetResponseData());
                 throw new BTCMarketsException(errorResult);
-
             }
 
             return result;
