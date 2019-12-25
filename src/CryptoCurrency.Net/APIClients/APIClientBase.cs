@@ -11,11 +11,11 @@ namespace CryptoCurrency.Net.APIClients
     {
         #region Private Fields
         private readonly List<TimeSpan> _CallTimes = new List<TimeSpan>();
-        private IRestClientFactory RESTClientFactory { get; }
         #endregion
 
         #region Protected Properties
         protected RestClient RESTClient { get; set; }
+        protected IRestClientFactory RESTClientFactory { get; }
         #endregion
 
         #region Public Properties
