@@ -20,15 +20,6 @@ namespace CryptoCurrency.Net.APIClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://api.zcha.in"));
-
-            //When this client can't see the address it returns "null" with a status code of 404 so we just return a blank address instead
-            //TODO: Check that this isn't just returning null for all ZEC addresses
-            RESTClient.HttpStatusCodeFuncs.Add(HttpStatusCode.NotFound, data =>
-            {
-                //TODO: This is just a byte array. It needs to be converted to text and probably deserialized
-                Logger.Log($"ZEC Blockchain Error: {data}", null, LogSection);
-                return new Address();
-            });
         }
         #endregion
 
@@ -39,6 +30,18 @@ namespace CryptoCurrency.Net.APIClients
             {
                 Address addressModel = await RESTClient.GetAsync<Address>($"/v2/mainnet/accounts/{address}");
                 return new BlockChainAddressInformation(address, addressModel.balance, addressModel.totalRecv == 0);
+            }
+            catch (HttpStatusException hex)
+            {
+                if (hex.RestResponse.StatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    Logger.Log($"ZEC Blockchain Error: {hex.RestResponse.GetResponseData()}", null, LogSection);
+
+                    //TODO: Is this correct?
+                    return null;
+                }
+
+                throw;
             }
             catch (Exception ex)
             {
