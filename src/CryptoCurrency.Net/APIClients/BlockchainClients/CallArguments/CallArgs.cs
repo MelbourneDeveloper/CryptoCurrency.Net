@@ -3,11 +3,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments
 {
     public class CallArgs
     {
-        public RestClient RESTClient { get; set; }
+        public Client RESTClient { get; set; }
 
-        internal CallArgs(RestClient rESTClient)
+        internal CallArgs(Client client)
         {
-            RESTClient = rESTClient;
+            RESTClient = client;
         }
     }
 }

@@ -4,14 +4,14 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {
     public class GetTransactionsAtAddressArgs
     {
-        private RestClient rESTClient;
-        private string address;
+        private readonly Client RESTClient;
+        private readonly string address;
         private CurrencySymbol currency;
-        private BlockchainClientBase blockchainClientBase;
+        private readonly BlockchainClientBase blockchainClientBase;
 
-        public GetTransactionsAtAddressArgs(RestClient rESTClient, string address, CurrencySymbol currency, BlockchainClientBase blockchainClientBase)
+        public GetTransactionsAtAddressArgs(Client client, string address, CurrencySymbol currency, BlockchainClientBase blockchainClientBase)
         {
-            this.rESTClient = rESTClient;
+            RESTClient = client;
             this.address = address;
             this.currency = currency;
             this.blockchainClientBase = blockchainClientBase;

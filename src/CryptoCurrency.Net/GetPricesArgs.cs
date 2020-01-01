@@ -5,13 +5,13 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public class GetPricesArgs
     {
-        public RestClient RESTClient { get; }
+        public Client RESTClient { get; }
         public IEnumerable<CurrencySymbol> Currencies { get; }
         public string FiatCurrency { get; }
 
-        public GetPricesArgs(RestClient restClient, IEnumerable<CurrencySymbol> currencies, string fiatCurrency)
+        public GetPricesArgs(Client client, IEnumerable<CurrencySymbol> currencies, string fiatCurrency)
         {
-            RESTClient = restClient;
+            RESTClient = client;
             Currencies = currencies;
             FiatCurrency = fiatCurrency;
         }

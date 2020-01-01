@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Properties
-        protected RestClient RESTClient { get; set; }
+        protected Client RESTClient { get; set; }
         protected IClientFactory RESTClientFactory { get; }
         #endregion
 

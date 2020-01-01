@@ -23,7 +23,7 @@ namespace CryptoCurrency.Net.Helpers
 
         #region Private Static Fields
         //TODO: This is not using the factory interface...
-        private static readonly RestClient GetDateRESTClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://www.convert-unix-time.com"));
+        private static readonly Client GetDateRESTClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("http://www.convert-unix-time.com"));
         private static readonly DateTime EpochDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         #endregion
 

@@ -5,11 +5,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments
 {
     public class GetAddressesArgs : CallArgs
     {
-        public GetAddressesArgs(RestClient restClient, IEnumerable<string> addresses, CurrencySymbol currencySymbol, BlockchainClientBase client) : base(restClient)
+        public GetAddressesArgs(Client client, IEnumerable<string> addresses, CurrencySymbol currencySymbol, BlockchainClientBase blockChainClientBase) : base(client)
         {
             Addresses = addresses;
             CurrencySymbol = currencySymbol;
-            Client = client;
+            Client = blockChainClientBase;
         }
 
         public IEnumerable<string> Addresses { get; }
