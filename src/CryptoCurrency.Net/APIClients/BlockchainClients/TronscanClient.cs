@@ -17,8 +17,9 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         public TronscanClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)restClientFactory.CreateClient(nameof(TronscanClient));
-            RESTClient.BaseUri = new Uri("https://apilist.tronscan.org");
+            var baseUri = new Uri("https://apilist.tronscan.org");
+            RESTClient = (Client)restClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)

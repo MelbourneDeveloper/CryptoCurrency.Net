@@ -30,8 +30,9 @@ namespace CryptoCurrency.Net.APIClients
         public EthplorerClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(EthplorerClient));
-            RESTClient.BaseUri = new Uri("https://api.ethplorer.io");
+            var baseUri = new Uri("https://api.ethplorer.io");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

@@ -19,8 +19,9 @@ namespace CryptoCurrency.Net.APIClients
         public BtcCom(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(BtcCom));
-            RESTClient.BaseUri = new Uri("https://bch-chain.api.btc.com");
+            var baseUri = new Uri("https://bch-chain.api.btc.com");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

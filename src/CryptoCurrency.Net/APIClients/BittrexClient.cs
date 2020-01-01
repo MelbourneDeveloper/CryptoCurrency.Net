@@ -18,8 +18,9 @@ namespace CryptoCurrency.Net.APIClients
         public BittrexClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(BittrexClient));
-            RESTClient.BaseUri = new Uri("https://bittrex.com/");
+            var baseUri = new Uri("https://bittrex.com/");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

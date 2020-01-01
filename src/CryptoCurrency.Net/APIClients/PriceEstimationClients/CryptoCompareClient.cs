@@ -16,8 +16,9 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
         public CryptoCompareClient(IClientFactory restClientFactory) : base(restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(CryptoCompareClient));
-            RESTClient.BaseUri = new Uri("https://min-api.cryptocompare.com");
+            var baseUri = new Uri("https://min-api.cryptocompare.com");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
 
         protected override Func<GetPricesArgs, Task<EstimatedPricesModel>> GetPricesFunc { get; } = async a =>

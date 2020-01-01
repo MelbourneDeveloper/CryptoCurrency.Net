@@ -1,15 +1,18 @@
 ﻿using CryptoCurrency.Net.Model;
-using RestClient.Net;
+using RestClient.Net.Abstractions;
+
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {
     public class GetTransactionsAtAddressArgs
     {
-        private readonly Client RESTClient;
+#pragma warning disable IDE0052 
+        private readonly IClient RESTClient;
         private readonly string address;
-        private CurrencySymbol currency;
+        private readonly CurrencySymbol currency;
         private readonly BlockchainClientBase blockchainClientBase;
+#pragma warning restore IDE0052 
 
-        public GetTransactionsAtAddressArgs(Client client, string address, CurrencySymbol currency, BlockchainClientBase blockchainClientBase)
+        public GetTransactionsAtAddressArgs(IClient client, string address, CurrencySymbol currency, BlockchainClientBase blockchainClientBase)
         {
             RESTClient = client;
             this.address = address;

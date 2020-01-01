@@ -25,8 +25,9 @@ namespace CryptoCurrency.Net.APIClients
         public BitfinexClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(BitfinexClient));
-            RESTClient.BaseUri = new Uri("https://api.bitfinex.com");
+            var baseUri = new Uri("https://api.bitfinex.com");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

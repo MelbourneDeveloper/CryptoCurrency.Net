@@ -20,8 +20,9 @@ namespace CryptoCurrency.Net.APIClients
         public BlockChairClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(BlockChairClient));
-            RESTClient.BaseUri = new Uri("https://api.blockchair.com");
+            var baseUri = new Uri("https://api.blockchair.com");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
             Currency = currency;
         }
         #endregion

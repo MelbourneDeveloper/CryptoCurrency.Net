@@ -24,8 +24,9 @@ namespace CryptoCurrency.Net.APIClients
         public ChainSoClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(ChainSoClient));
-            RESTClient.BaseUri = new Uri("https://chain.so");
+            var baseUri = new Uri("https://chain.so");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

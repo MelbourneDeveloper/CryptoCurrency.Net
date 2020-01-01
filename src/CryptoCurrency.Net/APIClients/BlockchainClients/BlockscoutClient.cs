@@ -28,8 +28,9 @@ namespace CryptoCurrency.Net.APIClients
         public BlockscoutClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(BlockscoutClient));
-            RESTClient.BaseUri = new Uri("https://blockscout.com/etc/mainnet/api");
+            var baseAddress = new Uri("https://blockscout.com/etc/mainnet/api");
+            RESTClient = (Client)RESTClientFactory.CreateClient(baseAddress.ToString());
+            RESTClient.BaseUri = baseAddress;
         }
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
@@ -63,7 +64,7 @@ namespace CryptoCurrency.Net.APIClients
         /// <summary>
         /// TODO: Implement this so that transactions can be returned
         /// </summary>
-        private static async Task<TxList> GetTransactions(string address, Client client)
+        private static async Task<TxList> GetTransactions(string address, IClient client)
         {
             TxList result = await client.GetAsync<TxList>($"?module=account&action=txlist&address={address}");
             result.Address = address;

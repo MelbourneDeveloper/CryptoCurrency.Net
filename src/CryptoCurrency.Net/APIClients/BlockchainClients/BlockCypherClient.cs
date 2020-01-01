@@ -27,8 +27,9 @@ namespace CryptoCurrency.Net.APIClients
         public BlockCypherClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)restClientFactory.CreateClient(nameof(BlockCypherClient));
-            RESTClient.BaseUri = new Uri("https://api.blockcypher.com");
+            var baseUri = new Uri("https://api.blockcypher.com");
+            RESTClient = (Client)restClientFactory.CreateClient(baseUri.ToString());
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

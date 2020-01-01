@@ -1,9 +1,8 @@
-﻿using System;
+﻿using RestClient.Net.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RestClient.Net;
-using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -14,7 +13,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Properties
-        protected Client RESTClient { get; set; }
+        protected IClient RESTClient { get; set; }
         protected IClientFactory RESTClientFactory { get; }
         #endregion
 
