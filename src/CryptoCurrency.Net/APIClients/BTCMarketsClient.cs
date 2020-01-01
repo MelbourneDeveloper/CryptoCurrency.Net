@@ -22,7 +22,8 @@ namespace CryptoCurrency.Net.APIClients
         public BTCMarketsClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://api.btcmarkets.net"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(BTCMarketsClient));
+            RESTClient.BaseUri = new Uri("https://api.btcmarkets.net");
         }
         #endregion
 

@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Steller;
-using RestClient.Net; using RestClient.Net.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -18,7 +19,8 @@ namespace CryptoCurrency.Net.APIClients
         public StellerClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://horizon.stellar.org"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(StellerClient));
+            RESTClient.BaseUri = new Uri("https://horizon.stellar.org");
         }
         #endregion
 

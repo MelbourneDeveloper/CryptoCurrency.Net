@@ -20,7 +20,8 @@ namespace CryptoCurrency.Net.APIClients
         public RippleClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://data.ripple.com"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(RippleClient));
+            RESTClient.BaseUri = new Uri("https://data.ripple.com");
         }
         #endregion
 

@@ -2,7 +2,8 @@
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.IndependentReserve;
-using RestClient.Net; using RestClient.Net.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,8 @@ namespace CryptoCurrency.Net.APIClients
         public IndependentReserveClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://api.independentreserve.com"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(IndependentReserveClient));
+            RESTClient.BaseUri = new Uri("https://api.independentreserve.com");
         }
         #endregion
 
@@ -58,12 +60,12 @@ namespace CryptoCurrency.Net.APIClients
             {
                 apiKey = ApiKey,
                 nonce = nonce,
-                signature = APIHelpers.GetSignature(RESTClient.BaseUri, "/Private/GetAccounts", 
+                signature = APIHelpers.GetSignature(RESTClient.BaseUri, "/Private/GetAccounts",
                 new Dictionary<string, object>
                 {
                     { "apiKey", ApiKey },
                     { "nonce", nonce }
-                }, 
+                },
                 ApiSecret, APIHelpers.HashAlgorithmType.HMACEightBit)
             };
 

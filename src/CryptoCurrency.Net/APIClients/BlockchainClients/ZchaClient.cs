@@ -19,7 +19,8 @@ namespace CryptoCurrency.Net.APIClients
         public ZchaClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://api.zcha.in"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(ZchaClient));
+            RESTClient.BaseUri = new Uri("https://api.zcha.in");
         }
         #endregion
 
