@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 // ReSharper disable UnusedMember.Global
 
@@ -9,7 +9,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BitcoinGoldClient : InsightClientBase, IBlockchainClient
     {
         #region Constructor
-        public BitcoinGoldClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public BitcoinGoldClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

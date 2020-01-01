@@ -1,9 +1,9 @@
 ﻿using System;
-using RestClientDotNet; using RestClientDotNet.Abstractions;
+using RestClient.Net; using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.UnitTests
 {
-    public class RESTClientFactory : IRestClientFactory
+    public class RESTClientFactory : IClientFactory
     {
         public IRestClient CreateRestClient(Uri baseUri)
         {

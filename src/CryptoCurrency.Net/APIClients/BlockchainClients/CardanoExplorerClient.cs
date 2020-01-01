@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 
 namespace CryptoCurrency.Net.APIClients
@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.Cardano };
         #endregion
 
-        public CardanoExplorerClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public CardanoExplorerClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
         }
 

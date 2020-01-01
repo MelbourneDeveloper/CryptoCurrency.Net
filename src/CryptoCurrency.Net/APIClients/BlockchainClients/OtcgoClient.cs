@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Octgo;
-using RestClientDotNet;
-using RestClientDotNet.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 namespace CryptoCurrency.Net.APIClients
 {
     public class OtcgoClient : BlockchainClientBase, IBlockchainClient
@@ -15,10 +15,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public OtcgoClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public OtcgoClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://otcgo.cn"));
+            RESTClient = (RestClient)RESTClientFactory.CreateClient(new Uri("https://otcgo.cn"));
         }
         #endregion
 

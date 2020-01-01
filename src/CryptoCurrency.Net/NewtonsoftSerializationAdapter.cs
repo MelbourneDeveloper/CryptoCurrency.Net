@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System.Text;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {

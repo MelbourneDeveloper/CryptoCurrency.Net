@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Tronscan;
-using RestClientDotNet;
-using RestClientDotNet.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Threading.Tasks;
 using ts = CryptoCurrency.Net.Model.Tronscan;
@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.Tron };
         #endregion
 
-        public TronscanClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public TronscanClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             RESTClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://apilist.tronscan.org"));
         }

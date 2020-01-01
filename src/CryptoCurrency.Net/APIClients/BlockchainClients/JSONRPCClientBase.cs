@@ -2,8 +2,8 @@
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.JSONRPC;
-using RestClientDotNet;
-using RestClientDotNet.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -33,10 +33,10 @@ namespace CryptoCurrency.Net.APIClients
         };
 
         #region Constructor
-        protected JSONRPCClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        protected JSONRPCClientBase(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRestClient(BaseUriPath);
+            RESTClient = (RestClient)RESTClientFactory.CreateClient(BaseUriPath);
             Currency = currency;
         }
         #endregion

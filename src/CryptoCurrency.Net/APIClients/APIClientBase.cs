@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RestClientDotNet;
-using RestClientDotNet.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
 
         #region Protected Properties
         protected RestClient RESTClient { get; set; }
-        protected IRestClientFactory RESTClientFactory { get; }
+        protected IClientFactory RESTClientFactory { get; }
         #endregion
 
         #region Public Properties
@@ -29,7 +29,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        protected APIClientBase(IRestClientFactory restClientFactory)
+        protected APIClientBase(IClientFactory restClientFactory)
         {
             RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
         }

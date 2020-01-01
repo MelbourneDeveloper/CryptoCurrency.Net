@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Model.ConvertUnixTime;
-using RestClientDotNet;
+using RestClient.Net;
 namespace CryptoCurrency.Net.Helpers
 {
     public static class APIHelpers

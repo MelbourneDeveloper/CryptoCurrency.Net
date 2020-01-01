@@ -1,5 +1,5 @@
 ﻿using CryptoCurrency.Net.Model;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +13,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         #region  Fields
         private Dictionary<CurrencySymbol, List<IBlockchainClient>> _BlockchainClientsByCurrencySymbol = new Dictionary<CurrencySymbol, List<IBlockchainClient>>();
         private readonly Dictionary<Type, CurrencyCapabilityCollection> _CapabilitiesByClientType = new Dictionary<Type, CurrencyCapabilityCollection>();
-        private readonly IRestClientFactory _RESTClientFactory;
+        private readonly IClientFactory _RESTClientFactory;
         #endregion
 
         #region Static Constructor
-        public BlockchainClientManager(IRestClientFactory restClientFactory)
+        public BlockchainClientManager(IClientFactory restClientFactory)
         {
             _RESTClientFactory = restClientFactory;
 

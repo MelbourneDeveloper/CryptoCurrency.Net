@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet;
+using RestClient.Net;
 namespace CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments
 {
     public class GetAddressesArgs : CallArgs

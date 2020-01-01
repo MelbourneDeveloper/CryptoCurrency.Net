@@ -2,8 +2,8 @@
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Binance;
-using RestClientDotNet;
-using RestClientDotNet.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,12 +15,12 @@ namespace CryptoCurrency.Net.APIClients
     public class BinanceClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public BinanceClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BinanceClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var restClient = RESTClientFactory.CreateRestClient(nameof(BinanceClient));
+            var restClient = RESTClientFactory.CreateClient(nameof(BinanceClient));
             restClient.BaseUri = new Uri("https://api.binance.com");
-            RESTClient = (RestClient)restClient;
+            RESTClient = (Client)restClient;
         }
         #endregion
 

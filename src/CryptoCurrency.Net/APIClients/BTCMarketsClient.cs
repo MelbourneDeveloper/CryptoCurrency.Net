@@ -2,8 +2,8 @@
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.BTCMarkets;
-using RestClientDotNet;
-using RestClientDotNet.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,10 +19,10 @@ namespace CryptoCurrency.Net.APIClients
         public const string ACCOUNTBALANCEPATH = "/account/balance";
 
         #region Constructor
-        public BTCMarketsClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BTCMarketsClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://api.btcmarkets.net"));
+            RESTClient = (RestClient)RESTClientFactory.CreateClient(new Uri("https://api.btcmarkets.net"));
         }
         #endregion
 

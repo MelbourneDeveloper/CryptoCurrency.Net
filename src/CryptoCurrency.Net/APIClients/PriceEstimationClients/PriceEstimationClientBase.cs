@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public abstract class PriceEstimationClientBase : APIClientBase
     {
-        protected PriceEstimationClientBase(IRestClientFactory restClientFactory) : base(restClientFactory)
+        protected PriceEstimationClientBase(IClientFactory restClientFactory) : base(restClientFactory)
         {
         }
 

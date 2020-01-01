@@ -6,17 +6,17 @@ using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestClientDotNet;
-using RestClientDotNet.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public class CryptoCompareClient : PriceEstimationClientBase, IPriceEstimationClient
     {
-        public CryptoCompareClient(IRestClientFactory restClientFactory) : base(restClientFactory)
+        public CryptoCompareClient(IClientFactory restClientFactory) : base(restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRestClient(new Uri("https://min-api.cryptocompare.com"));
+            RESTClient = (RestClient)RESTClientFactory.CreateClient(new Uri("https://min-api.cryptocompare.com"));
         }
 
         protected override Func<GetPricesArgs, Task<EstimatedPricesModel>> GetPricesFunc { get; } = async a =>

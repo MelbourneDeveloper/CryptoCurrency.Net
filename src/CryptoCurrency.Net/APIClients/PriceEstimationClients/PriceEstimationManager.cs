@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.Abstractions.APIClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
         #endregion
 
         #region Constructor
-        public PriceEstimationManager(IRestClientFactory restClientFactory)
+        public PriceEstimationManager(IClientFactory restClientFactory)
         {
             foreach (var typeInfo in typeof(PriceEstimationManager).GetTypeInfo().Assembly.DefinedTypes)
             {

@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         #endregion
 
         #region Constructor
-        protected BlockchainClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(restClientFactory)
+        protected BlockchainClientBase(CurrencySymbol currency, IClientFactory restClientFactory) : base(restClientFactory)
         {
             Currency = currency;
         }
