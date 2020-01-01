@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         public DogeChainClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)RESTClientFactory.CreateClient(new Uri("https://dogechain.info"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://dogechain.info"));
         }
         #endregion
 

@@ -19,7 +19,7 @@ namespace CryptoCurrency.Net.APIClients
         public ZchaClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)RESTClientFactory.CreateClient(new Uri("https://api.zcha.in"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://api.zcha.in"));
         }
         #endregion
 
@@ -33,9 +33,9 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (HttpStatusException hex)
             {
-                if (hex.RestResponse.StatusCode == (int)HttpStatusCode.NotFound)
+                if (hex.Response.StatusCode == (int)HttpStatusCode.NotFound)
                 {
-                    Logger.Log($"ZEC Blockchain Error: {hex.RestResponse.GetResponseData()}", null, LogSection);
+                    Logger.Log($"ZEC Blockchain Error: {hex.Response.GetResponseData()}", null, LogSection);
 
                     //TODO: Is this correct?
                     return null;

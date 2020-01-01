@@ -22,7 +22,7 @@ namespace CryptoCurrency.Net.APIClients
         public BTCMarketsClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)RESTClientFactory.CreateClient(new Uri("https://api.btcmarkets.net"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://api.btcmarkets.net"));
         }
         #endregion
 
@@ -88,7 +88,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (DeserializationException dex)
             {
-                var errorResult = await dex.RestClient.SerializationAdapter.DeserializeAsync<ErrorResult>(dex.GetResponseData());
+                var errorResult = RESTClient.SerializationAdapter.Deserialize<ErrorResult>(dex.GetResponseData(), null);
                 throw new BTCMarketsException(errorResult);
             }
 

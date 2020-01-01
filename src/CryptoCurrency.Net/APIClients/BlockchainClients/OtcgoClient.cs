@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients
         public OtcgoClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)RESTClientFactory.CreateClient(new Uri("https://otcgo.cn"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://otcgo.cn"));
         }
         #endregion
 

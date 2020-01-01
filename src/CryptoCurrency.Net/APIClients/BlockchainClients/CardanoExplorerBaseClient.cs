@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
         protected CardanoExplorerBase(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)RESTClientFactory.CreateClient(BaseAddress);
+            RESTClient = (Client)RESTClientFactory.CreateClient(BaseAddress);
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
