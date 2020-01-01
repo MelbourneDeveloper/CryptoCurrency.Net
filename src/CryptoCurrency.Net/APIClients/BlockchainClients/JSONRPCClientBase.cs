@@ -107,7 +107,8 @@ namespace CryptoCurrency.Net.APIClients
 
         public async Task<IEnumerable<ResultBase>> PostAsync(IEnumerable<RequestBase> requests)
         {
-            return (IEnumerable<ResultBase>)await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null, default);
+            var response = await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null, default);
+            return response.Body;
         }
 
         public async Task<IList<GetTokenBalanceResult>> GetTokenBalances(IList<GetTokenBalanceArgs> tokenBalanceArgsList)
