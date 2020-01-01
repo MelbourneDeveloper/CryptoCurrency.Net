@@ -1,7 +1,8 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Blockcypher;
-using RestClient.Net; using RestClient.Net.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BlockCypherClient : BlockchainClientBase, IBlockchainClient
     {
         //1 second / 3 + 20
-        private const int MillisecondsDelay = (int)(1000 / (decimal)3) +20;
+        private const int MillisecondsDelay = (int)(1000 / (decimal)3) + 20;
 
         #region Public Static Properties
         public static string APIKey { get; set; }
@@ -25,7 +26,9 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BlockCypherClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
-            RESTClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://api.blockcypher.com"));
+            if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
+            RESTClient = (Client)restClientFactory.CreateClient(nameof(BlockCypherClient));
+            RESTClient.BaseUri = new Uri("https://api.blockcypher.com");
         }
         #endregion
 

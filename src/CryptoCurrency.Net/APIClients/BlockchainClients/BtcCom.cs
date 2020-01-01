@@ -4,7 +4,8 @@ using CryptoCurrency.Net.BCH;
 using CryptoCurrency.Net.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestClient.Net; using RestClient.Net.Abstractions;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace CryptoCurrency.Net.APIClients
         public BtcCom(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(new Uri("https://bch-chain.api.btc.com"));
+            RESTClient = (Client)RESTClientFactory.CreateClient(nameof(BtcCom));
+            RESTClient.BaseUri = new Uri("https://bch-chain.api.btc.com");
         }
         #endregion
 
