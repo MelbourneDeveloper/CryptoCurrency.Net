@@ -11,7 +11,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
     public class BlockchainClientManager
     {
         #region  Fields
-        private Dictionary<CurrencySymbol, List<IBlockchainClient>> _BlockchainClientsByCurrencySymbol = new Dictionary<CurrencySymbol, List<IBlockchainClient>>();
+        private readonly Dictionary<CurrencySymbol, List<IBlockchainClient>> _BlockchainClientsByCurrencySymbol = new Dictionary<CurrencySymbol, List<IBlockchainClient>>();
         private readonly Dictionary<Type, CurrencyCapabilityCollection> _CapabilitiesByClientType = new Dictionary<Type, CurrencyCapabilityCollection>();
         private readonly IClientFactory _RESTClientFactory;
         #endregion
