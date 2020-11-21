@@ -31,3 +31,7 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+      
+  - name: Publish to GitHub Pages
+  uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+
