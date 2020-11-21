@@ -1,6 +1,6 @@
 ## Welcome to GitHub Pages
 
-Hi. This is a test
+Hi. This is a test two
 
 You can use the [editor on GitHub](https://github.com/MelbourneDeveloper/CryptoCurrency.Net/edit/develop/docs/index.md) to maintain and preview the content for your website in Markdown files.
 
