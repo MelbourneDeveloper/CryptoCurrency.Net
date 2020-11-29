@@ -3,7 +3,6 @@ using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Ethereum;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Etherscan;
-using CryptoCurrency.Net.Model.Ethplorer;
 using RestClientDotNet;
 using System;
 using System.Collections.Generic;
@@ -26,14 +25,25 @@ namespace CryptoCurrency.Net.APIClients
         {
             RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("http://api.etherscan.io/"));
         }
+        #endregion
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
         {
-            string queryString = $"api?module=account&action=balancemulti&address={string.Join(",", getAddressesArgs.Addresses.Select(a=>a.ToLower()))}&tag=latest&apikey=YourApiKeyToken";
+            string queryString = $"api?module=account&action=balancemulti&address={string.Join(",", getAddressesArgs.Addresses.Select(a => a.ToLower()))}&tag=latest&apikey=YourApiKeyToken";
 
-            var balances = await getAddressesArgs.RESTClient.GetAsync<Account>(new Uri(queryString, UriKind.Relative));
+            var accountResponse = await getAddressesArgs.RESTClient.GetAsync<ApiResponse<Account>>(new Uri(queryString, UriKind.Relative));
 
-            return balances.result.Select(r => new BlockChainAddressInformation(r.account, r.balance.ToEthereumBalance(), false));
+            foreach (var account in accountResponse.result)
+            {
+                if (account.balance == "0")
+                {
+                    queryString = $"api?module=account&action=txlist&address={account.account}&apikey=YourApiKeyToken";
+                    var transactionResponse = await getAddressesArgs.RESTClient.GetAsync<ApiResponse<TransactionObject>>(new Uri(queryString, UriKind.Relative));
+                    account.IsEmpty = transactionResponse.result.Count == 0;
+                }
+            }
+
+            return accountResponse.result.Select(r => new BlockChainAddressInformation(r.account, r.balance.ToEthereumBalance(), r.IsEmpty));
 
         };
 
@@ -41,7 +51,7 @@ namespace CryptoCurrency.Net.APIClients
         {
             throw new NotImplementedException();
         }
-        #endregion
+
 
     }
 }
