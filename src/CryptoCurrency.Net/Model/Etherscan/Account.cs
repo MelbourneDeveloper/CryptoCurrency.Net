@@ -5,7 +5,7 @@ namespace CryptoCurrency.Net.Model.Etherscan
     public class Result
     {
         public string account { get; set; }
-        public long balance { get; set; }
+        public string balance { get; set; }
     }
 
     public class Account
