@@ -58,6 +58,28 @@ namespace CryptoCurrency.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestConcurrentBlockcypherGetAddress()
+        {
+            var etherscanClient = new BlockCypherClient(CurrencySymbol.Ethereum, new RESTClientFactory());
+            var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
+
+            var concurrency = 5;
+
+            for (var i = 0; i < concurrency; i++)
+            {
+                tasks.Add(etherscanClient.GetAddresses(new List<string>
+                {
+                    "0x0E95F8F8ecBd770585766c1CD216C81aA43439a6",
+                    "0xda4D788FA55CDE88C8dc93Ceb4Ce9EDCf26Ee2A5"
+                }));
+            }
+
+            var results = await Task.WhenAll(tasks);
+
+            Assert.AreEqual(concurrency, results.Length);
+        }
+
+        [TestMethod]
         public void TestToEthereumBalance()
         {
             const string wei = "399395627285559445";
