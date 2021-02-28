@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Ripple;
-using RestClientDotNet;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -16,10 +17,12 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public RippleClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public RippleClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://data.ripple.com"));
+            var baseUri = new Uri("https://data.ripple.com");
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -28,13 +31,13 @@ namespace CryptoCurrency.Net.APIClients
         {
             try
             {
-                var addressModel = await RESTClient.GetAsync<Address>($"/v2/accounts/{address}/balances");
+                Address addressModel = await RESTClient.GetAsync<Address>($"/v2/accounts/{address}/balances");
                 var balance = addressModel.balances.FirstOrDefault();
                 return balance == null ? null : new BlockChainAddressInformation(address, balance.value, false);
             }
             catch (HttpStatusException hex)
             {
-                if (hex.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                if (hex.Response.StatusCode == (int)HttpStatusCode.NotFound)
                 {
                     return new BlockChainAddressInformation(address, 0, true);
                 }

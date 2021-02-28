@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RestClient.Net.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -10,11 +10,11 @@ namespace CryptoCurrency.Net.APIClients
     {
         #region Private Fields
         private readonly List<TimeSpan> _CallTimes = new List<TimeSpan>();
-        private IRestClientFactory RESTClientFactory { get; }
         #endregion
 
         #region Protected Properties
-        protected RestClient RESTClient { get; set; }
+        protected IClient RESTClient { get; set; }
+        protected Func<Uri, IClient> RESTClientFactory { get; }
         #endregion
 
         #region Public Properties
@@ -28,10 +28,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        protected APIClientBase(IRestClientFactory restClientFactory)
-        {
-            RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
-        }
+        protected APIClientBase(Func<Uri, IClient> restClientFactory) => RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
         #endregion
 
         #region Protected Methods

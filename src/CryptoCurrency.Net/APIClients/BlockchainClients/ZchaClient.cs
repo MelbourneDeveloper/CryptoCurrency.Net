@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Zcha;
-using RestClientDotNet;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -15,19 +16,12 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ZchaClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public ZchaClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.zcha.in"));
-
-            //When this client can't see the address it returns "null" with a status code of 404 so we just return a blank address instead
-            //TODO: Check that this isn't just returning null for all ZEC addresses
-            RESTClient.HttpStatusCodeFuncs.Add(HttpStatusCode.NotFound, data =>
-            {
-                //TODO: This is just a byte array. It needs to be converted to text and probably deserialized
-                Logger.Log($"ZEC Blockchain Error: {data}", null, LogSection);
-                return new Address();
-            });
+            var baseUri = new Uri("https://api.zcha.in");
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -36,8 +30,20 @@ namespace CryptoCurrency.Net.APIClients
         {
             try
             {
-                var addressModel = await RESTClient.GetAsync<Address>($"/v2/mainnet/accounts/{address}");
+                Address addressModel = await RESTClient.GetAsync<Address>($"/v2/mainnet/accounts/{address}");
                 return new BlockChainAddressInformation(address, addressModel.balance, addressModel.totalRecv == 0);
+            }
+            catch (HttpStatusException hex)
+            {
+                if (hex.Response.StatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    Logger.Log($"ZEC Blockchain Error: {hex.Response.GetResponseData()}", null, LogSection);
+
+                    //TODO: Is this correct?
+                    return null;
+                }
+
+                throw;
             }
             catch (Exception ex)
             {

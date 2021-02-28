@@ -16,9 +16,6 @@ namespace CryptoCurrency.Net.Model
         }
 
 
-        public Transaction(string transactionHash)
-        {
-            TransactionId = transactionHash;
-        }
+        public Transaction(string transactionHash) => TransactionId = transactionHash;
     }
 }

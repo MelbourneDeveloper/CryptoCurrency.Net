@@ -7,9 +7,6 @@
         public decimal Price { get; set; }
         public decimal? Volume { get; }
 
-        public ExchangePairPrice(decimal? volume)
-        {
-            Volume = volume;
-        }
+        public ExchangePairPrice(decimal? volume) => Volume = volume;
     }
 }

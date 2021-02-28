@@ -2,7 +2,8 @@
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.IndependentReserve;
-using RestClientDotNet;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,10 +15,12 @@ namespace CryptoCurrency.Net.APIClients
     public class IndependentReserveClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public IndependentReserveClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public IndependentReserveClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.independentreserve.com"));
+            var baseUri = new Uri("https://api.independentreserve.com");
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -39,10 +42,7 @@ namespace CryptoCurrency.Net.APIClients
             return retVal;
         }
 
-        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType)
-        {
-            throw new NotImplementedException();
-        }
+        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType) => throw new NotImplementedException();
         #endregion
 
         #region Private Methods
@@ -58,12 +58,12 @@ namespace CryptoCurrency.Net.APIClients
             {
                 apiKey = ApiKey,
                 nonce = nonce,
-                signature = APIHelpers.GetSignature(RESTClient.BaseUri, "/Private/GetAccounts", 
+                signature = APIHelpers.GetSignature(RESTClient.BaseUri, "/Private/GetAccounts",
                 new Dictionary<string, object>
                 {
                     { "apiKey", ApiKey },
                     { "nonce", nonce }
-                }, 
+                },
                 ApiSecret, APIHelpers.HashAlgorithmType.HMACEightBit)
             };
 

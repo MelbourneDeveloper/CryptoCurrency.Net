@@ -103,17 +103,12 @@ namespace CryptoCurrency.Net.BCH
                 converted[a1 + 4] = (byte)(((bytes[a2 + 6] % 8) << 5) | bytes[a2 + 7]);
             }
             converted[a1] = (byte)((bytes[a2] << 3) | (bytes[a2 + 1] >> 2));
-            if (bytes[a2 + 1] % 4 != 0)
-                throw new CashAddrConversionException("Invalid CashAddr.");
-            return converted;
+            return bytes[a2 + 1] % 4 != 0 ? throw new CashAddrConversionException("Invalid CashAddr.") : converted;
         }
         #endregion
 
         #region Public Methods
-        public static AddressInfo ToNewFormat(string fromAddress)
-        {
-            return ToNewFormat(fromAddress, true);
-        }
+        public static AddressInfo ToNewFormat(string fromAddress) => ToNewFormat(fromAddress, true);
 
         public static AddressInfo ToNewFormat(string fromAddress, bool addPrefix)
         {

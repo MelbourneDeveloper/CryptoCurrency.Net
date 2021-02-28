@@ -2,10 +2,7 @@
 {
     public abstract class APIResultBase
     {
-        protected APIResultBase(object tag)
-        {
-            Tag = tag;
-        }
+        protected APIResultBase(object tag) => Tag = tag;
 
         /// <summary>
         /// To be used with WhenAll calls

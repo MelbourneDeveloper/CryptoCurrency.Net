@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet;
+using RestClient.Net.Abstractions;
 using System;
 // ReSharper disable UnusedMember.Global
 
@@ -9,7 +9,7 @@ namespace CryptoCurrency.Net.APIClients
     public class DashClient : InsightClientBase, IBlockchainClient
     {
         #region Constructor
-        public DashClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public DashClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using CryptoCurrency.Net.Model;
-using RestClientDotNet;
+﻿using CryptoCurrency.Net.Model;
+using RestClient.Net.Abstractions;
+using System.Collections.Generic;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public class GetPricesArgs
     {
-        public RestClient RESTClient { get; }
+        public IClient RESTClient { get; }
         public IEnumerable<CurrencySymbol> Currencies { get; }
         public string FiatCurrency { get; }
 
-        public GetPricesArgs(RestClient restClient, IEnumerable<CurrencySymbol> currencies, string fiatCurrency)
+        public GetPricesArgs(IClient client, IEnumerable<CurrencySymbol> currencies, string fiatCurrency)
         {
-            RESTClient = restClient;
+            RESTClient = client;
             Currencies = currencies;
             FiatCurrency = fiatCurrency;
         }

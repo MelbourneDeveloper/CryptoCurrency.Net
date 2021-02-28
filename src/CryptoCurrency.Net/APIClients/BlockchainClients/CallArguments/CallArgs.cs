@@ -1,14 +1,11 @@
-﻿using RestClientDotNet;
+﻿using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments
 {
     public class CallArgs
     {
-        public RestClient RESTClient { get; set; }
+        public IClient RESTClient { get; set; }
 
-        internal CallArgs(RestClient rESTClient)
-        {
-            RESTClient = rESTClient;
-        }
+        internal CallArgs(IClient client) => RESTClient = client;
     }
 }

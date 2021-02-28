@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet;
+using RestClient.Net.Abstractions;
 using System;
 
 namespace CryptoCurrency.Net.APIClients
@@ -8,7 +8,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BtgExplorerClient : InsightClientBase, IBlockchainClient
     {
         #region Constructor
-        public BtgExplorerClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public BtgExplorerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

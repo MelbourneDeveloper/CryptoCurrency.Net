@@ -97,22 +97,13 @@ namespace CryptoCurrency.Net.Model
 
         }
 
-        public CurrencySymbol(string name)
-        {
-            Name = name;
-        }
+        public CurrencySymbol(string name) => Name = name;
         #endregion
 
         #region Public Methods
-        public static bool IsEthereum(CurrencySymbol currencySymbol)
-        {
-            return new List<CurrencySymbol> { Ethereum, EthereumClassic }.Contains(currencySymbol);
-        }
+        public static bool IsEthereum(CurrencySymbol currencySymbol) => new List<CurrencySymbol> { Ethereum, EthereumClassic }.Contains(currencySymbol);
 
-        public override bool Equals(object obj)
-        {
-            return !(obj is CurrencySymbol currencySymbol) ? false : string.Equals(currencySymbol.Name, Name, StringComparison.Ordinal);
-        }
+        public override bool Equals(object obj) => !(obj is CurrencySymbol currencySymbol) ? false : string.Equals(currencySymbol.Name, Name, StringComparison.Ordinal);
 
         public override int GetHashCode()
         {
@@ -125,10 +116,7 @@ namespace CryptoCurrency.Net.Model
             return retVal;
         }
 
-        public override string ToString()
-        {
-            return _Name;
-        }
+        public override string ToString() => _Name;
 
         #endregion
     }

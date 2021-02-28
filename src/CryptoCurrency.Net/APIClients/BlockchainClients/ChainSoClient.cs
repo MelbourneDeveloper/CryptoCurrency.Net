@@ -1,7 +1,8 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.ChainSo;
-using RestClientDotNet;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,10 +21,12 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ChainSoClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public ChainSoClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://chain.so"));
+            var baseUri = new Uri("https://chain.so");
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -38,7 +41,7 @@ namespace CryptoCurrency.Net.APIClients
                 //5 requests/second * 3
                 await Task.Delay(400);
 
-                var balance = await RESTClient.GetAsync<ChainSoAddress>($"/api/v2/get_address_balance/{Currency}/{address}");
+                ChainSoAddress balance = await RESTClient.GetAsync<ChainSoAddress>($"/api/v2/get_address_balance/{Currency}/{address}");
                 if (balance.data.confirmed_balance != 0)
                 {
                     //TODO: This should include both confirmed and unconformed...
@@ -48,7 +51,7 @@ namespace CryptoCurrency.Net.APIClients
                 //There is no balance so check to see if the address was ever used
                 await Task.Delay(400);
 
-                var received = await RESTClient.GetAsync<ChainSoAddressReceived>($"/api/v2/get_address_received/{Currency}/{address}");
+                ChainSoAddressReceived received = await RESTClient.GetAsync<ChainSoAddressReceived>($"/api/v2/get_address_received/{Currency}/{address}");
 
                 return new BlockChainAddressInformation(address, balance.data.confirmed_balance, received.data.confirmed_received_value == 0);
             }

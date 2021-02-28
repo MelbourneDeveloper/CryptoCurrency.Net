@@ -2,8 +2,8 @@
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.BTCMarkets;
-using Newtonsoft.Json;
-using RestClientDotNet;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,10 +19,12 @@ namespace CryptoCurrency.Net.APIClients
         public const string ACCOUNTBALANCEPATH = "/account/balance";
 
         #region Constructor
-        public BTCMarketsClient(string apiKey, string apiSecret, IRestClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BTCMarketsClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://api.btcmarkets.net"));
+            var baseUri = new Uri("https://api.btcmarkets.net");
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -44,10 +46,7 @@ namespace CryptoCurrency.Net.APIClients
             return retVal;
         }
 
-        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType)
-        {
-            throw new NotImplementedException();
-        }
+        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType) => throw new NotImplementedException();
 
         #endregion
         #region Private Methods
@@ -70,14 +69,14 @@ namespace CryptoCurrency.Net.APIClients
             //TODO: API Secret?
             var signature = ComputeHash(ApiSecret, stringToSign);
 
-            lock (RESTClient.Headers)
+            lock (RESTClient.DefaultRequestHeaders)
             {
-                RESTClient.Headers.Clear();
-                RESTClient.Headers.Add("Accept", BTCMarketsHeaderConstants.CONTENT);
-                RESTClient.Headers.Add("Accept-Charset", BTCMarketsHeaderConstants.ENCODING);
-                RESTClient.Headers.Add(BTCMarketsHeaderConstants.APIKEY_HEADER, ApiKey);
-                RESTClient.Headers.Add(BTCMarketsHeaderConstants.SIGNATURE_HEADER, signature);
-                RESTClient.Headers.Add(BTCMarketsHeaderConstants.TIMESTAMP_HEADER, timestamp);
+                RESTClient.DefaultRequestHeaders.Clear();
+                RESTClient.DefaultRequestHeaders.Add("Accept", BTCMarketsHeaderConstants.CONTENT);
+                RESTClient.DefaultRequestHeaders.Add("Accept-Charset", BTCMarketsHeaderConstants.ENCODING);
+                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.APIKEY_HEADER, ApiKey);
+                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.SIGNATURE_HEADER, signature);
+                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.TIMESTAMP_HEADER, timestamp);
             }
 
             List<Balance> result;
@@ -88,10 +87,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (DeserializationException dex)
             {
-
-                var errorResult = JsonConvert.DeserializeObject<ErrorResult>(dex.Markup);
-                throw new BTCMarketsException(errorResult);
-
+                throw new BTCMarketsException(new ErrorResult { errorMessage = dex.ToString() });
             }
 
             return result;

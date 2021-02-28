@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Steller;
-using RestClientDotNet;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -15,17 +16,19 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public StellerClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public StellerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://horizon.stellar.org"));
+            var baseUri = new Uri("https://horizon.stellar.org");
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
         #region Func
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
-            var addressModel = await RESTClient.GetAsync<Account>($"/accounts/{address}");
+            Account addressModel = await RESTClient.GetAsync<Account>($"/accounts/{address}");
 
             //TODO: Get a transaction list?
             return new BlockChainAddressInformation(addressModel.account_id, null, addressModel.balances.FirstOrDefault().balance);

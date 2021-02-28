@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
-using RestClientDotNet;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +13,11 @@ namespace CryptoCurrency.Net.APIClients
     {
         #region Constructor
 
-        protected InsightClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        protected InsightClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseUriPath);
+            RESTClient = RESTClientFactory(BaseUriPath);
+            RESTClient.BaseUri = BaseUriPath;
             Currency = currency;
         }
         #endregion
@@ -53,7 +55,7 @@ namespace CryptoCurrency.Net.APIClients
 
             foreach (var transaction in returnValue.Transactions)
             {
-                var insightTransaction = await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{transaction.TransactionId}");
+                insight.Transaction insightTransaction = await RESTClient.GetAsync<insight.Transaction>($"{TransactionQueryStringBase}{transaction.TransactionId}");
                 transaction.TransactionId = insightTransaction.txid;
                 transaction.Fees = insightTransaction.fees;
                 foreach (var vin in insightTransaction.vin)

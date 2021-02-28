@@ -14,12 +14,9 @@ namespace CryptoCurrency.Net.AddressManagement
         #region Private Static Methods
         private static AddressPathElement ParseElement(string elementString)
         {
-            if (!uint.TryParse(elementString.Replace("'", string.Empty), out var unhardenedNumber))
-            {
-                throw new ParseAddressPathException($"The value {elementString} is not a valid path element");
-            }
-
-            return new AddressPathElement { Harden = elementString.EndsWith("'"), Value = unhardenedNumber };
+            return !uint.TryParse(elementString.Replace("'", string.Empty), out var unhardenedNumber)
+                ? throw new ParseAddressPathException($"The value {elementString} is not a valid path element")
+                : new AddressPathElement { Harden = elementString.EndsWith("'"), Value = unhardenedNumber };
         }
         #endregion
 
@@ -27,17 +24,14 @@ namespace CryptoCurrency.Net.AddressManagement
         public uint[] ToArray() => AddressPathElements.Select(ape => ape.Harden ? AddressUtilities.HardenNumber(ape.Value) : ape.Value).ToArray();
         #endregion
 
-        public override string ToString()
-        {
-            return $"m/{string.Join("/", AddressPathElements.Select(ape=>$"{ape.Value}{(ape.Harden?"'":string.Empty)}"))}"; 
-        }
+        public override string ToString() => $"m/{string.Join("/", AddressPathElements.Select(ape => $"{ape.Value}{(ape.Harden ? "'" : string.Empty)}"))}";
 
         #region Public Static Methods
         public static T Parse<T>(string path) where T : AddressPathBase, new()
         {
-            if (path == null) throw new ArgumentNullException(nameof(path));
-
-            return new T
+            return path == null
+                ? throw new ArgumentNullException(nameof(path))
+                : new T
             {
                 AddressPathElements = path.Split('/')
                 .Where(t => string.Compare("m", t, StringComparison.OrdinalIgnoreCase) != 0)

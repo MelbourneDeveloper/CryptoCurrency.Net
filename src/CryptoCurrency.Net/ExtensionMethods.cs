@@ -1,4 +1,5 @@
-﻿using RestClientDotNet;
+﻿using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,10 +11,7 @@ namespace CryptoCurrency.Net
 {
     public static class MyExtensions
     {
-        public static string ToHexString(this IEnumerable<byte> bytes)
-        {
-            return bytes.Aggregate(string.Empty, (current, theByte) => current + theByte.ToString("X2"));
-        }
+        public static string ToHexString(this IEnumerable<byte> bytes) => bytes.Aggregate(string.Empty, (current, theByte) => current + theByte.ToString("X2"));
 
         /// <summary>
         /// TODO: This looks inefficient. It's also not thread safe.
@@ -38,7 +36,7 @@ namespace CryptoCurrency.Net
         /// <summary>
         /// Ensures that we don't call the API more than the specified number of times per second
         /// </summary>
-        public async static Task<T> GetAsync<T>(this IRestClient restClient, SemaphoreSlim semaphore, IList<DateTime> calls, string queryString, int maxCallsPerSecond = 5)
+        public static async Task<T> GetAsync<T>(this IClient restClient, SemaphoreSlim semaphore, IList<DateTime> calls, string queryString, int maxCallsPerSecond = 5)
         {
             try
             {

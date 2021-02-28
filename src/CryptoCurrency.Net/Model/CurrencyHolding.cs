@@ -54,10 +54,7 @@ namespace CryptoCurrency.Net.Model
 
         }
 
-        public CurrencyHolding(CurrencySymbol symbol)
-        {
-            Symbol = symbol;
-        }
+        public CurrencyHolding(CurrencySymbol symbol) => Symbol = symbol;
 
         public CurrencyHolding(CurrencySymbol symbol, BlockChainAddressInformation blockChainAddressInformation)
         {

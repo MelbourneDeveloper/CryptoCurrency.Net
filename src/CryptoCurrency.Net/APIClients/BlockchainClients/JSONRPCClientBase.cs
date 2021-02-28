@@ -1,13 +1,14 @@
-﻿using System;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Model.JSONRPC;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.JSONRPC;
-using RestClientDotNet;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -32,10 +33,11 @@ namespace CryptoCurrency.Net.APIClients
         };
 
         #region Constructor
-        protected JSONRPCClientBase(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        protected JSONRPCClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(BaseUriPath);
+            RESTClient = RESTClientFactory(BaseUriPath);
+            RESTClient.BaseUri = BaseUriPath;
             Currency = currency;
         }
         #endregion
@@ -86,16 +88,10 @@ namespace CryptoCurrency.Net.APIClients
             return retVal;
         };
 
-        private static decimal GetEthFromHex(string weiHex)
-        {
-            return GetLongFromHex(weiHex) / CurrencySymbol.Wei;
-        }
+        private static decimal GetEthFromHex(string weiHex) => GetLongFromHex(weiHex) / CurrencySymbol.Wei;
 
         //TODO Long is no good here. Need a BigInteger
-        private static long GetLongFromHex(string weiHex)
-        {
-            return long.Parse(weiHex.Substring(2, weiHex.Length - 2), NumberStyles.HexNumber);
-        }
+        private static long GetLongFromHex(string weiHex) => long.Parse(weiHex.Substring(2, weiHex.Length - 2), NumberStyles.HexNumber);
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {
@@ -105,7 +101,8 @@ namespace CryptoCurrency.Net.APIClients
 
         public async Task<IEnumerable<ResultBase>> PostAsync(IEnumerable<RequestBase> requests)
         {
-            return await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null, default);
+            var response = await RESTClient.PostAsync<IEnumerable<ResultBase>, IEnumerable<RequestBase>>(requests, null, default);
+            return response.Body;
         }
 
         public async Task<IList<GetTokenBalanceResult>> GetTokenBalances(IList<GetTokenBalanceArgs> tokenBalanceArgsList)
