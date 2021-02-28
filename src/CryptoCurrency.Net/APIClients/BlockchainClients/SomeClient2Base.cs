@@ -18,8 +18,9 @@ namespace CryptoCurrency.Net.APIClients
         protected SomeClient2Base(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = RESTClientFactory(BaseUriPath);
-            RESTClient.BaseUri = new Uri(BaseUriPath);
+            var baseUri = new Uri(BaseUriPath);
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
             Currency = currency;
         }
         #endregion
@@ -31,10 +32,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Static Methods
-        protected static string GetAddressesUrlPart(IEnumerable<string> addresses)
-        {
-            return string.Join("|", addresses);
-        }
+        protected static string GetAddressesUrlPart(IEnumerable<string> addresses) => string.Join("|", addresses);
         #endregion
 
         #region Public Override Methods

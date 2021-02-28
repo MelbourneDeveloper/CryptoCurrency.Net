@@ -1,11 +1,11 @@
 ﻿using CryptoCurrency.Net.APIClients;
+using CryptoCurrency.Net.Ethereum;
 using CryptoCurrency.Net.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.Ethereum;
-using System.Linq;
 using RestClient.Net;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.UnitTests
 {

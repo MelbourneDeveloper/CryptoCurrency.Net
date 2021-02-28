@@ -62,10 +62,7 @@ namespace CryptoCurrency.Net.APIClients
             return blockChainAddressInformations;
         };
 
-        public override Task<BlockChainAddressInformation> GetAddress(string address)
-        {
-            throw new NotImplementedException();
-        }
+        public override Task<BlockChainAddressInformation> GetAddress(string address) => throw new NotImplementedException();
         #endregion
     }
 }

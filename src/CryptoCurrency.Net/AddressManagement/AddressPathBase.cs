@@ -24,10 +24,7 @@ namespace CryptoCurrency.Net.AddressManagement
         public uint[] ToArray() => AddressPathElements.Select(ape => ape.Harden ? AddressUtilities.HardenNumber(ape.Value) : ape.Value).ToArray();
         #endregion
 
-        public override string ToString()
-        {
-            return $"m/{string.Join("/", AddressPathElements.Select(ape=>$"{ape.Value}{(ape.Harden?"'":string.Empty)}"))}"; 
-        }
+        public override string ToString() => $"m/{string.Join("/", AddressPathElements.Select(ape => $"{ape.Value}{(ape.Harden ? "'" : string.Empty)}"))}";
 
         #region Public Static Methods
         public static T Parse<T>(string path) where T : AddressPathBase, new()

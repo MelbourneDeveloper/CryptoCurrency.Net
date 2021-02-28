@@ -44,10 +44,7 @@ namespace CryptoCurrency.Net.Helpers
         #region Public Static Methods
 
         #region Misc
-        public static void DebugWriteLine(string message, DateTime startTime)
-        {
-            Debug.WriteLine($"Time: {DateTime.Now:hh:mm:ss}. Message: {message} in {(DateTime.Now - startTime).TotalMilliseconds} milliseconds.");
-        }
+        public static void DebugWriteLine(string message, DateTime startTime) => Debug.WriteLine($"Time: {DateTime.Now:hh:mm:ss}. Message: {message} in {(DateTime.Now - startTime).TotalMilliseconds} milliseconds.");
         #endregion
 
         #region Hashing
@@ -109,10 +106,7 @@ namespace CryptoCurrency.Net.Helpers
         /// Warning: Not an accurate timestamp. Only useful as a Nonce
         /// </summary>
         /// <returns></returns>
-        public static string GetNonce()
-        {
-            return DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture);
-        }
+        public static string GetNonce() => DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture);
 
         //public static async Task<DateTime> GetCurrentDateTimeFromConvertUnixTimeAsync()
         //{
@@ -126,20 +120,11 @@ namespace CryptoCurrency.Net.Helpers
         //    return GetUnixTimestamp(currentDateTime);
         //}
 
-        public static DateTime GetDateTimeFromSecondsSinceEpoch(long seconds)
-        {
-            return EpochDate.AddSeconds(seconds);
-        }
+        public static DateTime GetDateTimeFromSecondsSinceEpoch(long seconds) => EpochDate.AddSeconds(seconds);
 
-        public static long GetCurrentUnixTimestamp()
-        {
-            return GetUnixTimestamp(DateTime.UtcNow);
-        }
+        public static long GetCurrentUnixTimestamp() => GetUnixTimestamp(DateTime.UtcNow);
 
-        public static long GetUnixTimestamp(DateTime dateTime)
-        {
-            return (long)(dateTime - EpochDate).TotalMilliseconds;
-        }
+        public static long GetUnixTimestamp(DateTime dateTime) => (long)(dateTime - EpochDate).TotalMilliseconds;
         #endregion
 
         #endregion

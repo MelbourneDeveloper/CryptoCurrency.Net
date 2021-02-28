@@ -88,16 +88,10 @@ namespace CryptoCurrency.Net.APIClients
             return retVal;
         };
 
-        private static decimal GetEthFromHex(string weiHex)
-        {
-            return GetLongFromHex(weiHex) / CurrencySymbol.Wei;
-        }
+        private static decimal GetEthFromHex(string weiHex) => GetLongFromHex(weiHex) / CurrencySymbol.Wei;
 
         //TODO Long is no good here. Need a BigInteger
-        private static long GetLongFromHex(string weiHex)
-        {
-            return long.Parse(weiHex.Substring(2, weiHex.Length - 2), NumberStyles.HexNumber);
-        }
+        private static long GetLongFromHex(string weiHex) => long.Parse(weiHex.Substring(2, weiHex.Length - 2), NumberStyles.HexNumber);
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)
         {

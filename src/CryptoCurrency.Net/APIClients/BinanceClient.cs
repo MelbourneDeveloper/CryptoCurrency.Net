@@ -19,9 +19,9 @@ namespace CryptoCurrency.Net.APIClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.binance.com");
-            var restClient = RESTClientFactory.CreateClient(baseUri.ToString());
+            var restClient = RESTClientFactory(baseUri);
             restClient.BaseUri = baseUri;
-            RESTClient = (Client)restClient;
+            RESTClient = restClient;
         }
         #endregion
 

@@ -42,10 +42,7 @@ namespace CryptoCurrency.Net.APIClients
             return retVal;
         }
 
-        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType)
-        {
-            throw new NotImplementedException();
-        }
+        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType) => throw new NotImplementedException();
         #endregion
 
         #region Private Methods

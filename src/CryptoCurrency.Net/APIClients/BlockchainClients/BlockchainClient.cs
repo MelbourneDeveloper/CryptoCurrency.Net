@@ -25,10 +25,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Overrides
-        protected override string GetQueryString(string addressesPart)
-        {
-            return $"/multiaddr?active={addressesPart}";
-        }
+        protected override string GetQueryString(string addressesPart) => $"/multiaddr?active={addressesPart}";
         #endregion
     }
 }

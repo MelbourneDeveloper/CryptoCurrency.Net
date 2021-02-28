@@ -108,10 +108,7 @@ namespace CryptoCurrency.Net.BCH
         #endregion
 
         #region Public Methods
-        public static AddressInfo ToNewFormat(string fromAddress)
-        {
-            return ToNewFormat(fromAddress, true);
-        }
+        public static AddressInfo ToNewFormat(string fromAddress) => ToNewFormat(fromAddress, true);
 
         public static AddressInfo ToNewFormat(string fromAddress, bool addPrefix)
         {

@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
         protected SomeClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (Client)RESTClientFactory.CreateClient(BaseUriPath);
+            RESTClient = RESTClientFactory(new Uri(BaseUriPath));
             RESTClient.BaseUri = new Uri(BaseUriPath);
             Currency = currency;
         }

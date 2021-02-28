@@ -11,10 +11,7 @@ namespace CryptoCurrency.Net
 {
     public static class MyExtensions
     {
-        public static string ToHexString(this IEnumerable<byte> bytes)
-        {
-            return bytes.Aggregate(string.Empty, (current, theByte) => current + theByte.ToString("X2"));
-        }
+        public static string ToHexString(this IEnumerable<byte> bytes) => bytes.Aggregate(string.Empty, (current, theByte) => current + theByte.ToString("X2"));
 
         /// <summary>
         /// TODO: This looks inefficient. It's also not thread safe.

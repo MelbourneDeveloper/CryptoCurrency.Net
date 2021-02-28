@@ -13,14 +13,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         #region  Fields
         private readonly Dictionary<CurrencySymbol, List<IBlockchainClient>> _BlockchainClientsByCurrencySymbol = new Dictionary<CurrencySymbol, List<IBlockchainClient>>();
         private readonly Dictionary<Type, CurrencyCapabilityCollection> _CapabilitiesByClientType = new Dictionary<Type, CurrencyCapabilityCollection>();
-        private readonly Func<Uri, IClient> _RESTClientFactory;
         #endregion
 
         #region Static Constructor
         public BlockchainClientManager(Func<Uri, IClient> restClientFactory)
         {
-            _RESTClientFactory = restClientFactory;
-
             foreach (var typeInfo in typeof(BlockchainClientManager).GetTypeInfo().Assembly.DefinedTypes)
             {
                 var type = typeInfo.AsType();
@@ -75,9 +72,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             Exception lastException = null;
 
             if (!_BlockchainClientsByCurrencySymbol.TryGetValue(currencySymbol, out var blockChainClients))
+            {
                 throw new NotImplementedException(
                     $"The currency {currencySymbol} is not currently supported, or the Blockchain services are out of action.",
                     lastException);
+            }
 
             var capableclientTypes = _CapabilitiesByClientType.Keys.Where(clientType => _CapabilitiesByClientType[clientType] != null);
 
@@ -98,21 +97,21 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                         var blockchainAddressInformations = await client.GetAddresses(addressList);
                         retVal.Add(currencySymbol, blockchainAddressInformations);
 
-                            //Disable token balances for now
-                            //if (currencySymbol.Equals(CurrencySymbol.Ethereum))
-                            //{
-                            //    var tokenBalances = await new InfuraJSONRPCClient(CurrencySymbol.Ethereum, _RESTClientFactory).GetTokenBalances(blockchainAddressInformations.Select(b => b.Address));
+                        //Disable token balances for now
+                        //if (currencySymbol.Equals(CurrencySymbol.Ethereum))
+                        //{
+                        //    var tokenBalances = await new InfuraJSONRPCClient(CurrencySymbol.Ethereum, _RESTClientFactory).GetTokenBalances(blockchainAddressInformations.Select(b => b.Address));
 
-                            //    foreach (var tokenBalance in tokenBalances)
-                            //    {
-                            //        retVal.Add(tokenBalance.CurrencySymbol, new List<BlockChainAddressInformation> { new BlockChainAddressInformation(tokenBalance.EthereumAddress, tokenBalance.Balance, false) });
-                            //    }
-                            //}
+                        //    foreach (var tokenBalance in tokenBalances)
+                        //    {
+                        //        retVal.Add(tokenBalance.CurrencySymbol, new List<BlockChainAddressInformation> { new BlockChainAddressInformation(tokenBalance.EthereumAddress, tokenBalance.Balance, false) });
+                        //    }
+                        //}
 
-                        foreach (var tokenBalance in tokenBalances)
-                        {
-                            retVal.Add(tokenBalance.CurrencySymbol, new List<BlockChainAddressInformation> { new BlockChainAddressInformation(tokenBalance.EthereumAddress, tokenBalance.Balance, false) });
-                        }
+                        //foreach (var tokenBalance in tokenBalances)
+                        //{
+                        //    retVal.Add(tokenBalance.CurrencySymbol, new List<BlockChainAddressInformation> { new BlockChainAddressInformation(tokenBalance.EthereumAddress, tokenBalance.Balance, false) });
+                        //}
 
                         return retVal;
                     }

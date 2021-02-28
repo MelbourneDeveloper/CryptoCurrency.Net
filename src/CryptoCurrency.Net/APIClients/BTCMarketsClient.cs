@@ -46,10 +46,7 @@ namespace CryptoCurrency.Net.APIClients
             return retVal;
         }
 
-        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType)
-        {
-            throw new NotImplementedException();
-        }
+        public override Task<Collection<ExchangePairPrice>> GetPairs(CurrencySymbol baseSymbol, PriceType priceType) => throw new NotImplementedException();
 
         #endregion
         #region Private Methods
@@ -90,8 +87,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (DeserializationException dex)
             {
-                var errorResult = RESTClient.SerializationAdapter.Deserialize<ErrorResult>(dex.GetResponseData(), null);
-                throw new BTCMarketsException(errorResult);
+                throw new BTCMarketsException(new ErrorResult { errorMessage = dex.ToString() });
             }
 
             return result;
