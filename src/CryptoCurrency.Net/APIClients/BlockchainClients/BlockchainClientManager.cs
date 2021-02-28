@@ -98,9 +98,16 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                         var blockchainAddressInformations = await client.GetAddresses(addressList);
                         retVal.Add(currencySymbol, blockchainAddressInformations);
 
-                        if (!currencySymbol.Equals(CurrencySymbol.Ethereum)) return retVal;
+                            //Disable token balances for now
+                            //if (currencySymbol.Equals(CurrencySymbol.Ethereum))
+                            //{
+                            //    var tokenBalances = await new InfuraJSONRPCClient(CurrencySymbol.Ethereum, _RESTClientFactory).GetTokenBalances(blockchainAddressInformations.Select(b => b.Address));
 
-                        var tokenBalances = await new InfuraJSONRPCClient(CurrencySymbol.Ethereum, _RESTClientFactory).GetTokenBalances(blockchainAddressInformations.Select(b => b.Address));
+                            //    foreach (var tokenBalance in tokenBalances)
+                            //    {
+                            //        retVal.Add(tokenBalance.CurrencySymbol, new List<BlockChainAddressInformation> { new BlockChainAddressInformation(tokenBalance.EthereumAddress, tokenBalance.Balance, false) });
+                            //    }
+                            //}
 
                         foreach (var tokenBalance in tokenBalances)
                         {
