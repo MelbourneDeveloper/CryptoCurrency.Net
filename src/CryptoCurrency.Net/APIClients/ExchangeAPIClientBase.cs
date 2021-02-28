@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Model;
 using RestClient.Net.Abstractions;

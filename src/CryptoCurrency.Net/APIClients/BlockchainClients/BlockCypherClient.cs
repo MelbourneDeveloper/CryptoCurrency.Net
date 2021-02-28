@@ -1,7 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Blockcypher;
-using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -12,8 +11,8 @@ namespace CryptoCurrency.Net.APIClients
 {
     public class BlockCypherClient : BlockchainClientBase, IBlockchainClient
     {
-        private static SemaphoreSlim _lock = new SemaphoreSlim(1,1);
-        private static List<DateTime> _calls = new List<DateTime>();
+        private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        private static readonly List<DateTime> _calls = new List<DateTime>();
 
         #region Public Static Properties
         public static string APIKey { get; set; }
@@ -31,7 +30,7 @@ namespace CryptoCurrency.Net.APIClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.blockcypher.com");
-            RESTClient = (Client)restClientFactory.CreateClient(baseUri.ToString());
+            RESTClient = restClientFactory(baseUri);
             RESTClient.BaseUri = baseUri;
         }
         #endregion

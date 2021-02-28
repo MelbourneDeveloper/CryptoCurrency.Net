@@ -5,9 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.Model.ConvertUnixTime;
-using RestClient.Net;
 namespace CryptoCurrency.Net.Helpers
 {
     public static class APIHelpers
@@ -23,7 +20,7 @@ namespace CryptoCurrency.Net.Helpers
 
         #region Private Static Fields
         //TODO: This is not using the factory interface...
-        private static readonly Client GetDateRESTClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("http://www.convert-unix-time.com"));
+        //private static readonly Client GetDateRESTClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("http://www.convert-unix-time.com"));
         private static readonly DateTime EpochDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         #endregion
 
@@ -117,17 +114,17 @@ namespace CryptoCurrency.Net.Helpers
             return DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture);
         }
 
-        public static async Task<DateTime> GetCurrentDateTimeFromConvertUnixTimeAsync()
-        {
-            CurrentTime currentTimeModel = await GetDateRESTClient.GetAsync<CurrentTime>("api?timestamp=now");
-            return GetDateTimeFromSecondsSinceEpoch(currentTimeModel.timestamp);
-        }
+        //public static async Task<DateTime> GetCurrentDateTimeFromConvertUnixTimeAsync()
+        //{
+        //    CurrentTime currentTimeModel = await GetDateRESTClient.GetAsync<CurrentTime>("api?timestamp=now");
+        //    return GetDateTimeFromSecondsSinceEpoch(currentTimeModel.timestamp);
+        //}
 
-        public static async Task<long> GetUnixTimeStampFromConvertUnixTimeAsync()
-        {
-            var currentDateTime = await GetCurrentDateTimeFromConvertUnixTimeAsync();
-            return GetUnixTimestamp(currentDateTime);
-        }
+        //public static async Task<long> GetUnixTimeStampFromConvertUnixTimeAsync()
+        //{
+        //    var currentDateTime = await GetCurrentDateTimeFromConvertUnixTimeAsync();
+        //    return GetUnixTimestamp(currentDateTime);
+        //}
 
         public static DateTime GetDateTimeFromSecondsSinceEpoch(long seconds)
         {

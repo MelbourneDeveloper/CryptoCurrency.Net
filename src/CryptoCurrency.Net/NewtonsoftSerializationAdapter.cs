@@ -7,11 +7,10 @@ namespace RestClient.Net
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
         #region Implementation
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(Response response)
         {
-            //This here is why I don't like JSON serialization. 😢
             //Note: on some services the headers should be checked for encoding 
-            var markup = Encoding.UTF8.GetString(data);
+            var markup = Encoding.UTF8.GetString(response.GetResponseData());
 
             object markupAsObject = markup;
 
@@ -22,7 +21,6 @@ namespace RestClient.Net
         {
             var json = JsonConvert.SerializeObject(value);
 
-            //This here is why I don't like JSON serialization. 😢
             var binary = Encoding.UTF8.GetBytes(json);
 
             return binary;

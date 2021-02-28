@@ -2,6 +2,7 @@
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.ChainSo;
 using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Model;
 using RestClient.Net.Abstractions;
+using System;
 
 namespace CryptoCurrency.Net.APIClients
 {

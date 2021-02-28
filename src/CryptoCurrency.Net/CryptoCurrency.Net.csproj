@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <LangVersion>7.3</LangVersion>
@@ -25,10 +25,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>RELEASE</DefineConstants>
-    <AssemblyOriginatorKeyFile>CryptoCurrencyNet.pfx</AssemblyOriginatorKeyFile>    
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>    
+    <DefineConstants>RELEASE</DefineConstants> 
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
@@ -53,7 +50,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="RestClient.Net" Version="4.1.0" />    
+    <PackageReference Include="RestClient.Net.Abstractions" Version="4.1.0" />    
   </ItemGroup>
 
   <ItemGroup>

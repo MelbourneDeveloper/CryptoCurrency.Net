@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Ethereum;
 using System.Linq;
+using RestClient.Net;
 
 namespace CryptoCurrency.Net.UnitTests
 {
@@ -14,7 +15,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task TestEtherscanGetAddress()
         {
-            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, new RESTClientFactory());
+            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, (u) => new Client(u));
             var emptyAddress = "0x0E95F8F8ecBd770585766c1CD216C81aA43439a7".ToLower();
             var balances = await etherscanClient.GetAddresses(new List<string>
                 {
@@ -39,7 +40,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task TestConcurrentEtherscanGetAddress()
         {
-            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, new RESTClientFactory());
+            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, (u) => new Client(u));
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 
             for (var i = 0; i < 10; i++)
@@ -60,7 +61,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task TestConcurrentBlockcypherGetAddress()
         {
-            var etherscanClient = new BlockCypherClient(CurrencySymbol.Ethereum, new RESTClientFactory());
+            var etherscanClient = new BlockCypherClient(CurrencySymbol.Ethereum, (u) => new Client(u));
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 
             var concurrency = 5;

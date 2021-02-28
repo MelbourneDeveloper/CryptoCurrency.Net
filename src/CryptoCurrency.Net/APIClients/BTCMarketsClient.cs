@@ -23,7 +23,7 @@ namespace CryptoCurrency.Net.APIClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.btcmarkets.net");
-            RESTClient = (Client)RESTClientFactory.CreateClient(baseUri.ToString());
+            RESTClient = RESTClientFactory(baseUri);
             RESTClient.BaseUri = baseUri;
         }
         #endregion

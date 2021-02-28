@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://apilist.tronscan.org");
-            RESTClient = (Client)restClientFactory.CreateClient(baseUri.ToString());
+            RESTClient = RESTClientFactory(baseUri);
             RESTClient.BaseUri = baseUri;
         }
 

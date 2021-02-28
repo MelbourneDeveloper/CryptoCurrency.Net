@@ -18,9 +18,9 @@ namespace CryptoCurrency.Net.AddressManagement
 
         public static string[] Split(this string path, char splitter)
         {
-            if (path == null) throw new ArgumentNullException(nameof(path));
-
-            return path.Split(new[] { splitter }, StringSplitOptions.RemoveEmptyEntries);
+            return path == null
+                ? throw new ArgumentNullException(nameof(path))
+                : path.Split(new[] { splitter }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

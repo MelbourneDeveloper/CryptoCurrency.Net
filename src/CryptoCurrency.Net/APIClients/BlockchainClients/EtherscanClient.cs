@@ -3,7 +3,7 @@ using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Ethereum;
 using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Etherscan;
-using RestClientDotNet;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +17,20 @@ namespace CryptoCurrency.Net.APIClients
     /// </summary>
     public class EtherscanClient : BlockchainClientBase, IBlockchainClient
     {
-        private static List<DateTime> _calls = new List<DateTime>();
-        private static SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        private static readonly List<DateTime> _calls = new List<DateTime>();
+        private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
         #region Public Static Fields
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.Ethereum };
         #endregion
 
         #region Constructor
-        public EtherscanClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory) => RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("http://api.etherscan.io/"));
+        public EtherscanClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory) => RESTClient = restClientFactory(new Uri("http://api.etherscan.io/"));
         #endregion
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
         {
-            string queryString = $"api?module=account&action=balancemulti&address={string.Join(",", getAddressesArgs.Addresses.Select(a => a.ToLower()))}&tag=latest&apikey=YourApiKeyToken";
+            var queryString = $"api?module=account&action=balancemulti&address={string.Join(",", getAddressesArgs.Addresses.Select(a => a.ToLower()))}&tag=latest&apikey=YourApiKeyToken";
 
             var accountResponse = await getAddressesArgs.RESTClient.GetAsync<ApiResponse<Account>>(_lock, _calls, queryString);
 
