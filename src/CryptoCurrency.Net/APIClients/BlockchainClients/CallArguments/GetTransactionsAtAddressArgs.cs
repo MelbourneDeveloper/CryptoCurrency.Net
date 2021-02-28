@@ -1,5 +1,5 @@
-﻿using CryptoCurrency.Net.Base.Model;
-using RestClientDotNet;
+﻿using CryptoCurrency.Net.Model;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {
@@ -10,9 +10,9 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         private readonly CurrencySymbol currency;
         private readonly BlockchainClientBase blockchainClientBase;
 
-        public GetTransactionsAtAddressArgs(RestClient rESTClient, string address, CurrencySymbol currency, BlockchainClientBase blockchainClientBase)
+        public GetTransactionsAtAddressArgs(IClient client, string address, CurrencySymbol currency, BlockchainClientBase blockchainClientBase)
         {
-            this.rESTClient = rESTClient;
+            RESTClient = client;
             this.address = address;
             this.currency = currency;
             this.blockchainClientBase = blockchainClientBase;

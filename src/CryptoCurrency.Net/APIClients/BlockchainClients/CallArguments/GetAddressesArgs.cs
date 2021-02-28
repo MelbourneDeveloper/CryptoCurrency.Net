@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using CryptoCurrency.Net.Base.Model;
-using RestClientDotNet;
+﻿using CryptoCurrency.Net.Model;
+using RestClient.Net.Abstractions;
+using System.Collections.Generic;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments
 {
     public class GetAddressesArgs : CallArgs
     {
-        public GetAddressesArgs(RestClient restClient, IEnumerable<string> addresses, CurrencySymbol currencySymbol, BlockchainClientBase client) : base(restClient)
+        public GetAddressesArgs(IClient client, IEnumerable<string> addresses, CurrencySymbol currencySymbol, BlockchainClientBase blockChainClientBase) : base(client)
         {
             Addresses = addresses;
             CurrencySymbol = currencySymbol;
-            Client = client;
+            Client = blockChainClientBase;
         }
 
         public IEnumerable<string> Addresses { get; }

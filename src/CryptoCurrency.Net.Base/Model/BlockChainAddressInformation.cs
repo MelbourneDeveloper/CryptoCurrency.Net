@@ -46,15 +46,9 @@ namespace CryptoCurrency.Net.Base.Model
             Balance = balance;
         }
 
-        public BlockChainAddressInformation(string address, decimal? balance, int transactionCount) : this(address, balance)
-        {
-            TransactionCount = transactionCount;
-        }
+        public BlockChainAddressInformation(string address, decimal? balance, int transactionCount) : this(address, balance) => TransactionCount = transactionCount;
 
-        public BlockChainAddressInformation(string address, decimal? balance, bool isUnused) : this(address, balance)
-        {
-            IsUnused = isUnused;
-        }
+        public BlockChainAddressInformation(string address, decimal? balance, bool isUnused) : this(address, balance) => IsUnused = isUnused;
 
         //[Obsolete("This overload should never be used because it causes a given coin to get jammed up")]
         public BlockChainAddressInformation(string address, int? transactionCount, decimal? balance) : this(address, balance)

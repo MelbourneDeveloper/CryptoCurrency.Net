@@ -1,6 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Base.Model;
-using RestClientDotNet;
+using CryptoCurrency.Net.Model;
+using RestClient.Net.Abstractions;
 using System;
 
 namespace CryptoCurrency.Net.APIClients
@@ -21,7 +21,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public DigiexplorerClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public DigiexplorerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

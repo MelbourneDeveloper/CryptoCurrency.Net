@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Base.Model;
-using RestClientDotNet;
+using CryptoCurrency.Net.Model;
+using RestClient.Net.Abstractions;
+using System;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -18,16 +19,13 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockchainClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public BlockchainClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion
 
         #region Protected Overrides
-        protected override string GetQueryString(string addressesPart)
-        {
-            return $"/multiaddr?active={addressesPart}";
-        }
+        protected override string GetQueryString(string addressesPart) => $"/multiaddr?active={addressesPart}";
         #endregion
     }
 }

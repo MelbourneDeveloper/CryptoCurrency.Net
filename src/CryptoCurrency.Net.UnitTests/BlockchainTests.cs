@@ -3,24 +3,29 @@ using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.AddressManagement.BCH;
 using CryptoCurrency.Net.Base.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestClient.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
 
 namespace CryptoCurrency.Net.UnitTests
 {
     [TestClass]
     public class BlockchainTests
     {
+#pragma warning disable IDE0052 // Remove unread private members
         private readonly string ApiSecret = string.Empty;
         private readonly string ApiKey = string.Empty;
-        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+#pragma warning restore IDE0052 // Remove unread private members
+        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager((u) => new Client(u));
 
         //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
         public async Task GetBitcoinCashAddressesVerbose()
         {
-            var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+            var blockchainClientManager = new BlockchainClientManager((u) => new Client(u));
             var addresses = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash,
             new List<string> {
             "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",
@@ -37,12 +42,9 @@ namespace CryptoCurrency.Net.UnitTests
             var addresses = new List<string>
                 {
                     "0xda4D788FA55CDE88C8dc93Ceb4Ce9EDCf26Ee2A5",
-                    "0x88aaCb90Ae2Ea133965228e45689dfD09bFB237b"
-                    //TODO: Reenable these. They break issue: https://github.com/MelbourneDeveloper/CryptoCurrency.Net/issues/1
-                    //"0x0E95F8F8ecBd770585766c1CD216C81aA43439a6",
-                    //"0x26769f254f1Ba073cEF6e9E47a7320332a4dA3D8"
-                    //"0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98",
-                    //"0xfCA70E67b3f93f679992Cd36323eEB5a5370C8e4"
+                    "0x26769f254f1Ba073cEF6e9E47a7320332a4dA3D8",
+                    "0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98",
+                    "0xfCA70E67b3f93f679992Cd36323eEB5a5370C8e4"
                 };
 
             var addressInformations = (await _BlockchainClientManager.GetAddresses(CurrencySymbol.Ethereum, addresses)).ToList();
@@ -63,23 +65,13 @@ namespace CryptoCurrency.Net.UnitTests
 
 
         [TestMethod]
-        public async Task GetCardanoAddresses()
-        {
-            await TestCoin(CurrencySymbol.Cardano, new List<string> { "DdzFFzCqrht1jU5aJCnkX2ZuaQbEEdoDQ3f5K6MYXvekgG8MyDWtpJwHmV7q1wxfdSTe3bUDxsAR6MZ3pUzGeWoWBuHATsXFxRg4etZu", "DdzFFzCqrhstM8aPuFQvUTkxV3sF4GBW8Ju6ZCDK6hJZE9bsW7fZ8JULxhoeRXdPTp5DnnbwiBhqsMY5eiD4xMovrxAuqkjb51S2Kgwt" });
-        }
+        public async Task GetCardanoAddresses() => await TestCoin(CurrencySymbol.Cardano, new List<string> { "DdzFFzCqrht1jU5aJCnkX2ZuaQbEEdoDQ3f5K6MYXvekgG8MyDWtpJwHmV7q1wxfdSTe3bUDxsAR6MZ3pUzGeWoWBuHATsXFxRg4etZu", "DdzFFzCqrhstM8aPuFQvUTkxV3sF4GBW8Ju6ZCDK6hJZE9bsW7fZ8JULxhoeRXdPTp5DnnbwiBhqsMY5eiD4xMovrxAuqkjb51S2Kgwt" });
 
         [TestMethod]
-        public async Task GetBitcoinGoldAddresses()
-        {
-            await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "AGSEHET3e5PV2LKEJ9KjDKNetjz6a4qp2V", "GHxCasViKiah6Xh98oQnoNnt1nCPPxkkwu" });
-            //This address: GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U keeps changing balance. No idea why
-        }
+        public async Task GetBitcoinGoldAddresses() => await TestCoin(CurrencySymbol.BitcoinGold, new List<string> { "AGSEHET3e5PV2LKEJ9KjDKNetjz6a4qp2V", "GHxCasViKiah6Xh98oQnoNnt1nCPPxkkwu" });//This address: GJjz2Du9BoJQ3CPcoyVTHUJZSj62i1693U keeps changing balance. No idea why
 
         [TestMethod]
-        public async Task GetLitecoinAddresses()
-        {
-            await TestCoin(CurrencySymbol.Litecoin, new List<string> { "LUcxeeZVoohbkkEMY2s6LmEXu9nMcL2rAS", "LSs49i5VEV57wUEeVrsrzwHwJCLx8uDMva" });
-        }
+        public async Task GetLitecoinAddresses() => await TestCoin(CurrencySymbol.Litecoin, new List<string> { "LUcxeeZVoohbkkEMY2s6LmEXu9nMcL2rAS", "LSs49i5VEV57wUEeVrsrzwHwJCLx8uDMva" });
 
         [TestMethod]
         public async Task GetRippleAddresses()
@@ -103,23 +95,17 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetEmptyRippleAddress()
         {
-            var rippleClient = new RippleClient(CurrencySymbol.Ripple, new RESTClientFactory());
+            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u));
             var emptyPaperWalletAddress = "rwyZFyk7VfBWpzNRV1SBSLcfNPfC8BgWWX";
             var address = await rippleClient.GetAddress(emptyPaperWalletAddress);
             Assert.IsTrue(address.IsUnused.Value);
         }
 
         [TestMethod]
-        public async Task GetTronAddresses()
-        {
-            await TestCoin(CurrencySymbol.Tron, new List<string> { "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9", "TWd4WrZ9wn84f5x1hZhL4DHvk738ns5jwb" }, 3);
-        }
+        public async Task GetTronAddresses() => await TestCoin(CurrencySymbol.Tron, new List<string> { "TMuA6YqfCeX8EhbfYEg5y7S4DqzSJireY9", "TWd4WrZ9wn84f5x1hZhL4DHvk738ns5jwb" }, 3);
 
         [TestMethod]
-        public async Task GetZCashAddresses()
-        {
-            await TestCoin(CurrencySymbol.ZCash, new List<string> { "t1e8F9YdPuNKv8JjWspXPxoP8ZJADtwKdQs", "t3fJZ5jYsyxDtvNrWBeoMbvJaQCj4JJgbgX" });
-        }
+        public async Task GetZCashAddresses() => await TestCoin(CurrencySymbol.ZCash, new List<string> { "t1e8F9YdPuNKv8JjWspXPxoP8ZJADtwKdQs", "t3fJZ5jYsyxDtvNrWBeoMbvJaQCj4JJgbgX" });
 
         [TestMethod]
         public async Task GetBitcoinCashAddresses()
@@ -137,7 +123,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetEthereumClassicAddresses()
         {
-            await TestCoin(CurrencySymbol.EthereumClassic, new List<string>
+            _ = await TestCoin(CurrencySymbol.EthereumClassic, new List<string>
             {
                 "0x4afaf9ba702636dd05d633dff7e2f0fe652c1375",
                 "0xaaba597a965c781fc66dc93a32c371eccc0cccff"
@@ -161,15 +147,12 @@ namespace CryptoCurrency.Net.UnitTests
         //}
 
         [TestMethod]
-        public async Task GetBitcoinAddresses()
-        {
-            await TestCoin(CurrencySymbol.Bitcoin, new List<string> { "32SrnYR7PTJKsjXcHpD2CeQFzWT4XpPtnv" });
-        }
+        public async Task GetBitcoinAddresses() => await TestCoin(CurrencySymbol.Bitcoin, new List<string> { "32SrnYR7PTJKsjXcHpD2CeQFzWT4XpPtnv" });
 
         [TestMethod]
         public async Task GetDashTransactions()
         {
-            var blockExplorerClient = new DashClient(CurrencySymbol.Dash, new RESTClientFactory());
+            var blockExplorerClient = new DashClient(CurrencySymbol.Dash, (u) => new Client(u));
             var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
@@ -190,7 +173,7 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var returnValue = new List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>();
 
-            var blockchainClientManager = new BlockchainClientManager(new RESTClientFactory());
+            var blockchainClientManager = new BlockchainClientManager((u) => new Client(u));
 
             for (var i = 0; i < repeatCount; i++)
             {

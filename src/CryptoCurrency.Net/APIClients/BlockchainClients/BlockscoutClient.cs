@@ -1,8 +1,9 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.APIClients.Model.Blockscout;
-using CryptoCurrency.Net.Base.Model;
-using RestClientDotNet;
+using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Model.Blockscout;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,16 +25,18 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockscoutClient(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        public BlockscoutClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri("https://blockscout.com/etc/mainnet/api"));
+            var baseAddress = new Uri("https://blockscout.com/etc/mainnet/api");
+            RESTClient = RESTClientFactory(baseAddress);
+            RESTClient.BaseUri = baseAddress;
         }
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
         {
             var addresses = string.Join(",", getAddressesArgs.Addresses);
-            var balanceMulti = await getAddressesArgs.RESTClient.GetAsync<BalanceMulti>($"?module=account&action=balancemulti&address={addresses}");
+            BalanceMulti balanceMulti = await getAddressesArgs.RESTClient.GetAsync<BalanceMulti>($"?module=account&action=balancemulti&address={addresses}");
             var returnValue = new List<BlockChainAddressInformation>();
 
             var tasks = getAddressesArgs.Addresses.Select(a => GetTransactions(a, getAddressesArgs.RESTClient));
@@ -61,17 +64,14 @@ namespace CryptoCurrency.Net.APIClients
         /// <summary>
         /// TODO: Implement this so that transactions can be returned
         /// </summary>
-        private static async Task<TxList> GetTransactions(string address, RestClient restClient)
+        private static async Task<TxList> GetTransactions(string address, IClient client)
         {
-            var result = await restClient.GetAsync<TxList>($"?module=account&action=txlist&address={address}");
+            TxList result = await client.GetAsync<TxList>($"?module=account&action=txlist&address={address}");
             result.Address = address;
             return result;
         }
 
-        public override Task<BlockChainAddressInformation> GetAddress(string address)
-        {
-            throw new NotImplementedException();
-        }
+        public override Task<BlockChainAddressInformation> GetAddress(string address) => throw new NotImplementedException();
         #endregion
     }
 }

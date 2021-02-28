@@ -1,8 +1,9 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.APIClients.Model.SomeClient2;
-using RestClientDotNet;
+using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Model.SomeClient2;
+using RestClient.Net;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace CryptoCurrency.Net.APIClients
     {
         #region Constructor
 
-        protected SomeClient2Base(CurrencySymbol currency, IRestClientFactory restClientFactory) : base(currency, restClientFactory)
+        protected SomeClient2Base(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = (RestClient)restClientFactory.CreateRESTClient(new Uri(BaseUriPath));
+            var baseUri = new Uri(BaseUriPath);
+            RESTClient = RESTClientFactory(baseUri);
+            RESTClient.BaseUri = baseUri;
             Currency = currency;
         }
         #endregion
@@ -29,10 +32,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Static Methods
-        protected static string GetAddressesUrlPart(IEnumerable<string> addresses)
-        {
-            return string.Join("|", addresses);
-        }
+        protected static string GetAddressesUrlPart(IEnumerable<string> addresses) => string.Join("|", addresses);
         #endregion
 
         #region Public Override Methods
@@ -54,7 +54,7 @@ namespace CryptoCurrency.Net.APIClients
 
             var queryString = ((SomeClient2Base)getAddressesArgs.Client).GetQueryString(addressesPart);
 
-            var addresses = await getAddressesArgs.RESTClient.GetAsync<AddressResult>(queryString);
+            AddressResult addresses = await getAddressesArgs.RESTClient.GetAsync<AddressResult>(queryString);
 
             var retVal = new List<BlockChainAddressInformation>();
 
