@@ -26,7 +26,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        protected ExchangeAPIClientBase(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(restClientFactory)
+        protected ExchangeAPIClientBase(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(restClientFactory)
         {
             ApiKey = apiKey;
             ApiSecret = apiSecret;

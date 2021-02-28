@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
 
         #region Protected Properties
         protected IClient RESTClient { get; set; }
-        protected IClientFactory RESTClientFactory { get; }
+        protected Func<Uri, IClient> RESTClientFactory { get; }
         #endregion
 
         #region Public Properties
@@ -28,10 +28,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        protected APIClientBase(IClientFactory restClientFactory)
-        {
-            RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
-        }
+        protected APIClientBase(Func<Uri, IClient> restClientFactory) => RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
         #endregion
 
         #region Protected Methods

@@ -19,7 +19,7 @@ namespace CryptoCurrency.Net.APIClients
         public const string ACCOUNTBALANCEPATH = "/account/balance";
 
         #region Constructor
-        public BTCMarketsClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BTCMarketsClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.btcmarkets.net");

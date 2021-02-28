@@ -97,10 +97,7 @@ namespace CryptoCurrency.Net.Model
 
         }
 
-        public CurrencySymbol(string name)
-        {
-            Name = name;
-        }
+        public CurrencySymbol(string name) => Name = name;
         #endregion
 
         #region Public Methods

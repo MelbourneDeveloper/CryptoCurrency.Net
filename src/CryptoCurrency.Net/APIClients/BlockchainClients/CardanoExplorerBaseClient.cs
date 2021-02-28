@@ -13,7 +13,7 @@ namespace CryptoCurrency.Net.APIClients
         public abstract Uri BaseAddress { get; }
 
         #region Constructor
-        protected CardanoExplorerBase(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        protected CardanoExplorerBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = (Client)RESTClientFactory.CreateClient(BaseAddress.ToString());

@@ -32,7 +32,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ChainzClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public ChainzClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

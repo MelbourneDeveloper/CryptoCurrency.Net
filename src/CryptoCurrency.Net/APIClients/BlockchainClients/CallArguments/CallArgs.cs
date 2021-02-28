@@ -6,9 +6,6 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments
     {
         public IClient RESTClient { get; set; }
 
-        internal CallArgs(IClient client)
-        {
-            RESTClient = client;
-        }
+        internal CallArgs(IClient client) => RESTClient = client;
     }
 }

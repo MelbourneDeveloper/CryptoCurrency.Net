@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BittrexClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public BittrexClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BittrexClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://bittrex.com/");

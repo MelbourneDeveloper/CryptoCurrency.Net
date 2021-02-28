@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CryptoCurrency.Net.Abstractions.APIClients;
+using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Model.PriceEstimatation;
+using RestClient.Net.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Abstractions.APIClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.PriceEstimatation;
-using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
         #endregion
 
         #region Constructor
-        public PriceEstimationManager(IClientFactory restClientFactory)
+        public PriceEstimationManager(Func<Uri, IClient> restClientFactory)
         {
             foreach (var typeInfo in typeof(PriceEstimationManager).GetTypeInfo().Assembly.DefinedTypes)
             {

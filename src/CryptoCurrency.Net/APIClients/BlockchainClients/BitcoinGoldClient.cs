@@ -9,7 +9,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BitcoinGoldClient : InsightClientBase, IBlockchainClient
     {
         #region Constructor
-        public BitcoinGoldClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public BitcoinGoldClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

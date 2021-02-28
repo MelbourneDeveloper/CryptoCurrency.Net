@@ -25,7 +25,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockscoutClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public BlockscoutClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseAddress = new Uri("https://blockscout.com/etc/mainnet/api");

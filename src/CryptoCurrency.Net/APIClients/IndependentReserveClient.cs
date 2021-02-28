@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
     public class IndependentReserveClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public IndependentReserveClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public IndependentReserveClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.independentreserve.com");

@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockchainClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public BlockchainClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

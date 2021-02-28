@@ -20,7 +20,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public EthereumCommonwealthJSONRPCClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public EthereumCommonwealthJSONRPCClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion

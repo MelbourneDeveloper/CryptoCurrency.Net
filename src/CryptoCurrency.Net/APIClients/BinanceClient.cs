@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BinanceClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public BinanceClient(string apiKey, string apiSecret, IClientFactory restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BinanceClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.binance.com");

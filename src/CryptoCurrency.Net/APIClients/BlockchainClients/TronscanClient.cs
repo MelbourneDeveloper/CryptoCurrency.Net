@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.Tron };
         #endregion
 
-        public TronscanClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public TronscanClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://apilist.tronscan.org");

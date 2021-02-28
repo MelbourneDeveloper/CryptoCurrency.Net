@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.Cardano };
         #endregion
 
-        public CardanoExplorerClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public CardanoExplorerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
 

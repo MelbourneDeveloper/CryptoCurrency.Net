@@ -7,10 +7,7 @@ namespace CryptoCurrency.Net.Model.BTCMarkets
     {
         public ErrorResult ErrorResult { get; }
 
-        public BTCMarketsException(ErrorResult errorResult) : base(errorResult.errorMessage)
-        {
-            ErrorResult = errorResult ?? throw new ArgumentNullException(nameof(errorResult));
-        }
+        public BTCMarketsException(ErrorResult errorResult) : base(errorResult.errorMessage) => ErrorResult = errorResult ?? throw new ArgumentNullException(nameof(errorResult));
 
         public BTCMarketsException()
         {

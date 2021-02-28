@@ -9,7 +9,7 @@ namespace CryptoCurrency.Net.APIClients
     public class DashClient : InsightClientBase, IBlockchainClient
     {
         #region Constructor
-        public DashClient(CurrencySymbol currency, IClientFactory restClientFactory) : base(currency, restClientFactory)
+        public DashClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
         {
         }
         #endregion
