@@ -4,7 +4,7 @@ using RestClientDotNet;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model.PriceEstimatation;
 using RestClient.Net;
 using RestClient.Net.Abstractions;

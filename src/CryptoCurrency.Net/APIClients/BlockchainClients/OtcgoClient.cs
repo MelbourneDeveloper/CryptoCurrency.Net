@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model.Octgo;
 using RestClient.Net;
 using RestClient.Net.Abstractions;

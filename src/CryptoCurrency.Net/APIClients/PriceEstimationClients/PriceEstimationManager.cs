@@ -1,6 +1,7 @@
-﻿using CryptoCurrency.Net.Abstractions.APIClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.PriceEstimatation;
+﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.Base.Model.PriceEstimatation;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,14 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
     {
         #region Fields
         private readonly Collection<IPriceEstimationClient> _Clients = new Collection<IPriceEstimationClient>();
+        private readonly ILogger<PriceEstimationManager> logger;
         #endregion
 
         #region Constructor
-        public PriceEstimationManager(Func<Uri, IClient> restClientFactory)
+        public PriceEstimationManager(Func<Uri, IClient> restClientFactory, ILogger<PriceEstimationManager> logger)
         {
+            this.logger = logger;
+
             foreach (var typeInfo in typeof(PriceEstimationManager).GetTypeInfo().Assembly.DefinedTypes)
             {
                 var type = typeInfo.AsType();
@@ -62,7 +66,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log("Error Getting Prices", ex, nameof(PriceEstimationManager));
+                    logger.LogError(ex, "Error Getting Prices");
                 }
             }
 

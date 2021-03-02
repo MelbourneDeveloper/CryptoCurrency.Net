@@ -13,6 +13,6 @@ namespace CryptoCurrency.Net.Base.AddressManagement
             CointType = coinType;
         }
 
-        public IAddressPath GetAddressPath(uint change, uint account, uint addressIndex) => new BIP44AddressPath(IsSegwit, CointType, account, change == 0 ? false : true, addressIndex);
+        public IAddressPath GetAddressPath(uint change, uint account, uint addressIndex) => new BIP44AddressPath(IsSegwit, CointType, account, change != 0, addressIndex);
     }
 }

@@ -1,4 +1,6 @@
-﻿using RestClient.Net.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Protected Properties
+        protected ILogger Logger { get; }
         protected IClient RESTClient { get; set; }
         protected Func<Uri, IClient> RESTClientFactory { get; }
         #endregion
@@ -28,7 +31,11 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        protected APIClientBase(Func<Uri, IClient> restClientFactory) => RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
+        protected APIClientBase(Func<Uri, IClient> restClientFactory, ILogger logger)
+        {
+            Logger = logger ?? NullLogger.Instance;
+            RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
+        }
         #endregion
 
         #region Protected Methods

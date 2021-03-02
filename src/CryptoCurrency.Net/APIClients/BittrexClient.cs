@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Abstractions.APIClients;
 using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model.Bittrex;
 using RestClient.Net;
 using RestClient.Net.Abstractions;

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <CodeAnalysisRuleSet>../CryptoCurrency.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -25,11 +25,7 @@
     <DelaySign>false</DelaySign>    
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.7">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>  
+  <ItemGroup>  
     <Compile Remove="Abstractions\IEthereumTransaction.cs" />  
     <Compile Remove="Abstractions\ISignedEthereumTransaction.cs" />  
     <Compile Remove="Abstractions\ISignedTransaction.cs" />
@@ -40,6 +36,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RestClient.Net.Abstractions" Version="4.1.0" />
   </ItemGroup>
 
 </Project>

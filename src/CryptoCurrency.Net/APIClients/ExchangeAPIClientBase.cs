@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients

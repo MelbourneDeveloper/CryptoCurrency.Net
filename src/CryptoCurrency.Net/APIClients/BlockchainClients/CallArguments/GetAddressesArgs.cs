@@ -1,4 +1,4 @@
-﻿using CryptoCurrency.Net.Model;
+﻿using CryptoCurrency.Net.Base.Model;
 using RestClient.Net.Abstractions;
 using System.Collections.Generic;
 

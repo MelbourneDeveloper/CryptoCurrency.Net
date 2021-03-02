@@ -1,7 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
 using CryptoCurrency.Net.Ethereum;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model.Etherscan;
 using RestClient.Net.Abstractions;
 using System;

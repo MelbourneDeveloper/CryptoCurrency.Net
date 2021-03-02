@@ -6,7 +6,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Model.Zcha;
 using RestClient.Net;
 using RestClient.Net.Abstractions;

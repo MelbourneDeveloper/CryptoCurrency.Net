@@ -105,7 +105,7 @@ namespace CryptoCurrency.Net.Base.Model
         #region Public Methods
         public static bool IsEthereum(CurrencySymbol currencySymbol) => new List<CurrencySymbol> { Ethereum, EthereumClassic }.Contains(currencySymbol);
 
-        public override bool Equals(object obj) => !(obj is CurrencySymbol currencySymbol) ? false : string.Equals(currencySymbol.Name, Name, StringComparison.Ordinal);
+        public override bool Equals(object obj) => obj is CurrencySymbol currencySymbol && string.Equals(currencySymbol.Name, Name, StringComparison.Ordinal);
 
         public override int GetHashCode()
         {
