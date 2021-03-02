@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
+﻿using CryptoCurrency.Net.APIClients.Model.IndependentReserve;
+using CryptoCurrency.Net.Base.Abstractions.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
 using RestClient.Net;

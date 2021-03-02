@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Base.Extensions;
+using CryptoCurrency.Net.APIClients.Model.Binance;
 
 namespace CryptoCurrency.Net.APIClients
 {

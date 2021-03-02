@@ -2,7 +2,6 @@
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.AddressManagement.BCH;
 using CryptoCurrency.Net.Base.Model;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net;
 using System;
@@ -14,15 +13,15 @@ using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.UnitTests
 {
+
     [TestClass]
     public class BlockchainTests
     {
 #pragma warning disable IDE0052 // Remove unread private members
-        private static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => _ = builder.AddDebug().SetMinimumLevel(LogLevel.Trace));
         private readonly string ApiSecret = string.Empty;
         private readonly string ApiKey = string.Empty;
 #pragma warning restore IDE0052 // Remove unread private members
-        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager((u) => new Client(u), loggerFactory);
+        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager((u) => new Client(u), UnitTestGlobals.LoggerFactory);
 
         //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
         public async Task GetBitcoinCashAddressesVerbose()

@@ -3,8 +3,10 @@ using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Base.Model.PriceEstimatation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestClient.Net;
 using RestClient.Net.Abstractions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {

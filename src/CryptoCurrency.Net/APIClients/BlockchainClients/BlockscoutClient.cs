@@ -1,6 +1,8 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.APIClients.Model.Blockscout;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -24,7 +26,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockscoutClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public BlockscoutClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<BlockscoutClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseAddress = new Uri("https://blockscout.com/etc/mainnet/api");

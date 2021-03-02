@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
+﻿using CryptoCurrency.Net.APIClients.Model.BTCMarkets;
+using CryptoCurrency.Net.Base.Abstractions.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
 using RestClient.Net;
@@ -112,10 +113,8 @@ namespace CryptoCurrency.Net.APIClients
         public static string ComputeHash(string privateKey, string data)
         {
             var encoding = Encoding.UTF8;
-            using (var hasher = new HMACSHA512(Convert.FromBase64String(privateKey)))
-            {
-                return Convert.ToBase64String(hasher.ComputeHash(encoding.GetBytes(data)));
-            }
+            using var hasher = new HMACSHA512(Convert.FromBase64String(privateKey));
+            return Convert.ToBase64String(hasher.ComputeHash(encoding.GetBytes(data)));
         }
     }
 }
