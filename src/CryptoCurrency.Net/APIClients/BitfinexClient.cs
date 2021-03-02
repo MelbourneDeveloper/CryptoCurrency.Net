@@ -3,7 +3,6 @@ using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.APIClients.Model.Bitfinex;
 using Newtonsoft.Json;
-using RestClientDotNet;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

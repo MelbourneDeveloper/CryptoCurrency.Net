@@ -1,6 +1,4 @@
-﻿using CryptoCurrency.Net.APIClients.Model.ConvertUnixTime;
-using RestClientDotNet;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;

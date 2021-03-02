@@ -1,7 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Ethereum;
-using CryptoCurrency.Net.Base.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net;
 using System.Collections.Generic;

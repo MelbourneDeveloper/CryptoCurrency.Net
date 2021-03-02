@@ -1,5 +1,4 @@
 ﻿using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Tronscan;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;

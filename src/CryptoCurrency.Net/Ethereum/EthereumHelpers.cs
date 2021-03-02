@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CryptoCurrency.Net.Ethereum
+﻿namespace CryptoCurrency.Net.Ethereum
 {
     public static class EthereumHelpers
     {

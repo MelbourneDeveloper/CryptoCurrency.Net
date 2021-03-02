@@ -1,6 +1,5 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.ChainSo;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;

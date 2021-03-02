@@ -1,14 +1,10 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.APIClients.Model.Ripple;
-using RestClientDotNet;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Ripple;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 

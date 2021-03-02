@@ -2,16 +2,11 @@
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
 using CryptoCurrency.Net.APIClients.Model.Bittrex;
-using RestClientDotNet;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Abstractions.APIClients;
-using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Base.Model;
-using CryptoCurrency.Net.Model.Bittrex;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 
