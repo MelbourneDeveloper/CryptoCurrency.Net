@@ -13,6 +13,22 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class ApiSpecificTests
     {
+
+        [TestMethod]
+        public async Task TestDashClientAddress()
+        {
+            var dashClient = new DashClient(
+                CurrencySymbol.Dash,
+                (u) => new Client(u),
+                UnitTestGlobals.LoggerFactory.CreateLogger<DashClient>());
+
+            const string address = "XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA";
+
+            var balances = await dashClient.GetAddresses(new List<string> { address });
+            var balance = balances.First(a => a.Address == address);
+            Assert.AreEqual(false, balance.IsUnused);
+        }
+
         [TestMethod]
         public async Task TestEtherscanGetAddress()
         {
