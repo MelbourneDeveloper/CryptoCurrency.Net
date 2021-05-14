@@ -42,7 +42,13 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                         _BlockchainClientsByCurrencySymbol.Add(currencySymbol, new List<IBlockchainClient>());
                     }
 
-                    var blockChainClient = (IBlockchainClient)Activator.CreateInstance(type, currencySymbol, restClientFactory);
+                    //TODO: Probably bad for performance
+                    var methodInfo = typeof(LoggerFactoryExtensions).GetMethod("CreateLogger", new Type[] { typeof(ILoggerFactory) });
+                    var createLoggerMethod = methodInfo.MakeGenericMethod(new Type[] { type });
+
+                    var logger = createLoggerMethod.Invoke(null, new object[] { loggerFactory });
+
+                    var blockChainClient = (IBlockchainClient)Activator.CreateInstance(type, currencySymbol, restClientFactory, logger);
 
                     _BlockchainClientsByCurrencySymbol[currencySymbol].Add(blockChainClient);
                 }
