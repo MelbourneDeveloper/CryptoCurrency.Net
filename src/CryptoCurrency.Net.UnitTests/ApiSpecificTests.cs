@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Ethereum;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net;
 using System.Collections.Generic;
@@ -12,10 +13,15 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class ApiSpecificTests
     {
+        private readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => _ = builder.AddDebug().SetMinimumLevel(LogLevel.Trace));
+
         [TestMethod]
         public async Task TestEtherscanGetAddress()
         {
-            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, (u) => new Client(u));
+            var etherscanClient = new EtherscanClient(
+                CurrencySymbol.Ethereum,
+                (u) => new Client(u),
+                loggerFactory.CreateLogger<EtherscanClient>());
             var emptyAddress = "0x0E95F8F8ecBd770585766c1CD216C81aA43439a7".ToLower();
             var balances = await etherscanClient.GetAddresses(new List<string>
                 {
@@ -40,7 +46,11 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task TestConcurrentEtherscanGetAddress()
         {
-            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, (u) => new Client(u));
+            var etherscanClient = new EtherscanClient(
+                CurrencySymbol.Ethereum,
+                (u) => new Client(u),
+                loggerFactory.CreateLogger<EtherscanClient>());
+
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 
             for (var i = 0; i < 10; i++)
@@ -61,7 +71,11 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task TestConcurrentBlockcypherGetAddress()
         {
-            var etherscanClient = new BlockCypherClient(CurrencySymbol.Ethereum, (u) => new Client(u));
+            var etherscanClient = new BlockCypherClient(
+                CurrencySymbol.Ethereum,
+                (u) => new Client(u),
+                loggerFactory.CreateLogger<BlockCypherClient>());
+
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 
             var concurrency = 5;

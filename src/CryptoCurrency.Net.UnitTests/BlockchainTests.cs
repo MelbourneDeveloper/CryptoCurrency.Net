@@ -98,7 +98,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetEmptyRippleAddress()
         {
-            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u));
+            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u), loggerFactory.CreateLogger<RippleClient>());
             var emptyPaperWalletAddress = "rwyZFyk7VfBWpzNRV1SBSLcfNPfC8BgWWX";
             var address = await rippleClient.GetAddress(emptyPaperWalletAddress);
             Assert.IsTrue(address.IsUnused.Value);
@@ -155,7 +155,10 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetDashTransactions()
         {
-            var blockExplorerClient = new DashClient(CurrencySymbol.Dash, (u) => new Client(u));
+            var blockExplorerClient = new DashClient(
+                CurrencySymbol.Dash,
+                (u) => new Client(u),
+                loggerFactory.CreateLogger<DashClient>());
             var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");

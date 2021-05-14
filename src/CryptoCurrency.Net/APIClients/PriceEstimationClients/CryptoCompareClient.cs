@@ -4,6 +4,7 @@ using CryptoCurrency.Net.Base.Model.PriceEstimatation;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
 using System.Linq;

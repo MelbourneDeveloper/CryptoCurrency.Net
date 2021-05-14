@@ -40,10 +40,10 @@ namespace CryptoCurrency.Net.Base.AddressManagement
 
         public BIP44AddressPath(bool isSegwit, uint coinType, uint account, bool isChange, uint addressIndex)
         {
-            AddressPathElements.Add(new AddressPathElement { Value = isSegwit ? 49 : 44, Harden = true });
+            AddressPathElements.Add(new AddressPathElement { Value = isSegwit ? (uint)49 : 44, Harden = true });
             AddressPathElements.Add(new AddressPathElement { Value = coinType, Harden = true });
             AddressPathElements.Add(new AddressPathElement { Value = account, Harden = true });
-            AddressPathElements.Add(new AddressPathElement { Value = isChange ? 1 : 0, Harden = false });
+            AddressPathElements.Add(new AddressPathElement { Value = isChange ? (uint)1 : 0, Harden = false });
             AddressPathElements.Add(new AddressPathElement { Value = addressIndex, Harden = false });
         }
     }
