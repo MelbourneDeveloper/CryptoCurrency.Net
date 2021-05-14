@@ -13,15 +13,14 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class ApiSpecificTests
     {
-        private readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => _ = builder.AddDebug().SetMinimumLevel(LogLevel.Trace));
-
         [TestMethod]
         public async Task TestEtherscanGetAddress()
         {
             var etherscanClient = new EtherscanClient(
                 CurrencySymbol.Ethereum,
                 (u) => new Client(u),
-                loggerFactory.CreateLogger<EtherscanClient>());
+                UnitTestGlobals.LoggerFactory.CreateLogger<EtherscanClient>());
+
             var emptyAddress = "0x0E95F8F8ecBd770585766c1CD216C81aA43439a7".ToLower();
             var balances = await etherscanClient.GetAddresses(new List<string>
                 {
@@ -49,7 +48,7 @@ namespace CryptoCurrency.Net.UnitTests
             var etherscanClient = new EtherscanClient(
                 CurrencySymbol.Ethereum,
                 (u) => new Client(u),
-                loggerFactory.CreateLogger<EtherscanClient>());
+                UnitTestGlobals.LoggerFactory.CreateLogger<EtherscanClient>());
 
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 
@@ -74,7 +73,7 @@ namespace CryptoCurrency.Net.UnitTests
             var etherscanClient = new BlockCypherClient(
                 CurrencySymbol.Ethereum,
                 (u) => new Client(u),
-                loggerFactory.CreateLogger<BlockCypherClient>());
+                UnitTestGlobals.LoggerFactory.CreateLogger<BlockCypherClient>());
 
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 

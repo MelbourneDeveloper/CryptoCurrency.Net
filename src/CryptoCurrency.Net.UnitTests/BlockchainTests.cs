@@ -18,8 +18,6 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class BlockchainTests
     {
-        private readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => _ = builder.AddDebug().SetMinimumLevel(LogLevel.Trace));
-
 #pragma warning disable IDE0052 // Remove unread private members
         private readonly string ApiSecret = string.Empty;
         private readonly string ApiKey = string.Empty;
@@ -98,7 +96,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetEmptyRippleAddress()
         {
-            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u), loggerFactory.CreateLogger<RippleClient>());
+            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u), UnitTestGlobals.LoggerFactory.CreateLogger<RippleClient>());
             var emptyPaperWalletAddress = "rwyZFyk7VfBWpzNRV1SBSLcfNPfC8BgWWX";
             var address = await rippleClient.GetAddress(emptyPaperWalletAddress);
             Assert.IsTrue(address.IsUnused.Value);
@@ -158,7 +156,8 @@ namespace CryptoCurrency.Net.UnitTests
             var blockExplorerClient = new DashClient(
                 CurrencySymbol.Dash,
                 (u) => new Client(u),
-                loggerFactory.CreateLogger<DashClient>());
+                UnitTestGlobals.LoggerFactory.CreateLogger<DashClient>());
+
             var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");

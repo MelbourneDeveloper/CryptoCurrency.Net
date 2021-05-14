@@ -9,8 +9,11 @@ namespace CryptoCurrency.Net.Base.AddressManagement
         #region Public Properties
         public IAddressDeriver HardwarewalletManager { get; }
         public IAddressPathFactory AddressPathFactory { get; }
+#pragma warning disable IDE0052 // Remove unread private members
+        //I don't know why these fields are here
         private uint Purpose { get; }
         private uint CoinType { get; }
+#pragma warning restore IDE0052 // Remove unread private members
         #endregion
 
         #region Constructor
@@ -23,7 +26,7 @@ namespace CryptoCurrency.Net.Base.AddressManagement
 
         public AddressManager(IAddressDeriver hardwarewalletManager, IAddressPathFactory addressPathFactory, bool isSegit, uint cointType) : this(hardwarewalletManager, addressPathFactory)
         {
-            Purpose = isSegit ? 49 : 44;
+            Purpose = isSegit ? (uint)49 : 44;
             CoinType = cointType;
         }
         #endregion
