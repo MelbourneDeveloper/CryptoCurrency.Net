@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -37,7 +38,7 @@ namespace CryptoCurrency.Net.APIClients
             {
                 if (hex.Response.StatusCode == (int)HttpStatusCode.NotFound)
                 {
-                    Logger.Log($"ZEC Blockchain Error: {hex.Response.GetResponseData()}", null, LogSection);
+                    Logger.LogError(hex, "ZEC Blockchain Error: {response}", hex.Response.GetResponseData());
 
                     //TODO: Is this correct?
                     return null;
@@ -47,7 +48,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (Exception ex)
             {
-                Logger.Log("Error getting ZCash address", ex, LogSection);
+                Logger.LogError(ex, "Error getting ZCash address");
                 throw;
             }
         }

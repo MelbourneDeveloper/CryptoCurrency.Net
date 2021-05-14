@@ -1,5 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.APIClients.Model.ChainSo;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -20,7 +22,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ChainSoClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public ChainSoClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<ChainSoClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://chain.so");

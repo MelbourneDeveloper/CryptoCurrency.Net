@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
@@ -27,7 +28,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        protected ExchangeAPIClientBase(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(restClientFactory)
+        protected ExchangeAPIClientBase(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory, ILogger logger) : base(restClientFactory, logger)
         {
             ApiKey = apiKey;
             ApiSecret = apiSecret;

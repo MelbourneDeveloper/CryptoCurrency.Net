@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using RestClient.Net.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public abstract class PriceEstimationClientBase : APIClientBase
     {
-        protected PriceEstimationClientBase(Func<Uri, IClient> restClientFactory) : base(restClientFactory)
+        protected PriceEstimationClientBase(Func<Uri, IClient> restClientFactory, ILogger logger) : base(restClientFactory, logger)
         {
         }
 

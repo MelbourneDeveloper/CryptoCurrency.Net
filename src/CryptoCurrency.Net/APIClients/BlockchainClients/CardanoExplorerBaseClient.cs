@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -12,7 +13,7 @@ namespace CryptoCurrency.Net.APIClients
         public abstract Uri BaseAddress { get; }
 
         #region Constructor
-        protected CardanoExplorerBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        protected CardanoExplorerBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = RESTClientFactory(BaseAddress);

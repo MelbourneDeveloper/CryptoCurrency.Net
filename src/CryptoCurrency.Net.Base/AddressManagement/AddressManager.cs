@@ -1,4 +1,4 @@
-﻿using CryptoCurrency.Net.Base.Abstractions.AddressManagement;
+using CryptoCurrency.Net.Base.Abstractions.AddressManagement;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,5 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.APIClients.Model.Blockcypher;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockCypherClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public BlockCypherClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<BlockCypherClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.blockcypher.com");

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -25,7 +26,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public EtherscanClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory) => RESTClient = restClientFactory(new Uri("http://api.etherscan.io/"));
+        public EtherscanClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<EtherscanClient> logger) : base(currency, restClientFactory, logger) => RESTClient = restClientFactory(new Uri("http://api.etherscan.io/"));
         #endregion
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>

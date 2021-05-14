@@ -10,13 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.Base.Extensions;
 using CryptoCurrency.Net.APIClients.Model.Binance;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients
 {
     public class BinanceClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public BinanceClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BinanceClient(
+            string apiKey,
+            string apiSecret,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<BinanceClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.binance.com");
