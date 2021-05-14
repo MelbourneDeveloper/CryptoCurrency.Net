@@ -1,11 +1,12 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using insight = CryptoCurrency.Net.Model.Insight;
+using insight = CryptoCurrency.Net.APIClients.Model.Insight;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -13,7 +14,10 @@ namespace CryptoCurrency.Net.APIClients
     {
         #region Constructor
 
-        protected InsightClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        protected InsightClientBase(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<InsightClientBase> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = RESTClientFactory(BaseUriPath);

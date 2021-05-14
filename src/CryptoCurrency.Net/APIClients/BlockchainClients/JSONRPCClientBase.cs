@@ -1,7 +1,8 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.JSONRPC;
+using CryptoCurrency.Net.APIClients.Model.JSONRPC;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -14,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
 {
     public abstract class JSONRPCClientBase : BlockchainClientBase, ITokenClient
     {
-        private static readonly List<TokenInfo> Tokens = new List<TokenInfo>
+        private static readonly List<TokenInfo> Tokens = new()
         {
             new TokenInfo("EOS", "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", 18),
             new TokenInfo("TRX", "0xf230b790e05390fc8295f4d3f60332c93bed42e2", 6),
@@ -33,7 +34,7 @@ namespace CryptoCurrency.Net.APIClients
         };
 
         #region Constructor
-        protected JSONRPCClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        protected JSONRPCClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<JSONRPCClientBase> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = RESTClientFactory(BaseUriPath);

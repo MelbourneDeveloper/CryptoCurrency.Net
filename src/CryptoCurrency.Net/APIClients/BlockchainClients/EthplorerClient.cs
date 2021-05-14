@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.Ethplorer;
+using CryptoCurrency.Net.APIClients.Model.Ethplorer;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -23,11 +24,14 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Private Static Fields
-        private readonly Dictionary<string, Address> _CachedAddresses = new Dictionary<string, Address>();
+        private readonly Dictionary<string, Address> _CachedAddresses = new();
         #endregion
 
         #region Constructor
-        public EthplorerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public EthplorerClient(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<EthplorerClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.ethplorer.io");

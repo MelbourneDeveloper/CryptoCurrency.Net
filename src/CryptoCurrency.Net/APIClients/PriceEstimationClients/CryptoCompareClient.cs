@@ -1,19 +1,21 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoCurrency.Net.Abstractions.APIClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.PriceEstimatation;
+﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.Base.Model.PriceEstimatation;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public class CryptoCompareClient : PriceEstimationClientBase, IPriceEstimationClient
     {
-        public CryptoCompareClient(Func<Uri, IClient> restClientFactory) : base(restClientFactory)
+        public CryptoCompareClient(Func<Uri, IClient> restClientFactory,
+            ILogger<CryptoCompareClient> logger) : base(restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://min-api.cryptocompare.com");

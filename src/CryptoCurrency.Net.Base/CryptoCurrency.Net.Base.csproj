@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<CodeAnalysisRuleSet>../CryptoCurrency.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<Version>2.0.0</Version>
+		<Authors>Christian Findlay</Authors>
+		<Company>Christian Findlay</Company>
+		<Description>Base cross platform C# library for general Crypto Currency functionality such as communicating with Cryptocurrency exchanges, Hardwarewallets and Blockchain APIs. See CryptoCurrency.Net for implementations</Description>
+		<Copyright>© 2019 Christian Findlay</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
+		<PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance, Ethereum Classic, Litecoin, Hardwarewallets</PackageTags>
+		<PackageReleaseNotes>Moved from Hardwarewallets.Net (https://github.com/MelbourneDeveloper/Hardwarewallets.Net)</PackageReleaseNotes>
+		<NoWarn>1701;1702;CS0659;CA2007;CA1063;CA2235</NoWarn>
+		<LangVersion>9</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>RELEASE</DefineConstants>
+		<AssemblyOriginatorKeyFile>../CryptoCurrency.Net/CryptoCurrencyNet.pfx</AssemblyOriginatorKeyFile>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Abstractions\IEthereumTransaction.cs" />
+		<Compile Remove="Abstractions\ISignedEthereumTransaction.cs" />
+		<Compile Remove="Abstractions\ISignedTransaction.cs" />
+		<Compile Remove="Abstractions\ITransaction.cs" />
+		<Compile Remove="Abstractions\ITransactionSigner.cs" />
+		<None Include="..\CryptoCurrency.Net\CodeRules.ruleset" Link="CodeRules.ruleset" />
+		<None Include="..\CryptoCurrency.Net\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="RestClient.Net.Abstractions" Version="4.1.0" />
+	</ItemGroup>
+
+</Project>

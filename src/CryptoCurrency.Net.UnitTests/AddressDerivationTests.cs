@@ -1,14 +1,16 @@
-﻿using CryptoCurrency.Net.Abstractions.AddressManagement;
-using CryptoCurrency.Net.AddressManagement;
+﻿using CryptoCurrency.Net.Base.Abstractions.AddressManagement;
+using CryptoCurrency.Net.Base.AddressManagement;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable IDE0058 // Expression value is never used
+
 namespace CryptoCurrency.Net.UnitTests
 {
     [TestClass]
-    public  class AddressDerivationTests
+    public class AddressDerivationTests
     {
         //TODO: Unit tests have been disabled until the latest changes have been rolled in to all libraries.
 

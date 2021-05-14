@@ -1,7 +1,8 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.BCH;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.AddressManagement.BCH;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestClient.Net;
@@ -16,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BtcCom : BlockchainClientBase, IBlockchainClient
     {
         #region Constructor
-        public BtcCom(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public BtcCom(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<BtcCom> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://bch-chain.api.btc.com");

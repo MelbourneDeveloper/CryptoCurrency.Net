@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.SomeClient;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using CryptoCurrency.Net.APIClients.Model.SomeClient;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -12,7 +13,10 @@ namespace CryptoCurrency.Net.APIClients
     {
         #region Constructor
 
-        protected SomeClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        protected SomeClientBase(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = RESTClientFactory(new Uri(BaseUriPath));

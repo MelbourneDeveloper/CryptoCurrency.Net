@@ -1,4 +1,5 @@
-﻿using CryptoCurrency.Net.Model;
+﻿using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,19 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
     public class BlockchainClientManager
     {
         #region  Fields
-        private readonly Dictionary<CurrencySymbol, List<IBlockchainClient>> _BlockchainClientsByCurrencySymbol = new Dictionary<CurrencySymbol, List<IBlockchainClient>>();
-        private readonly Dictionary<Type, CurrencyCapabilityCollection> _CapabilitiesByClientType = new Dictionary<Type, CurrencyCapabilityCollection>();
+        private readonly Dictionary<CurrencySymbol, List<IBlockchainClient>> _BlockchainClientsByCurrencySymbol = new();
+        private readonly Dictionary<Type, CurrencyCapabilityCollection> _CapabilitiesByClientType = new();
+        private readonly ILogger<BlockchainClientManager> logger;
         #endregion
 
         #region Static Constructor
-        public BlockchainClientManager(Func<Uri, IClient> restClientFactory)
+        public BlockchainClientManager(
+            Func<Uri, IClient> restClientFactory,
+            ILoggerFactory loggerFactory
+            )
         {
+            logger = loggerFactory.CreateLogger<BlockchainClientManager>();
+
             foreach (var typeInfo in typeof(BlockchainClientManager).GetTypeInfo().Assembly.DefinedTypes)
             {
                 var type = typeInfo.AsType();
@@ -35,7 +42,13 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                         _BlockchainClientsByCurrencySymbol.Add(currencySymbol, new List<IBlockchainClient>());
                     }
 
-                    var blockChainClient = (IBlockchainClient)Activator.CreateInstance(type, currencySymbol, restClientFactory);
+                    //TODO: Probably bad for performance
+                    var methodInfo = typeof(LoggerFactoryExtensions).GetMethod("CreateLogger", new Type[] { typeof(ILoggerFactory) });
+                    var createLoggerMethod = methodInfo.MakeGenericMethod(new Type[] { type });
+
+                    var logger = createLoggerMethod.Invoke(null, new object[] { loggerFactory });
+
+                    var blockChainClient = (IBlockchainClient)Activator.CreateInstance(type, currencySymbol, restClientFactory, logger);
 
                     _BlockchainClientsByCurrencySymbol[currencySymbol].Add(blockChainClient);
                 }
@@ -118,13 +131,13 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                     catch (Exception ex)
                     {
                         lastException = ex;
-                        Logger.Log($"Get Addresses failed. Client: {client.GetType().FullName}. Symbol: {currencySymbol}", ex, BlockchainClientBase.LogSection);
+                        logger.LogError(ex, "Get Addresses failed. Client: {clientType}. Symbol: {currencySymbol}", currencySymbol);
                     }
                 }
                 catch (Exception ex)
                 {
                     lastException = ex;
-                    Logger.Log($"Get Addresses failed. Client: {client.GetType().FullName}. Symbol: {currencySymbol}", ex, BlockchainClientBase.LogSection);
+                    logger.LogError(ex, "Get Addresses failed. Client: {clientType}. Symbol: {currencySymbol}", currencySymbol);
                 }
             }
 

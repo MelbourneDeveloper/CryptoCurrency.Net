@@ -1,12 +1,13 @@
-﻿using System;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.APIClients.Model.Ripple;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.Ripple;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -17,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public RippleClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public RippleClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<RippleClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://data.ripple.com");

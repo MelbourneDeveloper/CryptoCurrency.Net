@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.APIClients;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Ethereum;
-using CryptoCurrency.Net.Model;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net;
 using System.Collections.Generic;
@@ -12,10 +13,30 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class ApiSpecificTests
     {
+
+        [TestMethod]
+        public async Task TestDashClientAddress()
+        {
+            var dashClient = new DashClient(
+                CurrencySymbol.Dash,
+                (u) => new Client(u),
+                UnitTestGlobals.LoggerFactory.CreateLogger<DashClient>());
+
+            const string address = "XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA";
+
+            var balances = await dashClient.GetAddresses(new List<string> { address });
+            var balance = balances.First(a => a.Address == address);
+            Assert.AreEqual(false, balance.IsUnused);
+        }
+
         [TestMethod]
         public async Task TestEtherscanGetAddress()
         {
-            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, (u) => new Client(u));
+            var etherscanClient = new EtherscanClient(
+                CurrencySymbol.Ethereum,
+                (u) => new Client(u),
+                UnitTestGlobals.LoggerFactory.CreateLogger<EtherscanClient>());
+
             var emptyAddress = "0x0E95F8F8ecBd770585766c1CD216C81aA43439a7".ToLower();
             var balances = await etherscanClient.GetAddresses(new List<string>
                 {
@@ -40,7 +61,11 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task TestConcurrentEtherscanGetAddress()
         {
-            var etherscanClient = new EtherscanClient(CurrencySymbol.Ethereum, (u) => new Client(u));
+            var etherscanClient = new EtherscanClient(
+                CurrencySymbol.Ethereum,
+                (u) => new Client(u),
+                UnitTestGlobals.LoggerFactory.CreateLogger<EtherscanClient>());
+
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 
             for (var i = 0; i < 10; i++)
@@ -61,7 +86,11 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task TestConcurrentBlockcypherGetAddress()
         {
-            var etherscanClient = new BlockCypherClient(CurrencySymbol.Ethereum, (u) => new Client(u));
+            var etherscanClient = new BlockCypherClient(
+                CurrencySymbol.Ethereum,
+                (u) => new Client(u),
+                UnitTestGlobals.LoggerFactory.CreateLogger<BlockCypherClient>());
+
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
 
             var concurrency = 5;

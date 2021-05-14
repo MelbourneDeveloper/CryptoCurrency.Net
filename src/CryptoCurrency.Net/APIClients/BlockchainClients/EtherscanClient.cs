@@ -1,8 +1,10 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.Base.Extensions;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Ethereum;
-using CryptoCurrency.Net.Model;
 using CryptoCurrency.Net.Model.Etherscan;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -17,15 +19,15 @@ namespace CryptoCurrency.Net.APIClients
     /// </summary>
     public class EtherscanClient : BlockchainClientBase, IBlockchainClient
     {
-        private static readonly List<DateTime> _calls = new List<DateTime>();
-        private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        private static readonly List<DateTime> _calls = new();
+        private static readonly SemaphoreSlim _lock = new(1, 1);
 
         #region Public Static Fields
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.Ethereum };
         #endregion
 
         #region Constructor
-        public EtherscanClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory) => RESTClient = restClientFactory(new Uri("http://api.etherscan.io/"));
+        public EtherscanClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<EtherscanClient> logger) : base(currency, restClientFactory, logger) => RESTClient = restClientFactory(new Uri("http://api.etherscan.io/"));
         #endregion
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>

@@ -1,69 +1,70 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-    <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <LangVersion>7.3</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Authors>Christian Findlay</Authors>
-    <Company>Christian Findlay</Company>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0</Version>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <Copyright>© 2019 Christian Findlay</Copyright>
-    <PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
-    <PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance, Ethereum Classic, Litecoin, Hardwarewallets</PackageTags>
-    <Description>Cross platform C# library for general Crypto Currency functionality such as communicating with Cryptocurrency exchanges, Hardwarewallets and Blockchain APIs.</Description>
-    <NoWarn>1701;1702;CS0659;CA2007;CA1063;CA2235</NoWarn>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <PackageReleaseNotes>Various Blockchain API stability fixes. Address derivation. Code cleanup. BCH legacy address conversion</PackageReleaseNotes>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>
+		<RunCodeAnalysis>false</RunCodeAnalysis>
+		<LangVersion>7.3</LangVersion>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<Authors>Christian Findlay</Authors>
+		<Company>Christian Findlay</Company>
+		<AssemblyVersion>2.0.0.0</AssemblyVersion>
+		<FileVersion>2.0.0.0</FileVersion>
+		<Version>2.0.0</Version>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<Copyright>© 2019 Christian Findlay</Copyright>
+		<PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
+		<PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance, Ethereum Classic, Litecoin, Hardwarewallets</PackageTags>
+		<Description>Cross platform C# library for general Crypto Currency functionality such as communicating with Cryptocurrency exchanges, Hardwarewallets and Blockchain APIs.</Description>
+		<NoWarn>1701;1702;CS0659;CA2007;CA1063;CA2235</NoWarn>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<PackageReleaseNotes>Various Blockchain API stability fixes. Address derivation. Code cleanup. BCH legacy address conversion</PackageReleaseNotes>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<LangVersion>Latest</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>RELEASE</DefineConstants> 
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>RELEASE</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <Compile Remove="IsolatedStoragePersister.cs" />
-    <Compile Remove="IsolatedStoragePersisterBase.cs" />    
-    <Compile Remove="APIClients\CryptopiaClient.cs" />    
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<Compile Remove="IsolatedStoragePersister.cs" />
+		<Compile Remove="IsolatedStoragePersisterBase.cs" />
+		<Compile Remove="APIClients\CryptopiaClient.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Abstractions\IEthereumTransaction.cs" />
-    <Compile Remove="Abstractions\ISignedEthereumTransaction.cs" />
-    <Compile Remove="Abstractions\ISignedTransaction.cs" />
-    <Compile Remove="Abstractions\ITransaction.cs" />
-    <Compile Remove="Abstractions\ITransactionSigner.cs" />
-    <Compile Remove="APIClients\CoinspotClient.cs" />
-    <Compile Remove="APIClients\CryptopiaClient.cs" />
-    <Compile Remove="ConsoleAppIsolatedStoragePersister.cs" />
-    <Compile Remove="Model\CoinInfo.cs" />
-    <Compile Remove="PersisterBase.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="APIClients\CoinspotClient.cs" />
+		<Compile Remove="APIClients\CryptopiaClient.cs" />
+		<Compile Remove="ConsoleAppIsolatedStoragePersister.cs" />
+		<Compile Remove="APIClients\Model\CoinInfo.cs" />
+		<Compile Remove="PersisterBase.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="RestClient.Net.Abstractions" Version="4.1.0" />    
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="RestClient.Net.Abstractions" Version="4.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+		<None Include="LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CryptoCurrency.Net.Base\CryptoCurrency.Net.Base.csproj" />
+	</ItemGroup>
 
 
 </Project>

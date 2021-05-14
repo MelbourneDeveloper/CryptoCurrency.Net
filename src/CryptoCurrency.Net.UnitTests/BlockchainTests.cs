@@ -1,6 +1,8 @@
 ﻿using CryptoCurrency.Net.APIClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.AddressManagement.BCH;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net;
 using System;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace CryptoCurrency.Net.UnitTests
 {
+
     [TestClass]
     public class BlockchainTests
     {
@@ -19,13 +22,12 @@ namespace CryptoCurrency.Net.UnitTests
         private readonly string ApiSecret = string.Empty;
         private readonly string ApiKey = string.Empty;
 #pragma warning restore IDE0052 // Remove unread private members
-        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager((u) => new Client(u));
+        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager((u) => new Client(u), UnitTestGlobals.LoggerFactory);
 
         //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
         public async Task GetBitcoinCashAddressesVerbose()
         {
-            var blockchainClientManager = new BlockchainClientManager((u) => new Client(u));
-            var addresses = await blockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash,
+            var addresses = await _BlockchainClientManager.GetAddresses(CurrencySymbol.BitcoinCash,
             new List<string> {
             "qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl",
             "bitcoincash:qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p" });
@@ -94,7 +96,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetEmptyRippleAddress()
         {
-            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u));
+            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u), UnitTestGlobals.LoggerFactory.CreateLogger<RippleClient>());
             var emptyPaperWalletAddress = "rwyZFyk7VfBWpzNRV1SBSLcfNPfC8BgWWX";
             var address = await rippleClient.GetAddress(emptyPaperWalletAddress);
             Assert.IsTrue(address.IsUnused.Value);
@@ -113,8 +115,8 @@ namespace CryptoCurrency.Net.UnitTests
                 new List<string>
                 {
                     "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p",
-                    BCH.AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address,
-                    BCH.AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address,
+                    AddressConverter.ToNewFormat("12Lg3vAAsUv39pBW742kAeyzs1omXfEN7G", false).Address,
+                    AddressConverter.ToNewFormat("15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew", false).Address,
                     "qrcuqadqrzp2uztjl9wn5sthepkg22majyxw4gmv6p"
                 });
         }
@@ -151,7 +153,11 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetDashTransactions()
         {
-            var blockExplorerClient = new DashClient(CurrencySymbol.Dash, (u) => new Client(u));
+            var blockExplorerClient = new DashClient(
+                CurrencySymbol.Dash,
+                (u) => new Client(u),
+                UnitTestGlobals.LoggerFactory.CreateLogger<DashClient>());
+
             var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA");
             Assert.IsNotNull(transactionsAtAddress, "No result was returned");
             Assert.IsTrue(transactionsAtAddress.Transactions.Count > 0, "No transactions were returned");
@@ -172,20 +178,18 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var returnValue = new List<Dictionary<CurrencySymbol, IEnumerable<BlockChainAddressInformation>>>();
 
-            var blockchainClientManager = new BlockchainClientManager((u) => new Client(u));
-
             for (var i = 0; i < repeatCount; i++)
             {
                 var firstBalance = new Dictionary<string, decimal?>();
 
-                var addressDictionary = await blockchainClientManager.GetAddresses(symbol, inputAddresses);
+                var addressDictionary = await _BlockchainClientManager.GetAddresses(symbol, inputAddresses);
 
                 foreach (var key in addressDictionary.Keys)
                 {
                     var outputAddresses = addressDictionary[key].ToList();
                     foreach (var address in outputAddresses)
                     {
-                        Assert.AreEqual(inputAddresses.Count, outputAddresses.Count, "The number of addresses returned was not the same as the number of addresses called");
+                        Assert.AreEqual(inputAddresses.Count, outputAddresses.Count(), "The number of addresses returned was not the same as the number of addresses called");
 
                         for (var x = 0; x < inputAddresses.Count; x++)
                         {

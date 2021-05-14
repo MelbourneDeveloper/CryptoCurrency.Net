@@ -1,7 +1,8 @@
-﻿using CryptoCurrency.Net.Abstractions.APIClients;
+﻿using CryptoCurrency.Net.APIClients.Model.BTCMarkets;
+using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.BTCMarkets;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -19,7 +20,11 @@ namespace CryptoCurrency.Net.APIClients
         public const string ACCOUNTBALANCEPATH = "/account/balance";
 
         #region Constructor
-        public BTCMarketsClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BTCMarketsClient(
+            string apiKey,
+            string apiSecret,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<BTCMarketsClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.btcmarkets.net");
@@ -113,10 +118,8 @@ namespace CryptoCurrency.Net.APIClients
         public static string ComputeHash(string privateKey, string data)
         {
             var encoding = Encoding.UTF8;
-            using (var hasher = new HMACSHA512(Convert.FromBase64String(privateKey)))
-            {
-                return Convert.ToBase64String(hasher.ComputeHash(encoding.GetBytes(data)));
-            }
+            using var hasher = new HMACSHA512(Convert.FromBase64String(privateKey));
+            return Convert.ToBase64String(hasher.ComputeHash(encoding.GetBytes(data)));
         }
     }
 }

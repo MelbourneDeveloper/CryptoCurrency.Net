@@ -1,22 +1,24 @@
-﻿using System;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.APIClients.Model.Zcha;
+using System;
 using System.Net;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.Zcha;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients
 {
     public class ZchaClient : BlockchainClientBase, IBlockchainClient
     {
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { CurrencySymbol.ZCash };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { CurrencySymbol.ZCash };
         #endregion
 
         #region Constructor
-        public ZchaClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public ZchaClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory,
+            ILogger<ZchaClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.zcha.in");
@@ -37,7 +39,7 @@ namespace CryptoCurrency.Net.APIClients
             {
                 if (hex.Response.StatusCode == (int)HttpStatusCode.NotFound)
                 {
-                    Logger.Log($"ZEC Blockchain Error: {hex.Response.GetResponseData()}", null, LogSection);
+                    Logger.LogError(hex, "ZEC Blockchain Error: {response}", hex.Response.GetResponseData());
 
                     //TODO: Is this correct?
                     return null;
@@ -47,7 +49,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             catch (Exception ex)
             {
-                Logger.Log("Error getting ZCash address", ex, LogSection);
+                Logger.LogError(ex, "Error getting ZCash address");
                 throw;
             }
         }

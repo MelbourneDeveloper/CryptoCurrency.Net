@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,10 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
         #endregion
 
         #region Constructor
-        protected BlockchainClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(restClientFactory) => Currency = currency;
+        protected BlockchainClientBase(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger logger) : base(restClientFactory, logger) => Currency = currency;
         #endregion
 
         #region Public Methods
@@ -49,7 +53,8 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             var addressList = addresses.ToList();
             var retVal = await Call<IEnumerable<BlockChainAddressInformation>>(GetAddressesFunc, new GetAddressesArgs(RESTClient, addressList, Currency, this));
 
-            Logger.Log($"Got {addressList.ToList().Count} {Currency.Name} addresses. Client {GetType().Name}. Milliseconds: {(DateTime.Now - startTime).TotalMilliseconds}", null, nameof(BlockchainClientBase));
+            Logger.LogInformation("Got {addressList.ToList().Count} {Currency.Name} addresses. Client {GetType().Name}. Milliseconds: {(DateTime.Now - startTime).TotalMilliseconds}"
+            , addressList.ToList().Count, Currency.Name, GetType().Name, (DateTime.Now - startTime).TotalMilliseconds);
 
             return retVal;
         }
@@ -64,7 +69,8 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             var addressList = address.ToList();
             var retVal = await Call<TransactionsAtAddress>(GetTransactionsAtAddressFunc, new GetTransactionsAtAddressArgs(RESTClient, address, Currency, this));
 
-            Logger.Log($"Got {addressList.ToList().Count} {Currency.Name} addresses. Client {GetType().Name}. Milliseconds: {(DateTime.Now - startTime).TotalMilliseconds}", null, nameof(BlockchainClientBase));
+            Logger.LogInformation("Got {addressCount} {Currency.Name} addresses. Client {clientType}. Milliseconds: {duration}"
+                , addressList.ToList().Count, Currency.Name, GetType().Name, (DateTime.Now - startTime).TotalMilliseconds);
 
             return retVal;
         }

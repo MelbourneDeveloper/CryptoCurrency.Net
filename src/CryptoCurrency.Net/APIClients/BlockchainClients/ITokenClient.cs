@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CryptoCurrency.Net.Base.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Model;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {

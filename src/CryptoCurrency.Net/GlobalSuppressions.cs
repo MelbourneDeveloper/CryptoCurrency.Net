@@ -10,3 +10,4 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.Model.BTCMarkets.BTCMarketsException.#ctor(CryptoCurrency.Net.Model.BTCMarkets.ErrorResult)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.AddressManagement.AddressPathBase.ParseElement(System.String)~CryptoCurrency.Net.AddressManagement.AddressPathElement")]
 
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:CryptoCurrency.Net.APIClients.Model.BTCMarkets.BTCMarketsException.#ctor(CryptoCurrency.Net.APIClients.Model.BTCMarkets.ErrorResult)")]

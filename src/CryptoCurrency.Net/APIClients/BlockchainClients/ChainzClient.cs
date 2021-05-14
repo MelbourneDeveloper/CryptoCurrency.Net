@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 
@@ -17,15 +18,15 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection
-                {
-                    CurrencySymbol.Bitcoin,
-                    CurrencySymbol.Litecoin,
-                    CurrencySymbol.Crown,
-                    CurrencySymbol.Dash,
-                    CurrencySymbol.DigiByte,
-                    CurrencySymbol.VertCoin
-                };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new()
+        {
+            CurrencySymbol.Bitcoin,
+            CurrencySymbol.Litecoin,
+            CurrencySymbol.Crown,
+            CurrencySymbol.Dash,
+            CurrencySymbol.DigiByte,
+            CurrencySymbol.VertCoin
+        };
         #endregion
 
         #region Protected Override Properties
@@ -33,7 +34,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ChainzClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public ChainzClient(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger logger) : base(currency, restClientFactory, logger)
         {
         }
         #endregion

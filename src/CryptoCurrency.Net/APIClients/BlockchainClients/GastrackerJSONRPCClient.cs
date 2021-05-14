@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 
@@ -16,11 +17,11 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Public Properties
-        protected override Uri BaseUriPath => new Uri("https://web3.gastracker.io/");
+        protected override Uri BaseUriPath => new("https://web3.gastracker.io/");
         #endregion
 
         #region Constructor
-        public GastrackerJSONRPCClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public GastrackerJSONRPCClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<GastrackerJSONRPCClient> logger) : base(currency, restClientFactory, logger)
         {
         }
         #endregion

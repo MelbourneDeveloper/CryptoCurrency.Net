@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
 
 namespace CryptoCurrency.Net.APIClients.BlockchainClients
 {

@@ -1,7 +1,8 @@
-﻿using CryptoCurrency.Net.Abstractions.APIClients;
+﻿using CryptoCurrency.Net.APIClients.Model.IndependentReserve;
+using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.IndependentReserve;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -15,7 +16,11 @@ namespace CryptoCurrency.Net.APIClients
     public class IndependentReserveClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public IndependentReserveClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public IndependentReserveClient(
+            string apiKey,
+            string apiSecret,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<IndependentReserveClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.independentreserve.com");

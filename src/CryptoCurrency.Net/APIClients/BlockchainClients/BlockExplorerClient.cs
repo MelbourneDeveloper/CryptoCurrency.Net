@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
+using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 
@@ -29,17 +30,13 @@ namespace CryptoCurrency.Net.APIClients
             {
                 const string retval = "blockexplorer.com";
 
-                switch (Currency.Name)
+                return Currency.Name switch
                 {
-                    case CurrencySymbol.BitcoinCashSymbolName:
-                        return new Uri($"https://bitcoincash.{retval}");
-                    case CurrencySymbol.BitcoinSymbolName:
-                        return new Uri($"https://{retval}");
-                    case CurrencySymbol.ZCashSymbolName:
-                        return new Uri($"https://zcash.{retval}");
-                }
-
-                return null;
+                    CurrencySymbol.BitcoinCashSymbolName => new Uri($"https://bitcoincash.{retval}"),
+                    CurrencySymbol.BitcoinSymbolName => new Uri($"https://{retval}"),
+                    CurrencySymbol.ZCashSymbolName => new Uri($"https://zcash.{retval}"),
+                    _ => null,
+                };
             }
         }
 
@@ -48,7 +45,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockExplorerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public BlockExplorerClient(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<BlockExplorerClient> logger) : base(currency, restClientFactory, logger)
         {
         }
         #endregion

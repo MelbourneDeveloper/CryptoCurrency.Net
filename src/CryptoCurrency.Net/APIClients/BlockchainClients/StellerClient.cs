@@ -1,22 +1,26 @@
-﻿using System;
+﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
+using CryptoCurrency.Net.Base.Model;
+using CryptoCurrency.Net.APIClients.Model.Steller;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.APIClients.BlockchainClients;
-using CryptoCurrency.Net.Model;
-using CryptoCurrency.Net.Model.Steller;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients
 {
     public class StellerClient : BlockchainClientBase, IBlockchainClient
     {
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { new CurrencySymbol(CurrencySymbol.StellerSymbolName) };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { new CurrencySymbol(CurrencySymbol.StellerSymbolName) };
         #endregion
 
         #region Constructor
-        public StellerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public StellerClient(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<StellerClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://horizon.stellar.org");
