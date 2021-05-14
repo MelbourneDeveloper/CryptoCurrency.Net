@@ -1,8 +1,11 @@
 ﻿using CryptoCurrency.Net.APIClients.Model.Bitfinex;
 using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Extensions;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -21,7 +24,11 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BitfinexClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BitfinexClient(
+            string apiKey,
+            string apiSecret,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<BitfinexClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.bitfinex.com");

@@ -1,6 +1,7 @@
 ﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Base.Model.PriceEstimatation;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestClient.Net.Abstractions;
@@ -12,7 +13,8 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public class CryptoCompareClient : PriceEstimationClientBase, IPriceEstimationClient
     {
-        public CryptoCompareClient(Func<Uri, IClient> restClientFactory) : base(restClientFactory)
+        public CryptoCompareClient(Func<Uri, IClient> restClientFactory,
+            ILogger<CryptoCompareClient> logger) : base(restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://min-api.cryptocompare.com");

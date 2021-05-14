@@ -17,7 +17,8 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ZchaClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public ZchaClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory,
+            ILogger<ZchaClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.zcha.in");

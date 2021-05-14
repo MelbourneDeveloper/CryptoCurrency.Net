@@ -30,17 +30,13 @@ namespace CryptoCurrency.Net.APIClients
             {
                 const string retval = "blockexplorer.com";
 
-                switch (Currency.Name)
+                return Currency.Name switch
                 {
-                    case CurrencySymbol.BitcoinCashSymbolName:
-                        return new Uri($"https://bitcoincash.{retval}");
-                    case CurrencySymbol.BitcoinSymbolName:
-                        return new Uri($"https://{retval}");
-                    case CurrencySymbol.ZCashSymbolName:
-                        return new Uri($"https://zcash.{retval}");
-                    default:
-                        return null;
-                }
+                    CurrencySymbol.BitcoinCashSymbolName => new Uri($"https://bitcoincash.{retval}"),
+                    CurrencySymbol.BitcoinSymbolName => new Uri($"https://{retval}"),
+                    CurrencySymbol.ZCashSymbolName => new Uri($"https://zcash.{retval}"),
+                    _ => null,
+                };
             }
         }
 
