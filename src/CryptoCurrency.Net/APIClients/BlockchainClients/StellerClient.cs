@@ -12,7 +12,7 @@ namespace CryptoCurrency.Net.APIClients
     public class StellerClient : BlockchainClientBase, IBlockchainClient
     {
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { new CurrencySymbol(CurrencySymbol.StellerSymbolName) };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { new CurrencySymbol(CurrencySymbol.StellerSymbolName) };
         #endregion
 
         #region Constructor

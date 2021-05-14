@@ -13,12 +13,12 @@ namespace CryptoCurrency.Net.APIClients
     public class ChainSoClient : BlockchainClientBase, IBlockchainClient, IDisposable
     {
         #region Private Fields
-        private static readonly SemaphoreSlim _SemaphoreSlim = new SemaphoreSlim(1, 1);
+        private static readonly SemaphoreSlim _SemaphoreSlim = new(1, 1);
         private bool disposed;
         #endregion
 
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { CurrencySymbol.DogeCoin };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { CurrencySymbol.DogeCoin };
         #endregion
 
         #region Constructor

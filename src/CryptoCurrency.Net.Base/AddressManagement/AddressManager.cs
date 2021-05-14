@@ -1,4 +1,4 @@
-using CryptoCurrency.Net.Base.Abstractions.AddressManagement;
+﻿using CryptoCurrency.Net.Base.Abstractions.AddressManagement;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,7 +23,7 @@ namespace CryptoCurrency.Net.Base.AddressManagement
 
         public AddressManager(IAddressDeriver hardwarewalletManager, IAddressPathFactory addressPathFactory, bool isSegit, uint cointType) : this(hardwarewalletManager, addressPathFactory)
         {
-            Purpose = isSegit ? (uint)49 : 44;
+            Purpose = isSegit ? 49 : 44;
             CoinType = cointType;
         }
         #endregion

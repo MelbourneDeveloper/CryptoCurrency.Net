@@ -11,7 +11,7 @@ namespace CryptoCurrency.Net.APIClients
     public abstract class APIClientBase
     {
         #region Private Fields
-        private readonly List<TimeSpan> _CallTimes = new List<TimeSpan>();
+        private readonly List<TimeSpan> _CallTimes = new();
         #endregion
 
         #region Protected Properties

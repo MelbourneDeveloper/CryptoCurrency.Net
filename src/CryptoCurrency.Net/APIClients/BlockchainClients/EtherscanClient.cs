@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -18,8 +19,8 @@ namespace CryptoCurrency.Net.APIClients
     /// </summary>
     public class EtherscanClient : BlockchainClientBase, IBlockchainClient
     {
-        private static readonly List<DateTime> _calls = new List<DateTime>();
-        private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        private static readonly List<DateTime> _calls = new();
+        private static readonly SemaphoreSlim _lock = new(1, 1);
 
         #region Public Static Fields
         public static CurrencyCapabilityCollection CurrencyCapabilities { get; } = new CurrencyCapabilityCollection { CurrencySymbol.Ethereum };

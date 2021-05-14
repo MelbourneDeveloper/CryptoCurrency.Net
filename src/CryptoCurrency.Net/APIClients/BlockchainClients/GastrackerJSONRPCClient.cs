@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Public Properties
-        protected override Uri BaseUriPath => new Uri("https://web3.gastracker.io/");
+        protected override Uri BaseUriPath => new("https://web3.gastracker.io/");
         #endregion
 
         #region Constructor

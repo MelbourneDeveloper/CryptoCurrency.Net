@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Public Properties
-        protected override Uri BaseUriPath => new Uri("https://mainnet.infura.io");
+        protected override Uri BaseUriPath => new("https://mainnet.infura.io");
         #endregion
 
         #region Constructor

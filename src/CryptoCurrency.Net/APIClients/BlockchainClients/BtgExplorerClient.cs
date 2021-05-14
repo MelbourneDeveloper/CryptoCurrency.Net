@@ -1,5 +1,6 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
 
@@ -8,7 +9,10 @@ namespace CryptoCurrency.Net.APIClients
     public class BtgExplorerClient : InsightClientBase, IBlockchainClient
     {
         #region Constructor
-        public BtgExplorerClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public BtgExplorerClient(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<BtgExplorerClient> logger) : base(currency, restClientFactory, logger)
         {
         }
         #endregion
@@ -21,7 +25,7 @@ namespace CryptoCurrency.Net.APIClients
         /// <summary>
         /// Example: https://btgexplorer.com/api/addr/[Address]
         /// </summary>
-        protected override Uri BaseUriPath => new Uri("https://btgexplorer.com");
+        protected override Uri BaseUriPath => new("https://btgexplorer.com");
         protected override string AddressQueryStringBase => "/api/addr/";
         #endregion
     }

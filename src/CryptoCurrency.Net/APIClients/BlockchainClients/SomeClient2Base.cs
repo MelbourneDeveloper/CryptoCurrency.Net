@@ -1,6 +1,8 @@
 ﻿using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.APIClients.BlockchainClients.CallArguments;
+using CryptoCurrency.Net.APIClients.Model.SomeClient2;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
@@ -14,7 +16,10 @@ namespace CryptoCurrency.Net.APIClients
     {
         #region Constructor
 
-        protected SomeClient2Base(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        protected SomeClient2Base(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri(BaseUriPath);
@@ -53,7 +58,7 @@ namespace CryptoCurrency.Net.APIClients
 
             var queryString = ((SomeClient2Base)getAddressesArgs.Client).GetQueryString(addressesPart);
 
-            AddressResult addresses = await getAddressesArgs.RESTClient.GetAsync<AddressResult>(queryString);
+            var addresses = await getAddressesArgs.RESTClient.GetAsync<AddressResult>(queryString);
 
             var retVal = new List<BlockChainAddressInformation>();
 

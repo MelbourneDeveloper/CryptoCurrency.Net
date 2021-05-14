@@ -24,7 +24,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Private Static Fields
-        private readonly Dictionary<string, Address> _CachedAddresses = new Dictionary<string, Address>();
+        private readonly Dictionary<string, Address> _CachedAddresses = new();
         #endregion
 
         #region Constructor

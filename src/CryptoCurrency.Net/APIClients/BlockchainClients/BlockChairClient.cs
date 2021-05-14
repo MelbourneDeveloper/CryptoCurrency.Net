@@ -14,7 +14,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BlockChairClient : BlockchainClientBase, IBlockchainClient
     {
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { CurrencySymbol.BitcoinCash };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { CurrencySymbol.BitcoinCash };
         #endregion
 
         #region Constructor

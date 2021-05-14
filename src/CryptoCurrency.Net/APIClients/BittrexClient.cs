@@ -9,13 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoCurrency.Net.APIClients
 {
     public class BittrexClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
-        public BittrexClient(string apiKey, string apiSecret, Func<Uri, IClient> restClientFactory) : base(apiKey, apiSecret, restClientFactory)
+        public BittrexClient(
+            string apiKey,
+            string apiSecret,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<BittrexClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://bittrex.com/");

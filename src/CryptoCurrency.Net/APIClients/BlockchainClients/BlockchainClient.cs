@@ -11,7 +11,7 @@ namespace CryptoCurrency.Net.APIClients
     public class BlockchainClient : SomeClient2Base, IBlockchainClient
     {
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { CurrencySymbol.Bitcoin };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { CurrencySymbol.Bitcoin };
         #endregion
 
         #region Protected Override Properties

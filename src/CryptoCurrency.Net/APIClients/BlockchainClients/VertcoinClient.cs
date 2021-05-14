@@ -9,7 +9,7 @@ namespace CryptoCurrency.Net.APIClients
     public class VertcoinClient : SomeClientBase, IBlockchainClient
     {
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { CurrencySymbol.VertCoin };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { CurrencySymbol.VertCoin };
         #endregion
 
         #region Protected Properties

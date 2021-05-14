@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using Microsoft.Extensions.Logging;
+
 namespace CryptoCurrency.Net.APIClients
 {
     public class OtcgoClient : BlockchainClientBase, IBlockchainClient
@@ -15,7 +17,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public OtcgoClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory) : base(currency, restClientFactory)
+        public OtcgoClient(
+            CurrencySymbol currency,
+            Func<Uri, IClient> restClientFactory,
+            ILogger<OtcgoClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://otcgo.cn");

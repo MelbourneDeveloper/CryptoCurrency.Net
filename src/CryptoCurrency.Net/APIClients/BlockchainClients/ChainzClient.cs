@@ -17,8 +17,8 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection
-                {
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new()
+        {
                     CurrencySymbol.Bitcoin,
                     CurrencySymbol.Litecoin,
                     CurrencySymbol.Crown,

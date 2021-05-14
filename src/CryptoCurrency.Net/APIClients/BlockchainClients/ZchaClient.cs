@@ -13,7 +13,7 @@ namespace CryptoCurrency.Net.APIClients
     public class ZchaClient : BlockchainClientBase, IBlockchainClient
     {
         #region Private Static Fields
-        public static CurrencyCapabilityCollection CurrencyCapabilities => new CurrencyCapabilityCollection { CurrencySymbol.ZCash };
+        public static CurrencyCapabilityCollection CurrencyCapabilities => new() { CurrencySymbol.ZCash };
         #endregion
 
         #region Constructor

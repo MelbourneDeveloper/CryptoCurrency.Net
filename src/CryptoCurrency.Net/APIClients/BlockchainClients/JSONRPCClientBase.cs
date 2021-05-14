@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients
 {
     public abstract class JSONRPCClientBase : BlockchainClientBase, ITokenClient
     {
-        private static readonly List<TokenInfo> Tokens = new List<TokenInfo>
+        private static readonly List<TokenInfo> Tokens = new()
         {
             new TokenInfo("EOS", "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", 18),
             new TokenInfo("TRX", "0xf230b790e05390fc8295f4d3f60332c93bed42e2", 6),

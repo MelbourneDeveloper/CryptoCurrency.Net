@@ -15,7 +15,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
     public class PriceEstimationManager
     {
         #region Fields
-        private readonly Collection<IPriceEstimationClient> _Clients = new Collection<IPriceEstimationClient>();
+        private readonly Collection<IPriceEstimationClient> _Clients = new();
         private readonly ILogger<PriceEstimationManager> logger;
         #endregion
 

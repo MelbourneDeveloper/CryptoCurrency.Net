@@ -12,8 +12,8 @@ namespace CryptoCurrency.Net.APIClients
 {
     public class BlockCypherClient : BlockchainClientBase, IBlockchainClient
     {
-        private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
-        private static readonly List<DateTime> _calls = new List<DateTime>();
+        private static readonly SemaphoreSlim _lock = new(1, 1);
+        private static readonly List<DateTime> _calls = new();
 
         #region Public Static Properties
         public static string APIKey { get; set; }

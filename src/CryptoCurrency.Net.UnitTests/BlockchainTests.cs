@@ -2,6 +2,7 @@
 using CryptoCurrency.Net.APIClients.BlockchainClients;
 using CryptoCurrency.Net.Base.AddressManagement.BCH;
 using CryptoCurrency.Net.Base.Model;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net;
 using System;
@@ -17,6 +18,8 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class BlockchainTests
     {
+        private readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => _ = builder.AddDebug().SetMinimumLevel(LogLevel.Trace));
+
 #pragma warning disable IDE0052 // Remove unread private members
         private readonly string ApiSecret = string.Empty;
         private readonly string ApiKey = string.Empty;

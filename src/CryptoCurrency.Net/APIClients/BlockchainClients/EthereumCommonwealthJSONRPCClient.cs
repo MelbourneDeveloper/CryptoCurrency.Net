@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Public Properties
-        protected override Uri BaseUriPath => new Uri("https://etc-geth.0xinfra.com");
+        protected override Uri BaseUriPath => new("https://etc-geth.0xinfra.com");
         #endregion
 
         #region Constructor
