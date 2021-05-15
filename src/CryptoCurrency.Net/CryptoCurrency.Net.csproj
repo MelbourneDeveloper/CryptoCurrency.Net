@@ -6,13 +6,11 @@
 		<RunCodeAnalysis>false</RunCodeAnalysis>
 		<LangVersion>7.3</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Authors>Christian Findlay</Authors>
 		<Company>Christian Findlay</Company>
 		<AssemblyVersion>2.0.0.0</AssemblyVersion>
 		<FileVersion>2.0.0.0</FileVersion>
 		<Version>2.0.0</Version>
-		<PackageLicenseUrl></PackageLicenseUrl>
 		<Copyright>© 2019 Christian Findlay</Copyright>
 		<PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
@@ -21,7 +19,6 @@
 		<NoWarn>1701;1702;CS0659;CA2007;CA1063;CA2235</NoWarn>
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<PackageReleaseNotes>Various Blockchain API stability fixes. Address derivation. Code cleanup. BCH legacy address conversion</PackageReleaseNotes>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<LangVersion>Latest</LangVersion>
 	</PropertyGroup>
 

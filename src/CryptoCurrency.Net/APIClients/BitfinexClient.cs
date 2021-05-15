@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -33,6 +35,15 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.bitfinex.com");
             RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://api.bitfinex.com"));
+
+
+            RESTClient = restClientFactory(GetType().Name,
+            (o) =>
+            {
+                o.HeadersCollection = "X-BFX-APIKEY".ToHeadersCollection(ApiKey);
+                o.BaseUrl = new("https://api.binance.com");
+            });
+
         }
         #endregion
 
@@ -110,17 +121,12 @@ namespace CryptoCurrency.Net.APIClients
             var bitfinexPostBase = new BitfinexPostBase { Request = BalanceRequestUrl, Nonce = nonce };
             var jsonObj = JsonConvert.SerializeObject(bitfinexPostBase);
             var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonObj));
-
-            RESTClient.DefaultRequestHeaders.Clear();
-            RESTClient.DefaultRequestHeaders.Add("X-BFX-APIKEY", ApiKey);
-            RESTClient.DefaultRequestHeaders.Add("X-BFX-PAYLOAD", payload);
-
             //Notice the ToLower here. This is specific to Bitfinex
             var signature = APIHelpers.GetHash(payload, ApiSecret, APIHelpers.HashAlgorithmType.HMACThreeEightFour, Encoding.UTF8).ToLower();
-            RESTClient.DefaultRequestHeaders.Add("X-BFX-SIGNATURE", signature);
 
-            var retVal = await RESTClient.GetAsync<List<Balance>>(BalanceRequestUrl);
-            return retVal;
+            var headers = "X-BFX-PAYLOAD".ToHeadersCollection(payload).Append("X-BFX-SIGNATURE", signature);
+
+            return await RESTClient.GetAsync<List<Balance>>(new RelativeUrl(BalanceRequestUrl), headers);
         }
         #endregion
     }

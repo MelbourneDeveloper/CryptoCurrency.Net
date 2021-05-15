@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using Microsoft.Extensions.Logging;
+using RestClient.Net.Abstractions.Extensions;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -87,11 +89,10 @@ namespace CryptoCurrency.Net.APIClients
 
             var hmac = APIHelpers.GetHash(uri, ApiSecret, APIHelpers.HashAlgorithmType.HMACNineBit, Encoding.ASCII);
 
-            RESTClient.DefaultRequestHeaders.Clear();
-            RESTClient.DefaultRequestHeaders.Add("apisign", hmac);
+            var headers = "apisign".ToHeadersCollection(hmac);
 
             //TODO: Remove GetBalancesArgs. No idea why we are passing GetBalancesArgs in...
-            return await RESTClient.PostAsync<GetBalancesResult, object>(new object(), $"https://bittrex.com/api/v1.1//account/getbalances?apikey={ApiKey}&nonce={nonce}");
+            return await RESTClient.PostAsync<GetBalancesResult, object>(new object(), new RelativeUrl($"api/v1.1//account/getbalances?apikey={ApiKey}&nonce={nonce}"), headers);
         }
         #endregion
     }

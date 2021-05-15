@@ -1,18 +1,17 @@
-﻿using CryptoCurrency.Net.Base.Abstractions.APIClients;
+﻿using CryptoCurrency.Net.APIClients.Model.Binance;
+using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Extensions;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
+using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CryptoCurrency.Net.Base.Extensions;
-using CryptoCurrency.Net.APIClients.Model.Binance;
-using Microsoft.Extensions.Logging;
-using Urls;
-using RestClient.Net.Abstractions.Extensions;
 
 namespace CryptoCurrency.Net.APIClients
 {
