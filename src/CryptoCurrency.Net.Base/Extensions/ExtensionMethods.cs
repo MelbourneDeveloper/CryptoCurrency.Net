@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Urls;
 
 namespace CryptoCurrency.Net.Base.Extensions
 {
@@ -51,11 +52,11 @@ namespace CryptoCurrency.Net.Base.Extensions
 
                 calls.Add(DateTime.Now);
 
-                return await restClient.GetAsync<T>(new Uri(queryString, UriKind.Relative));
+                return await restClient.GetAsync<T>(new RelativeUrl(queryString));
             }
             finally
             {
-                semaphore.Release();
+                _ = semaphore.Release();
             }
         }
     }

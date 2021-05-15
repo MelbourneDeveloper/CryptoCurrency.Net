@@ -4,13 +4,11 @@
 		<TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
 		<CodeAnalysisRuleSet></CodeAnalysisRuleSet>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Version>2.0.0</Version>
 		<Authors>Christian Findlay</Authors>
 		<Company>Christian Findlay</Company>
 		<Description>Base cross platform C# library for general Crypto Currency functionality such as communicating with Cryptocurrency exchanges, Hardwarewallets and Blockchain APIs. See CryptoCurrency.Net for implementations</Description>
 		<Copyright>© 2019 Christian Findlay</Copyright>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MelbourneDeveloper/CryptoCurrency.Net</RepositoryUrl>
 		<PackageTags>C#, REST, UWP , Android, iOS, Hardfolio, cryptocurrency, Bitcoin, Ethereum, Blockchain, Bitfinex, Bittrex, Cryptopia, Crypto Compare, Binance, Ethereum Classic, Litecoin, Hardwarewallets</PackageTags>
