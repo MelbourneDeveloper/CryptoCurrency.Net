@@ -27,17 +27,13 @@ namespace CryptoCurrency.Net.Helpers
         #region Private Static Methods
         private static HashAlgorithm GetHashAlgorithm(HashAlgorithmType hashAlgorithmType)
         {
-            switch (hashAlgorithmType)
+            return hashAlgorithmType switch
             {
-                case HashAlgorithmType.HMACEightBit:
-                    return new HMACSHA256();
-                case HashAlgorithmType.HMACNineBit:
-                    return new HMACSHA512();
-                case HashAlgorithmType.HMACThreeEightFour:
-                    return new HMACSHA384();
-                default:
-                    throw new NotImplementedException();
-            }
+                HashAlgorithmType.HMACEightBit => new HMACSHA256(),
+                HashAlgorithmType.HMACNineBit => new HMACSHA512(),
+                HashAlgorithmType.HMACThreeEightFour => new HMACSHA384(),
+                _ => throw new NotImplementedException(),
+            };
         }
         #endregion
 
@@ -67,15 +63,13 @@ namespace CryptoCurrency.Net.Helpers
         private static byte[] GetHashAsBytes(byte[] messageBytes, byte[] keyBytes, HashAlgorithmType hashAlgorithmType)
         {
 
-            using (var hashAlgorithm = GetHashAlgorithm(hashAlgorithmType))
+            using var hashAlgorithm = GetHashAlgorithm(hashAlgorithmType);
+            if (hashAlgorithm is HMAC hmac)
             {
-                if (hashAlgorithm is HMAC hmac)
-                {
-                    hmac.Key = keyBytes;
-                }
-
-                return hashAlgorithm.ComputeHash(messageBytes);
+                hmac.Key = keyBytes;
             }
+
+            return hashAlgorithm.ComputeHash(messageBytes);
         }
 
         public static string GetSignature(Uri baseUri, string url, IDictionary<string, object> requestParameters, string apiSecret, HashAlgorithmType hmacshaType)
@@ -86,14 +80,14 @@ namespace CryptoCurrency.Net.Helpers
 
             foreach (var key in requestParameters.Keys)
             {
-                input.Append(',');
+                _ = input.Append(',');
                 var value = requestParameters[key];
 
                 var resultValue = value != null && value.GetType().IsArray
-                    ? !(value is string[] array) || !array.Any() ? string.Empty : string.Join(",", array.Select(tt => $"{tt}"))
+                    ? value is not string[] array || !array.Any() ? string.Empty : string.Join(",", array.Select(tt => $"{tt}"))
                     : value is string s ? s.Replace("\r", "").Replace("\n", "") : value;
 
-                input.AppendFormat(CultureInfo.InvariantCulture, "{0}={1}", key, resultValue);
+                _ = input.AppendFormat(CultureInfo.InvariantCulture, "{0}={1}", key, resultValue);
             }
 
             return GetHash(input.ToString(), apiSecret, hmacshaType, Encoding.ASCII);
@@ -107,18 +101,6 @@ namespace CryptoCurrency.Net.Helpers
         /// </summary>
         /// <returns></returns>
         public static string GetNonce() => DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture);
-
-        //public static async Task<DateTime> GetCurrentDateTimeFromConvertUnixTimeAsync()
-        //{
-        //    CurrentTime currentTimeModel = await GetDateRESTClient.GetAsync<CurrentTime>("api?timestamp=now");
-        //    return GetDateTimeFromSecondsSinceEpoch(currentTimeModel.timestamp);
-        //}
-
-        //public static async Task<long> GetUnixTimeStampFromConvertUnixTimeAsync()
-        //{
-        //    var currentDateTime = await GetCurrentDateTimeFromConvertUnixTimeAsync();
-        //    return GetUnixTimestamp(currentDateTime);
-        //}
 
         public static DateTime GetDateTimeFromSecondsSinceEpoch(long seconds) => EpochDate.AddSeconds(seconds);
 

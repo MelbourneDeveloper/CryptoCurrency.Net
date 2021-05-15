@@ -12,6 +12,7 @@ using CryptoCurrency.Net.Base.Extensions;
 using CryptoCurrency.Net.APIClients.Model.Binance;
 using Microsoft.Extensions.Logging;
 using Urls;
+using RestClient.Net.Abstractions.Extensions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -32,7 +33,12 @@ namespace CryptoCurrency.Net.APIClients
             ILogger<BinanceClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new AbsoluteUrl("https://api.binance.com"));
+            RESTClient = restClientFactory(GetType().Name,
+            (o) =>
+            {
+                o.HeadersCollection = "X-MBX-APIKEY".ToHeadersCollection(ApiKey);
+                o.BaseUrl = new("https://api.binance.com");
+            });
         }
         #endregion
 
@@ -99,8 +105,6 @@ namespace CryptoCurrency.Net.APIClients
             var uri = new Uri($"{RESTClient.BaseUrl}{queryString}");
             var hmacAsBytes = APIHelpers.GetHashAsBytes(uri.Query.Replace("?", ""), ApiSecret, APIHelpers.HashAlgorithmType.HMACEightBit, Encoding.UTF8);
             queryString += $"&signature={hmacAsBytes.ToHexString()}";
-            RESTClient.DefaultRequestHeaders.Clear();
-            RESTClient.DefaultRequestHeaders.Add("X-MBX-APIKEY", ApiKey);
             return await RESTClient.GetAsync<Account>(queryString);
         }
 

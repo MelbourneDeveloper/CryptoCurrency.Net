@@ -23,8 +23,7 @@ namespace CryptoCurrency.Net.APIClients
             ILogger<BittrexClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://bittrex.com/");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://bittrex.com/"));
         }
         #endregion
 

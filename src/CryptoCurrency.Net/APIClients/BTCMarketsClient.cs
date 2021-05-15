@@ -1,10 +1,12 @@
 using CryptoCurrency.Net.APIClients.Model.BTCMarkets;
 using CryptoCurrency.Net.Base.Abstractions.APIClients;
+using CryptoCurrency.Net.Base.Extensions;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
 using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -27,7 +30,17 @@ namespace CryptoCurrency.Net.APIClients
             ILogger<BTCMarketsClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://api.btcmarkets.net"));
+            RESTClient = restClientFactory(GetType().Name,
+                (o) =>
+                {
+                    o.HeadersCollection =
+                    HeadersCollection.Empty
+                    .Append("Accept", BTCMarketsHeaderConstants.CONTENT)
+                    .Append("Accept-Charset", BTCMarketsHeaderConstants.ENCODING)
+                    .Append(BTCMarketsHeaderConstants.APIKEY_HEADER, ApiKey);
+
+                    o.BaseUrl = new("https://api.btcmarkets.net");
+                }); ;
         }
         #endregion
 
@@ -72,21 +85,15 @@ namespace CryptoCurrency.Net.APIClients
             //TODO: API Secret?
             var signature = ComputeHash(ApiSecret, stringToSign);
 
-            lock (RESTClient.DefaultRequestHeaders)
-            {
-                RESTClient.DefaultRequestHeaders.Clear();
-                RESTClient.DefaultRequestHeaders.Add("Accept", BTCMarketsHeaderConstants.CONTENT);
-                RESTClient.DefaultRequestHeaders.Add("Accept-Charset", BTCMarketsHeaderConstants.ENCODING);
-                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.APIKEY_HEADER, ApiKey);
-                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.SIGNATURE_HEADER, signature);
-                RESTClient.DefaultRequestHeaders.Add(BTCMarketsHeaderConstants.TIMESTAMP_HEADER, timestamp);
-            }
-
             List<Balance> result;
 
             try
             {
-                result = await RESTClient.GetAsync<List<Balance>>(ACCOUNTBALANCEPATH);
+                var headersCollection = BTCMarketsHeaderConstants.TIMESTAMP_HEADER
+                    .ToHeadersCollection(timestamp)
+                    .Append(BTCMarketsHeaderConstants.SIGNATURE_HEADER, signature);
+
+                result = await RESTClient.GetAsync<List<Balance>>(new RelativeUrl(ACCOUNTBALANCEPATH), headersCollection);
             }
             catch (DeserializationException dex)
             {
