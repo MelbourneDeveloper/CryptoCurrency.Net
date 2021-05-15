@@ -23,7 +23,6 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://apilist.tronscan.org");
             RESTClient = RESTClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)

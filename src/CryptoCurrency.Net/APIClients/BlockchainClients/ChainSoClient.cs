@@ -27,7 +27,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://chain.so");
             RESTClient = RESTClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -58,7 +57,7 @@ namespace CryptoCurrency.Net.APIClients
             }
             finally
             {
-                _SemaphoreSlim.Release();
+                _ = _SemaphoreSlim.Release();
             }
         }
 

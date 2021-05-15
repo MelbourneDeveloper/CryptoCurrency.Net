@@ -25,7 +25,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.independentreserve.com");
             RESTClient = RESTClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -63,7 +62,7 @@ namespace CryptoCurrency.Net.APIClients
             {
                 apiKey = ApiKey,
                 nonce = nonce,
-                signature = APIHelpers.GetSignature(RESTClient.BaseUri, "/Private/GetAccounts",
+                signature = APIHelpers.GetSignature(RESTClient.BaseUrl, "/Private/GetAccounts",
                 new Dictionary<string, object>
                 {
                     { "apiKey", ApiKey },

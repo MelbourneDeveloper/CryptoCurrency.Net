@@ -21,7 +21,6 @@ namespace CryptoCurrency.Net.APIClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = RESTClientFactory(BaseAddress);
-            RESTClient.BaseUri = BaseAddress;
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)

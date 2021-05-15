@@ -33,7 +33,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.blockcypher.com");
             RESTClient = restClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

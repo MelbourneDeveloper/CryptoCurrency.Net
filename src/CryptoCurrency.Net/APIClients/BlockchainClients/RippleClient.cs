@@ -23,7 +23,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://data.ripple.com");
             RESTClient = RESTClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
         }
         #endregion
 

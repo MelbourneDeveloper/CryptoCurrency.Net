@@ -21,7 +21,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Public Properties
-        public Uri BaseUri => RESTClient?.BaseUri;
+        public Uri BaseUri => RESTClient?.BaseUrl;
         public int SuccessfulCallCount { get; private set; }
         public int CallCount { get; private set; }
 

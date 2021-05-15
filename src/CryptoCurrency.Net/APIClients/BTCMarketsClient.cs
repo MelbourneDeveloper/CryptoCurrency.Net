@@ -29,7 +29,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.btcmarkets.net");
             RESTClient = RESTClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -100,17 +99,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         private static string BuildStringToSign(string action, string postData, string timestamp)
-        {
-            var stringToSign = new StringBuilder();
-            stringToSign.Append(action + "\n");
-            stringToSign.Append(timestamp + "\n");
-            if (postData != null)
-            {
-                stringToSign.Append(postData);
-            }
-
-            return stringToSign.ToString();
-        }
+            => new StringBuilder()
+            .Append(action + "\n")
+            .Append(timestamp + "\n")
+            .Append(postData ?? "").ToString();
 
         /// <summary>
         /// TODO: Merge in to other compute hash methods

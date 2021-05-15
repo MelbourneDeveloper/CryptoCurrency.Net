@@ -36,7 +36,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.ethplorer.io");
             RESTClient = RESTClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
         }
         #endregion
 
@@ -63,7 +62,7 @@ namespace CryptoCurrency.Net.APIClients
 
             if (_CachedAddresses.ContainsKey(address))
             {
-                _CachedAddresses.Remove(address);
+                _ = _CachedAddresses.Remove(address);
             }
 
             _CachedAddresses.Add(address, addressModel);

@@ -23,7 +23,7 @@ namespace CryptoCurrency.Net.APIClients
             new TokenInfo("BNC", "0x14bcce8e9d9ab3445eeeceb0d5ee6c0286efdc77", 8),
             new TokenInfo("EOS", "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", 18),
             new TokenInfo("ZIL", "0x05f4a42e251f2d52b8ed15e9fedaacfcef1fad27", 12),
-            new TokenInfo("AE",  "0x5ca9a71b1d01849c0a95490cc00559717fcf0d1d", 18),
+            new TokenInfo("AE", "0x5ca9a71b1d01849c0a95490cc00559717fcf0d1d", 18),
             new TokenInfo("BTM", "0xcb97e65f07da24d46bcdd078ebebd7c6e6e3d750", 8),
             new TokenInfo("ICX", "0xb5a5f22694352c15b00323844ad545abb2b11028", 18),
             new TokenInfo("REP", "0xe94327d07fc17907b4db788e5adf2ed424addff6", 18),
@@ -38,7 +38,6 @@ namespace CryptoCurrency.Net.APIClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             RESTClient = RESTClientFactory(BaseUriPath);
-            RESTClient.BaseUri = BaseUriPath;
             Currency = currency;
         }
         #endregion

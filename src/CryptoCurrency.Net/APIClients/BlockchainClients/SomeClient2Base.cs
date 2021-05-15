@@ -24,7 +24,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri(BaseUriPath);
             RESTClient = RESTClientFactory(baseUri);
-            RESTClient.BaseUri = baseUri;
             Currency = currency;
         }
         #endregion

@@ -25,9 +25,7 @@ namespace CryptoCurrency.Net.APIClients
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri("https://api.binance.com");
-            var restClient = RESTClientFactory(baseUri);
-            restClient.BaseUri = baseUri;
-            RESTClient = restClient;
+            RESTClient = RESTClientFactory(baseUri);
         }
         #endregion
 
@@ -91,7 +89,7 @@ namespace CryptoCurrency.Net.APIClients
             var timeOffset = (binanceTime - DateTime.Now).TotalMilliseconds - (timeTaken.TotalMilliseconds / 2);
             var timestamp = APIHelpers.GetUnixTimestamp(DateTime.UtcNow.AddMilliseconds(timeOffset)).ToString();
             var queryString = $"api/v3/account?recvWindow=10000000000&timestamp={timestamp}";
-            var uri = new Uri($"{RESTClient.BaseUri}{queryString}");
+            var uri = new Uri($"{RESTClient.BaseUrl}{queryString}");
             var hmacAsBytes = APIHelpers.GetHashAsBytes(uri.Query.Replace("?", ""), ApiSecret, APIHelpers.HashAlgorithmType.HMACEightBit, Encoding.UTF8);
             queryString += $"&signature={hmacAsBytes.ToHexString()}";
             RESTClient.DefaultRequestHeaders.Clear();

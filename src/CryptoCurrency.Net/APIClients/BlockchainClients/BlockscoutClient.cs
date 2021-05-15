@@ -31,7 +31,6 @@ namespace CryptoCurrency.Net.APIClients
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseAddress = new Uri("https://blockscout.com/etc/mainnet/api");
             RESTClient = RESTClientFactory(baseAddress);
-            RESTClient.BaseUri = baseAddress;
         }
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>
