@@ -13,13 +13,15 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class ApiSpecificTests
     {
+        private readonly ClientFactory clientFactrory = new ClientFactory(null, UnitTestGlobals.LoggerFactory);
+
 
         [TestMethod]
         public async Task TestDashClientAddress()
         {
             var dashClient = new DashClient(
                 CurrencySymbol.Dash,
-                (u) => new Client(u),
+                (u, o) => clientFactrory.CreateClient(u, (o2) => o),
                 UnitTestGlobals.LoggerFactory.CreateLogger<DashClient>());
 
             const string address = "XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA";
