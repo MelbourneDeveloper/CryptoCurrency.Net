@@ -26,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="RestClient.Net.Abstractions" Version="5.0.4-beta" />
+		<PackageReference Include="RestClient.Net.Abstractions" Version="5.0.5-beta" />
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using CryptoCurrency.Net.APIClients.Model.BTCMarkets;
+using CryptoCurrency.Net.APIClients.Model.BTCMarkets;
 using CryptoCurrency.Net.Base.Abstractions.APIClients;
 using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Helpers;
@@ -12,6 +12,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -23,7 +24,7 @@ namespace CryptoCurrency.Net.APIClients
         public BTCMarketsClient(
             string apiKey,
             string apiSecret,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BTCMarketsClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
