@@ -29,7 +29,7 @@
 		<DefineConstants>RELEASE</DefineConstants>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
 		<Compile Remove="IsolatedStoragePersister.cs" />
 		<Compile Remove="IsolatedStoragePersisterBase.cs" />
@@ -45,9 +45,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-		<PackageReference Include="RestClient.Net.Abstractions" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
