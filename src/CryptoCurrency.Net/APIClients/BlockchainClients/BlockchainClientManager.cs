@@ -131,13 +131,13 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
                     catch (Exception ex)
                     {
                         lastException = ex;
-                        logger.LogError(ex, "Get Addresses failed. Client: {clientType}. Symbol: {currencySymbol}", currencySymbol);
+                        logger.LogError(ex, "Get Addresses failed. Client: {clientType}. Symbol: {currencySymbol}", client.GetType().FullName, currencySymbol);
                     }
                 }
                 catch (Exception ex)
                 {
                     lastException = ex;
-                    logger.LogError(ex, "Get Addresses failed. Client: {clientType}. Symbol: {currencySymbol}", currencySymbol);
+                    logger.LogError(ex, "Get Addresses failed. Client: {clientType}. Symbol: {currencySymbol}", client.GetType().FullName, currencySymbol);
                 }
             }
 
