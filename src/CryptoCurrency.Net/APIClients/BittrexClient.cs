@@ -19,7 +19,7 @@ namespace CryptoCurrency.Net.APIClients
         public BittrexClient(
             string apiKey,
             string apiSecret,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BittrexClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));

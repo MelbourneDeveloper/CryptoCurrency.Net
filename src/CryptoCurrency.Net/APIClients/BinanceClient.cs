@@ -11,21 +11,28 @@ using System.Threading.Tasks;
 using CryptoCurrency.Net.Base.Extensions;
 using CryptoCurrency.Net.APIClients.Model.Binance;
 using Microsoft.Extensions.Logging;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
+    public static class Boodle
+    {
+        public static IClient CreateClient<T>(CreateClient createClient, Action<CreateClientOptions>? configureClient = null)
+            => createClient(typeof(T).Name, configureClient);
+
+    }
+
     public class BinanceClient : ExchangeAPIClientBase, IExchangeAPIClient
     {
         #region Constructor
         public BinanceClient(
             string apiKey,
             string apiSecret,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BinanceClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://api.binance.com");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new AbsoluteUrl("https://api.binance.com"));
         }
         #endregion
 

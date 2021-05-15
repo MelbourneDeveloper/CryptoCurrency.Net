@@ -6,6 +6,7 @@ using RestClient.Net.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Urls;
 using insight = CryptoCurrency.Net.APIClients.Model.Insight;
 
 namespace CryptoCurrency.Net.APIClients
@@ -16,11 +17,11 @@ namespace CryptoCurrency.Net.APIClients
 
         protected InsightClientBase(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<InsightClientBase> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = RESTClientFactory(BaseUriPath);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = BaseUriPath.ToAbsoluteUrl());
             Currency = currency;
         }
         #endregion

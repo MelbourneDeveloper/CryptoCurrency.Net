@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
 
         public CardanoExplorerClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<CardanoExplorerClient> logger) : base(currency, restClientFactory, logger)
         {
         }

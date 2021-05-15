@@ -17,7 +17,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Protected Properties
         protected ILogger Logger { get; }
         protected IClient RESTClient { get; set; }
-        protected Func<Uri, IClient> RESTClientFactory { get; }
+        protected CreateClient RESTClientFactory { get; }
         #endregion
 
         #region Public Properties
@@ -31,7 +31,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        protected APIClientBase(Func<Uri, IClient> restClientFactory, ILogger logger)
+        protected APIClientBase(CreateClient restClientFactory, ILogger logger)
         {
             Logger = logger ?? NullLogger.Instance;
             RESTClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));

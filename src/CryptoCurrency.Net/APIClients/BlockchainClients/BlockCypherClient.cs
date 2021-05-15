@@ -28,11 +28,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockCypherClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<BlockCypherClient> logger) : base(currency, restClientFactory, logger)
+        public BlockCypherClient(CurrencySymbol currency, CreateClient restClientFactory, ILogger<BlockCypherClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://api.blockcypher.com");
-            RESTClient = restClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://api.blockcypher.com"));
         }
         #endregion
 

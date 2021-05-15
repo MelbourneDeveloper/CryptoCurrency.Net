@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -18,12 +19,12 @@ namespace CryptoCurrency.Net.APIClients
 
         protected SomeClient2Base(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
             var baseUri = new Uri(BaseUriPath);
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = BaseUriPath.ToAbsoluteUrl());
             Currency = currency;
         }
         #endregion

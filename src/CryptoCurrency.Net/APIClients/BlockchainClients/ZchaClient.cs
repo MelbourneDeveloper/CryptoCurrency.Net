@@ -17,12 +17,11 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ZchaClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory,
+        public ZchaClient(CurrencySymbol currency, CreateClient restClientFactory,
             ILogger<ZchaClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://api.zcha.in");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://api.zcha.in"));
         }
         #endregion
 

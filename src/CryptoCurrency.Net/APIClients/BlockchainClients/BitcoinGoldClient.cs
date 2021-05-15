@@ -12,7 +12,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BitcoinGoldClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BitcoinGoldClient> logger) : base(currency, restClientFactory, logger)
         {
         }

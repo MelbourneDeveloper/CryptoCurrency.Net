@@ -11,7 +11,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BtgExplorerClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BtgExplorerClient> logger) : base(currency, restClientFactory, logger)
         {
         }

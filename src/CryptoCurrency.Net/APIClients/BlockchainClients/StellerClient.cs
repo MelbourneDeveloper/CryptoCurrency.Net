@@ -19,12 +19,11 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public StellerClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<StellerClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://horizon.stellar.org");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://horizon.stellar.org"));
         }
         #endregion
 

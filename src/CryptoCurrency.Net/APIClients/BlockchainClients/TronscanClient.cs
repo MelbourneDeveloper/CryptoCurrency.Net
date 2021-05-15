@@ -17,12 +17,11 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
         public TronscanClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<TronscanClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://apilist.tronscan.org");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://apilist.tronscan.org"));
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)

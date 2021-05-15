@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -34,10 +35,10 @@ namespace CryptoCurrency.Net.APIClients
         };
 
         #region Constructor
-        protected JSONRPCClientBase(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<JSONRPCClientBase> logger) : base(currency, restClientFactory, logger)
+        protected JSONRPCClientBase(CurrencySymbol currency, CreateClient restClientFactory, ILogger<JSONRPCClientBase> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = RESTClientFactory(BaseUriPath);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = BaseUriPath.ToAbsoluteUrl());
             Currency = currency;
         }
         #endregion

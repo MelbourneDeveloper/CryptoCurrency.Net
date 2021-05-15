@@ -24,7 +24,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public DigiexplorerClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<DigiexplorerClient> logger) : base(currency, restClientFactory, logger)
         {
         }

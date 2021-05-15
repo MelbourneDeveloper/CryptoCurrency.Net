@@ -12,7 +12,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using RestClient.Net.Abstractions;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -28,8 +27,7 @@ namespace CryptoCurrency.Net.APIClients
             ILogger<BTCMarketsClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://api.btcmarkets.net");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://api.btcmarkets.net"));
         }
         #endregion
 

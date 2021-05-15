@@ -17,11 +17,10 @@ namespace CryptoCurrency.Net.APIClients
     public class BtcCom : BlockchainClientBase, IBlockchainClient
     {
         #region Constructor
-        public BtcCom(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<BtcCom> logger) : base(currency, restClientFactory, logger)
+        public BtcCom(CurrencySymbol currency, CreateClient restClientFactory, ILogger<BtcCom> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://bch-chain.api.btc.com");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://bch-chain.api.btc.com"));
         }
         #endregion
 

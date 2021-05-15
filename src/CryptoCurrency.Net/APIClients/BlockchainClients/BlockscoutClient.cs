@@ -26,11 +26,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public BlockscoutClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<BlockscoutClient> logger) : base(currency, restClientFactory, logger)
+        public BlockscoutClient(CurrencySymbol currency, CreateClient restClientFactory, ILogger<BlockscoutClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseAddress = new Uri("https://blockscout.com/etc/mainnet/api");
-            RESTClient = RESTClientFactory(baseAddress);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://blockscout.com/etc/mainnet/api"));
         }
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>

@@ -12,7 +12,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public DashClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<DashClient> logger) : base(currency, restClientFactory, logger)
         {
         }

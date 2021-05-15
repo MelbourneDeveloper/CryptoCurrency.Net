@@ -19,7 +19,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
 
         #region Static Constructor
         public BlockchainClientManager(
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILoggerFactory loggerFactory
             )
         {
@@ -70,7 +70,7 @@ namespace CryptoCurrency.Net.APIClients.BlockchainClients
             //Stick any clients that have never been called first so they get a chance
             var notCalledClient = clients.FirstOrDefault(c => c.CallCount == 0);
             if (notCalledClient == null) return;
-            clients.Remove(notCalledClient);
+            _ = clients.Remove(notCalledClient);
             clients.Insert(0, notCalledClient);
         }
 

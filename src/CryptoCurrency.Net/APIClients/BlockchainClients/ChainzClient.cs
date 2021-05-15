@@ -2,7 +2,6 @@
 using CryptoCurrency.Net.Base.Model;
 using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
-using System;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -36,7 +35,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public ChainzClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger logger) : base(currency, restClientFactory, logger)
         {
         }

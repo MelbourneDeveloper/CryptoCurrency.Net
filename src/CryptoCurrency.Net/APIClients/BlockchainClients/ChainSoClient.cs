@@ -22,11 +22,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public ChainSoClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<ChainSoClient> logger) : base(currency, restClientFactory, logger)
+        public ChainSoClient(CurrencySymbol currency, CreateClient restClientFactory, ILogger<ChainSoClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://chain.so");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://chain.so"));
         }
         #endregion
 

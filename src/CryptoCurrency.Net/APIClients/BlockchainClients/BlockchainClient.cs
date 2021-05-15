@@ -2,7 +2,6 @@
 using CryptoCurrency.Net.Base.Model;
 using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
-using System;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -22,7 +21,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BlockchainClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BlockchainClient> logger) : base(currency, restClientFactory, logger)
         {
         }

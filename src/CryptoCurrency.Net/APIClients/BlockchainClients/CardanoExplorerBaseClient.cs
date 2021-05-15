@@ -6,6 +6,7 @@ using RestClient.Net;
 using RestClient.Net.Abstractions;
 using System;
 using System.Threading.Tasks;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -16,11 +17,11 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         protected CardanoExplorerBase(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = RESTClientFactory(BaseAddress);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = BaseAddress.ToAbsoluteUrl());
         }
 
         public override async Task<BlockChainAddressInformation> GetAddress(string address)

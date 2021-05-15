@@ -27,7 +27,8 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public EtherscanClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<EtherscanClient> logger) : base(currency, restClientFactory, logger) => RESTClient = restClientFactory(new Uri("http://api.etherscan.io/"));
+        public EtherscanClient(CurrencySymbol currency, CreateClient restClientFactory, ILogger<EtherscanClient> logger) : base(currency, restClientFactory, logger)
+            => RESTClient = restClientFactory(GetType().Name, o => o.BaseUrl = new("http://api.etherscan.io/"));
         #endregion
 
         protected override Func<GetAddressesArgs, Task<IEnumerable<BlockChainAddressInformation>>> GetAddressesFunc { get; } = async getAddressesArgs =>

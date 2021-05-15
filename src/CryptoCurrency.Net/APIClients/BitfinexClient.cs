@@ -27,7 +27,7 @@ namespace CryptoCurrency.Net.APIClients
         public BitfinexClient(
             string apiKey,
             string apiSecret,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BitfinexClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));

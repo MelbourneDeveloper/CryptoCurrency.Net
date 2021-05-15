@@ -18,7 +18,7 @@ namespace CryptoCurrency.Net.APIClients
 
         public AdaLiteClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<AdaLiteClient> logger) : base(currency, restClientFactory, logger)
         {
         }

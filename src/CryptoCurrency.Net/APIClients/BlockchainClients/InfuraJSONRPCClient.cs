@@ -21,7 +21,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public InfuraJSONRPCClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<InfuraJSONRPCClient> logger) : base(currency, restClientFactory, logger)
+        public InfuraJSONRPCClient(
+            CurrencySymbol currency,
+            CreateClient restClientFactory,
+            ILogger<InfuraJSONRPCClient> logger) : base(currency, restClientFactory, logger)
         {
         }
         #endregion

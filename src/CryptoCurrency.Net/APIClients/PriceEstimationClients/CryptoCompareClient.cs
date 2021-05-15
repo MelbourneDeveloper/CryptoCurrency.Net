@@ -14,12 +14,11 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public class CryptoCompareClient : PriceEstimationClientBase, IPriceEstimationClient
     {
-        public CryptoCompareClient(Func<Uri, IClient> restClientFactory,
+        public CryptoCompareClient(CreateClient restClientFactory,
             ILogger<CryptoCompareClient> logger) : base(restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://min-api.cryptocompare.com");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://min-api.cryptocompare.com"));
         }
 
         protected override Func<GetPricesArgs, Task<EstimatedPricesModel>> GetPricesFunc { get; } = async a =>

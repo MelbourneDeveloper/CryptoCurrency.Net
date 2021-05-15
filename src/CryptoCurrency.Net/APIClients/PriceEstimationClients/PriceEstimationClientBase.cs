@@ -10,7 +10,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
 {
     public abstract class PriceEstimationClientBase : APIClientBase
     {
-        protected PriceEstimationClientBase(Func<Uri, IClient> restClientFactory, ILogger logger) : base(restClientFactory, logger)
+        protected PriceEstimationClientBase(CreateClient restClientFactory, ILogger logger) : base(restClientFactory, logger)
         {
         }
 

@@ -19,12 +19,11 @@ namespace CryptoCurrency.Net.APIClients
         public IndependentReserveClient(
             string apiKey,
             string apiSecret,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<IndependentReserveClient> logger) : base(apiKey, apiSecret, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://api.independentreserve.com");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://api.independentreserve.com"));
         }
         #endregion
 

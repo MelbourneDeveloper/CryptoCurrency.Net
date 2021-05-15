@@ -18,11 +18,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public RippleClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<RippleClient> logger) : base(currency, restClientFactory, logger)
+        public RippleClient(CurrencySymbol currency, CreateClient restClientFactory, ILogger<RippleClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://data.ripple.com");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://data.ripple.com"));
         }
         #endregion
 

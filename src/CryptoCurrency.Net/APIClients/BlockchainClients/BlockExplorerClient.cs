@@ -47,7 +47,7 @@ namespace CryptoCurrency.Net.APIClients
         #region Constructor
         public BlockExplorerClient(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger<BlockExplorerClient> logger) : base(currency, restClientFactory, logger)
         {
         }

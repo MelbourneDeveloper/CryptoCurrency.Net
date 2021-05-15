@@ -21,7 +21,7 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public GastrackerJSONRPCClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<GastrackerJSONRPCClient> logger) : base(currency, restClientFactory, logger)
+        public GastrackerJSONRPCClient(CurrencySymbol currency, CreateClient restClientFactory, ILogger<GastrackerJSONRPCClient> logger) : base(currency, restClientFactory, logger)
         {
         }
         #endregion

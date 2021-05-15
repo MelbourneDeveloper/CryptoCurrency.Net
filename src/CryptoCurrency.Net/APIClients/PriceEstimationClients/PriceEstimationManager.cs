@@ -20,7 +20,7 @@ namespace CryptoCurrency.Net.APIClients.PriceEstimationClients
         #endregion
 
         #region Constructor
-        public PriceEstimationManager(Func<Uri, IClient> restClientFactory, ILogger<PriceEstimationManager> logger)
+        public PriceEstimationManager(CreateClient restClientFactory, ILogger<PriceEstimationManager> logger)
         {
             this.logger = logger;
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using RestClient.Net;
 using RestClient.Net.Abstractions;
 using CryptoCurrency.Net.APIClients.Model.SomeClient;
+using Urls;
 
 namespace CryptoCurrency.Net.APIClients
 {
@@ -15,11 +16,11 @@ namespace CryptoCurrency.Net.APIClients
 
         protected SomeClientBase(
             CurrencySymbol currency,
-            Func<Uri, IClient> restClientFactory,
+            CreateClient restClientFactory,
             ILogger logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            RESTClient = RESTClientFactory(new Uri(BaseUriPath));
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = BaseUriPath.ToAbsoluteUrl());
             Currency = currency;
         }
         #endregion

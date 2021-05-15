@@ -16,11 +16,10 @@ namespace CryptoCurrency.Net.APIClients
         #endregion
 
         #region Constructor
-        public DogeChainClient(CurrencySymbol currency, Func<Uri, IClient> restClientFactory, ILogger<DogeChainClient> logger) : base(currency, restClientFactory, logger)
+        public DogeChainClient(CurrencySymbol currency, CreateClient restClientFactory, ILogger<DogeChainClient> logger) : base(currency, restClientFactory, logger)
         {
             if (restClientFactory == null) throw new ArgumentNullException(nameof(restClientFactory));
-            var baseUri = new Uri("https://dogechain.info");
-            RESTClient = RESTClientFactory(baseUri);
+            RESTClient = restClientFactory(GetType().Name, (o) => o.BaseUrl = new("https://dogechain.info"));
         }
         #endregion
 
