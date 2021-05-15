@@ -4,7 +4,6 @@ using CryptoCurrency.Net.Base.AddressManagement.BCH;
 using CryptoCurrency.Net.Base.Model;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestClient.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace CryptoCurrency.Net.UnitTests
         private readonly string ApiSecret = string.Empty;
         private readonly string ApiKey = string.Empty;
 #pragma warning restore IDE0052 // Remove unread private members
-        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager((u) => new Client(u), UnitTestGlobals.LoggerFactory);
+        private static readonly BlockchainClientManager _BlockchainClientManager = new BlockchainClientManager(UnitTestGlobals.ClientFactory.CreateClient, UnitTestGlobals.LoggerFactory);
 
         //Output: Address: qzl8jth497mtckku404cadsylwanm3rfxsx0g38nwlqzl8jth497mtckku404cadsylwanm3rfxsx0g38nwl Balance: 0
         public async Task GetBitcoinCashAddressesVerbose()
@@ -96,7 +95,7 @@ namespace CryptoCurrency.Net.UnitTests
         [TestMethod]
         public async Task GetEmptyRippleAddress()
         {
-            var rippleClient = new RippleClient(CurrencySymbol.Ripple, (u) => new Client(u), UnitTestGlobals.LoggerFactory.CreateLogger<RippleClient>());
+            var rippleClient = new RippleClient(CurrencySymbol.Ripple, UnitTestGlobals.ClientFactory.CreateClient, UnitTestGlobals.LoggerFactory.CreateLogger<RippleClient>());
             var emptyPaperWalletAddress = "rwyZFyk7VfBWpzNRV1SBSLcfNPfC8BgWWX";
             var address = await rippleClient.GetAddress(emptyPaperWalletAddress);
             Assert.IsTrue(address.IsUnused.Value);
@@ -155,7 +154,7 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var blockExplorerClient = new DashClient(
                 CurrencySymbol.Dash,
-                (u) => new Client(u),
+                UnitTestGlobals.ClientFactory.CreateClient,
                 UnitTestGlobals.LoggerFactory.CreateLogger<DashClient>());
 
             var transactionsAtAddress = await blockExplorerClient.GetTransactionsAtAddress("XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA");

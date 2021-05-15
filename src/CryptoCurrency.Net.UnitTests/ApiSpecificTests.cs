@@ -3,7 +3,6 @@ using CryptoCurrency.Net.Base.Model;
 using CryptoCurrency.Net.Ethereum;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestClient.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +12,6 @@ namespace CryptoCurrency.Net.UnitTests
     [TestClass]
     public class ApiSpecificTests
     {
-        private readonly ClientFactory clientFactrory = new ClientFactory(null, UnitTestGlobals.LoggerFactory);
 
 
         [TestMethod]
@@ -21,7 +19,7 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var dashClient = new DashClient(
                 CurrencySymbol.Dash,
-                (u, o) => clientFactrory.CreateClient(u, (o2) => o),
+                UnitTestGlobals.ClientFactory.CreateClient,
                 UnitTestGlobals.LoggerFactory.CreateLogger<DashClient>());
 
             const string address = "XuSnty6UFqtohMRVf3NxUDh64LqwnxptwA";
@@ -36,7 +34,7 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var etherscanClient = new EtherscanClient(
                 CurrencySymbol.Ethereum,
-                (u) => new Client(u),
+                UnitTestGlobals.ClientFactory.CreateClient,
                 UnitTestGlobals.LoggerFactory.CreateLogger<EtherscanClient>());
 
             var emptyAddress = "0x0E95F8F8ecBd770585766c1CD216C81aA43439a7".ToLower();
@@ -65,7 +63,7 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var etherscanClient = new EtherscanClient(
                 CurrencySymbol.Ethereum,
-                (u) => new Client(u),
+                UnitTestGlobals.ClientFactory.CreateClient,
                 UnitTestGlobals.LoggerFactory.CreateLogger<EtherscanClient>());
 
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
@@ -90,7 +88,7 @@ namespace CryptoCurrency.Net.UnitTests
         {
             var etherscanClient = new BlockCypherClient(
                 CurrencySymbol.Ethereum,
-                (u) => new Client(u),
+                UnitTestGlobals.ClientFactory.CreateClient,
                 UnitTestGlobals.LoggerFactory.CreateLogger<BlockCypherClient>());
 
             var tasks = new List<Task<IEnumerable<BlockChainAddressInformation>>>();
